@@ -577,6 +577,29 @@
   box-shadow: 0 0 0 3px rgba(67, 40, 229, 0.2);
 }
 
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(7, 10, 22, 0.6);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 13px;
+  text-decoration: none;
+  transition: transform 0.2s ease, border 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-outline:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(14, 18, 34, 0.72);
+  box-shadow: 0 10px 20px rgba(5, 8, 14, 0.25);
+}
+
 .modalForm .btn-primary {
   align-self: flex-end;
   height: 40px;
@@ -688,6 +711,14 @@
 
   .modalHeader {
     flex-direction: column;
+    position: relative;
+    padding-right: 40px;
+  }
+
+  .modalClose {
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 
   .modalStats {

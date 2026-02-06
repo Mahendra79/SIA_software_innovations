@@ -256,7 +256,7 @@
   margin: 0 auto 26px;
   border-radius: 50%;
   overflow: hidden;
-  background: radial-gradient(circle at top, #2a4d7a, #0b1626);
+  background: rgb(255, 255, 255);
   padding: 6px;
 }
 
