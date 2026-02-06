@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Courses | SIA Software Innovations</title>
+    <link rel="icon" type="image/png" href="assets/favicon1.png" />
+    <link rel="stylesheet" href="css/index.css" />
+    <link rel="stylesheet" href="css/App.css" />
+    <link rel="stylesheet" href="css/Navbar.css" />
+    <link rel="stylesheet" href="css/Footer.css" />
+    <link rel="stylesheet" href="css/CoursesPage.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" referrerpolicy="no-referrer" />
+  </head>
+  <body data-page="courses">
+    <header class="navbar">
+      <div class="navbar-left">
+        <a href="./index.html" class="brand">
+          <img src="assets/logo.png" alt="SIA Logo" class="brand-logo" />
+          <div class="brand-name">
+            <span class="brand-title">SIA</span>
+            <span class="brand-sub">Software Innovations</span>
+          </div>
+        </a>
+      </div>
+      <nav class="navbar-center">
+        <a href="./index.html">Home</a>
+        <a href="./about.html">About</a>
+        <a href="./products.html">Products</a>
+        <a href="./courses.html">Courses</a>
+        <a href="./contact.html">Contact</a>
+      </nav>
+      <div class="navbar-right"></div>
+      <button class="hamburger" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+
+    <main>
+      <section class="coursesSection">
+        <div class="coursesHero">
+          <div class="coursesHeroContent">
+            <span class="coursesEyebrow">Professional Learning</span>
+            <h1>Build future-ready skills with SIA Courses</h1>
+            <p>
+              Learn from expert-crafted content, real-world projects, and friendly
+              guidance that helps you apply new skills immediately.
+            </p>
+            <div class="heroActions">
+              <button type="button" class="btn-primary" onclick="document.querySelector('.coursesHeader').scrollIntoView({ behavior: 'smooth' })">
+                Explore Courses
+              </button>
+              <a class="btn-outline" href="./contact.html">Talk to Us</a>
+            </div>
+            <div class="heroStats">
+              <div>
+                <strong>4</strong>
+                <span>Core tracks</span>
+              </div>
+              <div>
+                <strong>12+</strong>
+                <span>Real projects</span>
+              </div>
+              <div>
+                <strong>100%</strong>
+                <span>Practical focus</span>
+              </div>
+            </div>
+          </div>
+          <div class="heroPanel">
+            <div class="heroPanelCard">
+              <p>Next cohort starts soon</p>
+              <h3>AI + ML Intensive</h3>
+              <span>Live sessions + projects</span>
+            </div>
+            <div class="heroPanelCard">
+              <p>Beginner friendly</p>
+              <h3>Data Science Foundations</h3>
+              <span>Flexible schedule</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="coursesContainer">
+          <div class="coursesHeader">
+            <span class="coursesEyebrow">Learning Tracks</span>
+            <h1>Our Certificate Courses</h1>
+            <p>
+              Upgrade your skills with curated, industry-aligned courses designed
+              for real impact. Friendly, focused, and built for working
+              professionals.
+            </p>
+          </div>
+
+          <div class="coursesSearchBar">
+            <div class="coursesSearch">
+              <input
+                type="text"
+                placeholder="Search courses by topic, skill, or keyword"
+                aria-label="Search courses"
+              />
+            </div>
+            <div class="coursesFilters">
+              <button class="filterChip active" type="button">All</button>
+              <button class="filterChip" type="button">Beginner</button>
+              <button class="filterChip" type="button">Intermediate</button>
+              <button class="filterChip" type="button">Advanced</button>
+              <button class="filterChip" type="button">AI</button>
+              <button class="filterChip" type="button">Data</button>
+              <button class="filterChip" type="button">Quantum</button>
+            </div>
+          </div>
+
+          <div class="coursesGrid"></div>
+
+          <div class="trustGrid">
+            <div class="trustCard">
+              <h4>Real Projects</h4>
+              <p>Build portfolio-ready work using real datasets and cases.</p>
+            </div>
+            <div class="trustCard">
+              <h4>Mentor Support</h4>
+              <p>Get feedback and guidance throughout your learning journey.</p>
+            </div>
+            <div class="trustCard">
+              <h4>Certificate</h4>
+              <p>Earn a recognized certificate when you complete the course.</p>
+            </div>
+          </div>
+
+          <div class="coursesFaq">
+            <h2>Course FAQs</h2>
+            <div class="faqGrid">
+              <button type="button" class="faqCard">
+                <div class="faqHeader">
+                  <h4>Are these courses beginner friendly?</h4>
+                  <span>+</span>
+                </div>
+                <p>
+                  Yes. Each course clearly indicates the level. We include
+                  foundational modules and guided practice so you can build
+                  confidence quickly.
+                </p>
+              </button>
+              <button type="button" class="faqCard">
+                <div class="faqHeader">
+                  <h4>Do I get a certificate?</h4>
+                  <span>+</span>
+                </div>
+                <p>
+                  Yes. You will receive a certificate after completing projects
+                  and the final assessment for your course.
+                </p>
+              </button>
+              <button type="button" class="faqCard">
+                <div class="faqHeader">
+                  <h4>What if I need support?</h4>
+                  <span>+</span>
+                </div>
+                <p>
+                  We provide friendly support and periodic live sessions so you
+                  can ask questions and get feedback when you need it.
+                </p>
+              </button>
+              <button type="button" class="faqCard">
+                <div class="faqHeader">
+                  <h4>Can I learn at my own pace?</h4>
+                  <span>+</span>
+                </div>
+                <p>
+                  Yes. Lessons are structured but flexible. You can learn at
+                  your own pace and still get guidance when required.
+                </p>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="courseOverlay">
+          <div class="courseModal">
+            <div class="modalHeader">
+              <div>
+                <span class="modalEyebrow">Certificate Course</span>
+                <h2></h2>
+                <p></p>
+              </div>
+              <button class="modalClose" aria-label="Close course details">×</button>
+            </div>
+
+            <div class="modalStats">
+              <div>
+                <span>Level</span>
+                <strong class="levelValue"></strong>
+              </div>
+              <div>
+                <span>Focus</span>
+                <strong class="focusValue"></strong>
+              </div>
+            </div>
+
+            <div class="modalContent">
+              <h3>What you will learn</h3>
+              <ul></ul>
+            </div>
+
+            <div class="modalContent">
+              <h3>Who this is for</h3>
+              <p class="modalAudience"></p>
+              <h3>Prerequisites</h3>
+              <p class="modalPrereq"></p>
+              <h3>Tools covered</h3>
+              <p class="modalTools"></p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="footer-left">
+          <img src="assets/logo.png" alt="SIA Logo" class="footer-logo" />
+          <div class="brand-text">
+            <span class="company">SIA Software Innovations Private Limited</span>
+            <span class="tagline">ACCESS BEYOND LIMITS</span>
+          </div>
+        </div>
+        <div class="footer-center">
+          <span>CIN: U62013AP2025PTC122642</span>
+          <span>Startup Recognition (DPIIT): DIPP235818</span>
+          <span class="registered">Registered in India</span>
+        </div>
+        <div class="footer-right">
+          <div class="legal-links">
+            <a href="./privacy-policy.html">Privacy</a>
+            <span>·</span>
+            <a href="./terms.html">Terms</a>
+          </div>
+          <div class="social-links">
+            <a href="https://www.linkedin.com/posts/sia-software-innovations-private-limited_job-opening-senior-python-developer-activity-7421101341101559808-VR90?utm_source=share&utm_medium=member_ios&rcm=ACoAAGJ50DoB2E6nX5hL3T53wpcBbia1jTyow4Q" aria-label="LinkedIn">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+            <a href="https://www.instagram.com" aria-label="Instagram">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="https://www.youtube.com" aria-label="YouTube">
+              <i class="fa-brands fa-youtube"></i>
+            </a>
+            <a href="https://www.facebook.com" aria-label="Facebook">
+              <i class="fa-brands fa-facebook-f"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © 2026 SIA Software Innovations Private Limited. All rights reserved.
+      </div>
+    </footer>
+
+    <script src="js/site.js"></script>
+  </body>
+</html>
+

@@ -1,0 +1,280 @@
+.overviewSection {
+  background: #0a192f;
+  padding: 90px 0;
+  color: rgba(255, 255, 255, 0.92);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.overviewContainer {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  gap: 24px;
+}
+
+/* Header */
+.overviewHeader h2 {
+  font-size: 38px;
+  margin-bottom: 12px;
+}
+
+.overviewHeader p {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
+  max-width: 820px;
+}
+
+/* Cards */
+.overviewCard {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 18px;
+  padding: 24px;
+  transition: transform 0.25s ease, border 0.25s ease;
+}
+
+.overviewCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.overviewCard h3 {
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.overviewCard p {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.muted {
+  color: rgba(255, 255, 255, 0.65);
+  margin-top: 8px;
+}
+
+/* Lists */
+.overviewCard ul {
+  padding-left: 18px;
+  margin: 10px 0;
+}
+
+.overviewCard li {
+  margin-bottom: 6px;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* CTA */
+.overviewCTA {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 28px;
+  text-align: center;
+}
+
+.overviewCTA h3 {
+  margin-bottom: 10px;
+}
+
+.overviewCTA p {
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.6;
+}
+
+.collabBtn {
+  margin-top: 16px;
+  padding: 12px 26px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.collabBtn:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.contactHint {
+  margin-top: 14px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.contactHint a {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+}
+
+.contactHint a:hover {
+  text-decoration: underline;
+}
+
+/* DATASET SHOWCASE */
+.datasetShowcase {
+  background: linear-gradient(135deg, rgba(16, 28, 52, 0.7), rgba(22, 36, 66, 0.7));
+  border: 1px solid rgba(124, 143, 177, 0.2);
+}
+
+.datasetShowcaseHeader h3 {
+  margin-bottom: 10px;
+}
+
+.datasetShowcaseHeader p {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.datasetGrid {
+  margin-top: 18px;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.datasetCardLite {
+  background: rgba(10, 22, 43, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: auto;
+  transition: transform 0.2s ease, border 0.2s ease;
+}
+
+.datasetCardLite:hover {
+  transform: translateY(-3px);
+  border-color: rgba(120, 200, 255, 0.3);
+}
+
+.datasetTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.datasetTitleRow img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 6px;
+}
+
+.datasetTitleRow h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.datasetCardLite p {
+  margin: 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.6;
+}
+
+.datasetMetaRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 6px 10px;
+  margin-top: 4px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.datasetLinkActions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.datasetLinkActions .btn-secondary {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+
+.datasetLinkActions .btn-primary {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  width: 100%;
+  background: linear-gradient(135deg, #3f5cff, #5b7cff);
+  box-shadow: 0 12px 24px rgba(63, 92, 255, 0.35);
+}
+
+.datasetLinkActions .btn-primary:hover {
+  box-shadow: 0 16px 30px rgba(63, 92, 255, 0.45);
+}
+
+.brochureCard {
+  display: grid;
+  gap: 12px;
+}
+
+.brochureActions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-items: center;
+  max-width: 560px;
+}
+
+.brochureActions .btn-secondary,
+.brochureActions .btn-primary {
+  height: 38px;
+  padding: 0 16px;
+  border-radius: 999px;
+  font-size: 12px;
+  width: 100%;
+}
+
+.brochureActions .btn-primary {
+  background: linear-gradient(135deg, #3f5cff, #5b7cff);
+  box-shadow: 0 12px 24px rgba(63, 92, 255, 0.35);
+  border: none;
+  color: #ffffff;
+}
+
+.brochureActions .btn-primary:hover {
+  box-shadow: 0 16px 30px rgba(63, 92, 255, 0.45);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .overviewHeader h2 {
+    font-size: 30px;
+  }
+
+  .overviewCTA {
+    text-align: left;
+  }
+}
+
+@media (max-width: 900px) {
+  .datasetMetaRow {
+    grid-template-columns: 1fr;
+  }
+
+  .datasetLinkActions {
+    grid-template-columns: 1fr;
+  }
+
+  .brochureActions {
+    grid-template-columns: 1fr;
+  }
+}

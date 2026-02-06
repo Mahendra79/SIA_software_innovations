@@ -1,0 +1,137 @@
+.footer {
+  background: #070b12;
+  color: #aeb7c2;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 18px 24px;
+  display: grid;
+  grid-template-columns: 1.4fr 2fr 1.2fr;
+  align-items: center;
+  gap: 24px;
+}
+
+/* LEFT */
+.footer-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footer-logo {
+  height: 28px;
+  opacity: 0.95;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.company {
+  color: #ffffff;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.tagline {
+  font-size: 11px;
+  letter-spacing: 1.4px;
+  color: #8fa2b6;
+}
+
+/* CENTER */
+.footer-center {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  font-size: 12px;
+  justify-content: center;
+  text-align: center;
+}
+
+.footer-center span {
+  white-space: nowrap;
+}
+
+.registered {
+  font-style: italic;
+  color: #8f9aa6;
+}
+
+/* RIGHT */
+.footer-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 18px;
+}
+
+.legal-links {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.legal-links a {
+  color: #aeb7c2;
+  text-decoration: none;
+}
+
+.legal-links a:hover {
+  color: #ffffff;
+}
+
+/* SOCIAL */
+.social-links {
+  display: flex;
+  gap: 10px;
+}
+
+.social-links a {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #9fb3c8;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.social-links a:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* BOTTOM */
+.footer-bottom {
+  text-align: center;
+  padding: 10px 16px 14px;
+  font-size: 11.5px;
+  color: #8f9aa6;
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer-left {
+    justify-content: center;
+  }
+
+  .footer-right {
+    justify-content: center;
+  }
+}

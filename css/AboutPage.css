@@ -1,0 +1,122 @@
+.aboutSection {
+  background: #0a192f;
+  padding: 80px 0;     /* remove side padding */
+  color: rgba(255, 255, 255, 0.92);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+.aboutContainer {
+  max-width: 1280px;   /* wider content */
+  margin: 0 auto;
+  padding: 0 24px;     /* controlled side padding */
+  display: grid;
+  gap: 22px;
+}
+.aboutCard {
+  width: 100%;
+}
+
+/* Header */
+.aboutHeader h2 {
+  font-size: 38px;
+  margin-bottom: 12px;
+}
+
+.aboutHeader p {
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.7;
+  font-size: 15px;
+}
+
+/* Cards */
+.aboutCard {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 18px;
+  padding: 22px;
+  transition: transform 0.25s ease, border 0.25s ease;
+}
+
+.aboutCard:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.aboutCard h3 {
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+
+.aboutCard p {
+  line-height: 1.7;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Lists */
+.aboutCard ul {
+  padding-left: 18px;
+  margin: 10px 0;
+}
+
+.aboutCard li {
+  margin-bottom: 6px;
+  line-height: 1.6;
+}
+
+/* Muted */
+.mutedText {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+/* Leadership */
+.leader {
+  margin-bottom: 14px;
+}
+
+.leader h4 {
+  margin-bottom: 4px;
+}
+
+.leader span {
+  display: block;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.leader a {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+}
+
+.leader a:hover {
+  text-decoration: underline;
+}
+
+/* Info Grid */
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 14px;
+}
+
+.infoGrid div {
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.infoGrid span {
+  display: block;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .aboutHeader h2 {
+    font-size: 30px;
+  }
+}

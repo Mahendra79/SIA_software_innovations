@@ -1,0 +1,58 @@
+.policySection {
+  background: #0b1626;
+  color: #e6ebf1;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 80px 0 120px;
+}
+
+.policyContainer {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  gap: 24px;
+}
+
+.policyHeader h1 {
+  font-size: 36px;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.policyCard {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 26px;
+  display: grid;
+  gap: 16px;
+}
+
+.policyCard h2 {
+  margin: 8px 0 6px;
+  font-size: 20px;
+  color: #ffffff;
+}
+
+.policyCard p {
+  color: rgba(230, 235, 241, 0.75);
+  line-height: 1.8;
+  font-size: 14px;
+}
+
+.policyCard ul {
+  padding-left: 18px;
+  color: rgba(230, 235, 241, 0.75);
+  line-height: 1.7;
+  font-size: 14px;
+}
+
+.policyCard strong {
+  color: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .policyHeader h1 {
+    font-size: 30px;
+  }
+}

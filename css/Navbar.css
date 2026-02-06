@@ -1,0 +1,202 @@
+/* ================= NAVBAR ================= */
+.navbar {
+  height: 64px;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(180deg, rgba(6, 10, 24, 0.92), rgba(6, 10, 24, 0.75));
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border-soft);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* ================= BRAND ================= */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+}
+
+.brand-logo {
+  width: 44px;
+  height: 44px;
+  padding: 6px;
+  border-radius: 16px;
+  background: rgba(10, 14, 32, 0.9);
+  border: 1px solid var(--border);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 0 0 4px rgba(255, 255, 255, 0.04),
+    0 10px 24px rgba(5, 8, 14, 0.7);
+  object-fit: contain;
+}
+
+.brand:hover .brand-logo {
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 0 0 5px rgba(255, 255, 255, 0.06),
+    0 10px 28px rgba(0, 0, 0, 0.75);
+}
+
+
+.brand-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.brand-sub {
+  font-size: 11.5px;
+  color: rgba(255,255,255,.65);
+}
+
+/* ================= CENTER ================= */
+.navbar-center {
+  display: flex;
+  gap: 10px;
+}
+
+.navbar-center a {
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.navbar-center a.active {
+  background: var(--accent-soft);
+  color: #ffffff;
+}
+
+.navbar-center a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+/* ================= AUTH BUTTONS ================= */
+.navbar .btn-outline,
+.navbar .btn-primary,
+.navbar .btn-secondary {
+  height: 34px;
+  padding: 0 16px;
+  font-size: 12px;
+}
+
+.navbar .btn-primary {
+  box-shadow: none;
+}
+
+.nav-cta {
+  height: 36px;
+  padding: 0 18px;
+  font-size: 12.5px;
+}
+
+/* ================= USER BOX ================= */
+.user-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.welcome {
+  font-size: 13px;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.logout-btn {
+  height: 30px;
+  padding: 0 14px;
+  border-radius: 999px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,.25);
+  color: #fff;
+  cursor: pointer;
+}
+
+/* ================= HAMBURGER ================= */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+}
+
+.hamburger span {
+  width: 22px;
+  height: 2px;
+  background: #ffffff;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 900px) {
+  .navbar-right {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .navbar-center {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: rgba(6, 10, 24, 0.95);
+    flex-direction: column;
+    padding: 18px;
+    display: none;
+  }
+
+  .navbar-center.active {
+    display: flex;
+  }
+
+  .mobile-user {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: #fff;
+  }
+
+  .mobile-user button {
+    height: 30px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.25);
+    background: transparent;
+    color: #fff;
+  }
+}
+
+/* ================= MOBILE AUTH ================= */
+.mobile-only {
+  display: none;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 900px) {
+  .navbar-right {
+    display: none;
+  }
+
+  .mobile-only {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+  }
+}
