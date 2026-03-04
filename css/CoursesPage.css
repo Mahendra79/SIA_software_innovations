@@ -755,3 +755,105 @@
     animation: none;
   }
 }
+
+
+
+
+/* ================= HIDE SEARCH + COURSES ================= */
+
+.coursesSearchBar,
+.coursesGrid {
+  display: none;
+}
+
+
+/* ================= SYLLABUS SECTION ================= */
+
+.syllabusSection {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.syllabusCard {
+  width: 100%;
+  max-width: 1000px;
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.syllabusHeader {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.syllabusLogo {
+  width: 70px;
+  height: auto;
+}
+
+.syllabusHeader h2 {
+  margin: 0 0 8px;
+  font-size: 28px;
+}
+
+.syllabusHeader p {
+  margin: 0;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.pdfViewer {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.pdfViewer iframe {
+  border: none;
+}
+
+.pdfActions {
+  display: flex;
+  gap: 14px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.pdfActions .btn-primary {
+  height: 42px;
+  padding: 0 22px;
+}
+
+.pdfActions .btn-outline {
+  height: 42px;
+  padding: 0 22px;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+
+  .syllabusHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pdfViewer iframe {
+    height: 400px;
+  }
+
+  .pdfActions {
+    justify-content: center;
+  }
+}
+
