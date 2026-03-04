@@ -4,182 +4,164 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Courses | SIA Software Innovations</title>
+
   <link rel="icon" type="image/png" href="assets/favicon1.png" />
+
+  <!-- CSS FILES -->
   <link rel="stylesheet" href="css/index.css" />
   <link rel="stylesheet" href="css/App.css" />
   <link rel="stylesheet" href="css/Navbar.css" />
   <link rel="stylesheet" href="css/Footer.css" />
   <link rel="stylesheet" href="css/CoursesPage.css" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 </head>
 
 <body data-page="courses">
 
-<!-- ================= NAVBAR ================= -->
+  <!-- ================= NAVBAR ================= -->
 
-<header class="navbar">
-  <div class="navbar-left">
-    <a href="./index.html" class="brand">
-      <img src="assets/logo.png" alt="SIA Logo" class="brand-logo" />
-      <div class="brand-name">
-        <span class="brand-title">SIA</span>
-        <span class="brand-sub">Software Innovations</span>
-      </div>
-    </a>
-  </div>
-
-  <nav class="navbar-center">
-    <a href="./index.html">Home</a>
-    <a href="./about.html">About</a>
-    <a href="./products.html">Products</a>
-    <a href="./courses.html">Courses</a>
-    <a href="./contact.html">Contact</a>
-  </nav>
-
-  <button class="hamburger" aria-label="Menu">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-</header>
-
-<!-- ================= MAIN ================= -->
-
-<main>
-<section class="coursesSection">
-
-<!-- HERO -->
-
-<div class="coursesHero">
-  <div class="coursesHeroContent">
-    <span class="coursesEyebrow">Professional Learning</span>
-    <h1>Build future-ready skills with SIA Courses</h1>
-    <p>
-      Learn from expert-crafted content, real-world projects, and friendly
-      guidance that helps you apply new skills immediately.
-    </p>
-
-    <div class="heroActions">
-      <button class="btn-primary"
-        onclick="document.querySelector('.coursesHeader').scrollIntoView({ behavior: 'smooth' })">
-        Explore Curriculum
-      </button>
-      <a class="btn-outline" href="./contact.html">Talk to Us</a>
+  <header class="navbar">
+    <div class="navbar-left">
+      <a href="./index.html" class="brand">
+        <img src="assets/logo.png" alt="SIA Logo" class="brand-logo" />
+        <div class="brand-name">
+          <span class="brand-title">SIA</span>
+          <span class="brand-sub">Software Innovations</span>
+        </div>
+      </a>
     </div>
-  </div>
-</div>
 
-<!-- CONTAINER -->
+    <nav class="navbar-center">
+      <a href="./index.html">Home</a>
+      <a href="./about.html">About</a>
+      <a href="./products.html">Products</a>
+      <a href="./courses.html">Courses</a>
+      <a href="./contact.html">Contact</a>
+    </nav>
+  </header>
 
-<div class="coursesContainer">
+  <!-- ================= MAIN ================= -->
 
-  <div class="coursesHeader">
-    <span class="coursesEyebrow">Official Curriculum</span>
-    <h1>SIA Course Syllabus</h1>
-    <p>
-      Access our complete structured curriculum designed for real-world impact.
-      Explore modules, tools covered, projects, and certification details.
-    </p>
-  </div>
+  <main>
+    <section class="coursesSection">
 
-  <!-- HIDDEN SEARCH (NOT REMOVED) -->
-  <div class="coursesSearchBar" style="display:none;"></div>
+      <div class="coursesContainer">
 
-  <!-- HIDDEN GRID (NOT REMOVED) -->
-  <div class="coursesGrid" style="display:none;"></div>
+        <!-- ================= BROCHURE SECTION ================= -->
 
-  <!-- ================= BROCHURE CARD ================= -->
+        <section class="brochureSection">
+          <div class="brochureCard">
 
-  <div class="brochureSection">
+            <div class="brochureLeft">
+              <div class="brochureLogoWrapper">
+                <img src="assets/logo.png" alt="Logo">
+              </div>
 
-    <div class="brochureCard">
+              <div class="brochureText">
+                <h2>Company Brochure</h2>
+                <p>
+                  Download a concise overview of our capabilities,
+                  engagement model, technology focus, and structured curriculum framework.
+                </p>
+              </div>
+            </div>
 
-      <div class="brochureLeft">
-        <div class="brochureLogoWrapper">
-          <img src="assets/logo.png" alt="SIA Logo">
+            <div class="brochureActions">
+              <a href="assets/document.pdf" target="_blank" class="btn-view">
+                View Brochure
+              </a>
+
+              <a href="assets/document.pdf" download class="btn-download">
+                Download
+              </a>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ================= SYLLABUS SECTION ================= -->
+
+        <div class="syllabusSection">
+          <div class="syllabusCard">
+
+            <div class="syllabusHeader">
+              <img src="assets/logo.png" alt="SIA Logo" class="syllabusLogo" />
+              <div>
+                <h2>SIA Software Innovations Curriculum</h2>
+                <p>
+                  This official document contains detailed syllabus,
+                  course modules, tools covered, project structure,
+                  assessment format, and certification details.
+                </p>
+              </div>
+            </div>
+
+            <div class="pdfViewer">
+              <iframe
+                src="assets/document.pdf"
+                width="100%"
+                height="500px">
+              </iframe>
+            </div>
+
+            <div class="pdfActions">
+              <a href="assets/document.pdf" target="_blank" class="btn-primary">
+                View Full Screen
+              </a>
+
+              <a href="assets/document.pdf" download class="btn-outline">
+                Download PDF
+              </a>
+            </div>
+
+          </div>
         </div>
 
-        <div class="brochureText">
-          <h2>Company Brochure</h2>
-          <p>
-            Download a concise overview of our capabilities, engagement model,
-            technology focus, and structured curriculum framework.
-          </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <img src="assets/logo.png" alt="SIA Logo" class="footer-logo" />
+        <div class="brand-text">
+          <span class="company">
+            SIA Software Innovations Private Limited
+          </span>
+          <span class="tagline">ACCESS BEYOND LIMITS</span>
         </div>
       </div>
 
-      <div class="brochureActions">
-        <a href="assets/document.pdf" target="_blank" class="btn-view">
-          View Brochure
-        </a>
-
-        <a href="assets/document.pdf" download class="btn-download">
-          Download
-        </a>
+      <div class="footer-center">
+        <span>CIN: U62013AP2025PTC122642</span>
+        <span>Startup Recognition (DPIIT): DIPP235818</span>
+        <span>Registered in India</span>
       </div>
 
-    </div>
+      <div class="footer-right">
+        <div class="legal-links">
+          <a href="./privacy-policy.html">Privacy</a>
+          <span>·</span>
+          <a href="./terms.html">Terms</a>
+        </div>
 
-  </div>
-
-  <!-- TRUST SECTION -->
-
-  <div class="trustGrid">
-    <div class="trustCard">
-      <h4>Industry Curriculum</h4>
-      <p>Designed with real-world industry alignment.</p>
-    </div>
-
-    <div class="trustCard">
-      <h4>Hands-on Projects</h4>
-      <p>Portfolio-ready practical implementations.</p>
-    </div>
-
-    <div class="trustCard">
-      <h4>Recognized Certificate</h4>
-      <p>Earn certification upon successful completion.</p>
-    </div>
-  </div>
-
-</div>
-</section>
-</main>
-
-<!-- ================= FOOTER ================= -->
-
-<footer class="footer">
-  <div class="footer-container">
-
-    <div class="footer-left">
-      <img src="assets/logo.png" alt="SIA Logo" class="footer-logo" />
-      <div class="brand-text">
-        <span class="company">SIA Software Innovations Private Limited</span>
-        <span class="tagline">ACCESS BEYOND LIMITS</span>
+        <div class="social-links">
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-youtube"></i></a>
+        </div>
       </div>
     </div>
 
-    <div class="footer-center">
-      <span>CIN: U62013AP2025PTC122642</span>
-      <span>Startup Recognition (DPIIT): DIPP235818</span>
-      <span class="registered">Registered in India</span>
+    <div class="footer-bottom">
+      © 2026 SIA Software Innovations Private Limited. All rights reserved.
     </div>
-
-    <div class="footer-right">
-      <div class="legal-links">
-        <a href="./privacy-policy.html">Privacy</a>
-        <span>·</span>
-        <a href="./terms.html">Terms</a>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="footer-bottom">
-    © 2026 SIA Software Innovations Private Limited. All rights reserved.
-  </div>
-</footer>
-
-<script src="js/site.js"></script>
+  </footer>
 
 </body>
 </html>
