@@ -756,209 +756,46 @@
   }
 }
 
-
-
-
-/* ================= HIDE SEARCH + COURSES ================= */
-
+/* hide search bar and course grid per request (kept in HTML but hidden) */
 .coursesSearchBar,
 .coursesGrid {
-  display: none;
+  display: none !important;
 }
 
-
-/* ================= SYLLABUS SECTION ================= */
-
-.syllabusSection {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-.syllabusCard {
-  width: 100%;
-  max-width: 1000px;
-  background: var(--surface);
-  border: 1px solid var(--border-soft);
-  border-radius: 24px;
-  padding: 32px;
-  box-shadow: var(--shadow-lg);
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.syllabusHeader {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-.syllabusLogo {
-  width: 70px;
-  height: auto;
-}
-
-.syllabusHeader h2 {
-  margin: 0 0 8px;
-  font-size: 28px;
-}
-
-.syllabusHeader p {
-  margin: 0;
-  color: var(--text-muted);
-  line-height: 1.7;
-}
-
-.pdfViewer {
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.pdfViewer iframe {
-  border: none;
-}
-
-.pdfActions {
-  display: flex;
-  gap: 14px;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-}
-
-.pdfActions .btn-primary {
-  height: 42px;
-  padding: 0 22px;
-}
-
-.pdfActions .btn-outline {
-  height: 42px;
-  padding: 0 22px;
-}
-
-
-/* ================= RESPONSIVE ================= */
-
-@media (max-width: 768px) {
-
-  .syllabusHeader {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .pdfViewer iframe {
-    height: 400px;
-  }
-
-  .pdfActions {
-    justify-content: center;
-  }
-}
-
-.brochureSection {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-}
-
-.brochureCard {
-  width: 100%;
-  max-width: 1000px;
-  padding: 32px 36px;
-  border-radius: 22px;
-  background: linear-gradient(145deg, #0f1b2e, #0c1626);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 30px;
-  flex-wrap: wrap;
-}
-
-.brochureLeft {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex: 1;
-}
-
-.brochureLogoWrapper {
-  width: 70px;
-  height: 70px;
-  border-radius: 20px;
-  background: #0a1322;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.brochureLogoWrapper img {
-  width: 55px;
-}
-
-.brochureText h2 {
-  margin: 0 0 8px;
-  font-size: 22px;
-  color: #ffffff;
-}
-
-.brochureText p {
-  margin: 0;
-  color: #9fb0c8;
-  font-size: 14px;
-  line-height: 1.6;
-  max-width: 500px;
-}
-
-.brochureActions {
-  display: flex;
-  gap: 16px;
-}
-
-.btn-view {
-  padding: 12px 28px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+/* curriculum/pdf section styling */
+.curriculumSection {
+  text-align: center;
+  margin: 40px auto;
+  padding: 24px;
   background: rgba(255, 255, 255, 0.05);
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 600;
-  transition: 0.25s ease;
+  border-radius: 12px;
+  max-width: 800px;
 }
 
-.btn-view:hover {
-  background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
+.curriculumSection .curriculumLogo {
+  max-width: 120px;
+  margin-bottom: 16px;
+  border-radius: 30px;
 }
 
-.btn-download {
-  padding: 12px 32px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #4b6bff, #5d7eff);
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 600;
-  box-shadow: 0 10px 25px rgba(75, 107, 255, 0.35);
-  transition: 0.25s ease;
+.curriculumSection h2 {
+  margin: 0 0 12px;
+  font-size: 32px;
 }
 
-.btn-download:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 35px rgba(75, 107, 255, 0.5);
+.curriculumSection p {
+  color: var(--text-muted);
+  margin-bottom: 20px;
 }
 
-@media (max-width: 768px) {
-  .brochureCard {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+.curriculumActions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
 
-  .brochureActions {
-    width: 100%;
-  }
+.curriculumActions .btn-outline,
+.curriculumActions .btn-primary {
+  padding: 10px 20px;
 }
