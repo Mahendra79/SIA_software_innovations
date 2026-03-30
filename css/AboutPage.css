@@ -108,6 +108,10 @@
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 }
 
+.companyGallery .galleryCardDuplicate {
+  display: none;
+}
+
 .galleryGridThree {
   grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
   grid-template-areas:
@@ -321,6 +325,14 @@
   .workshopSlide img {
     transition: none;
   }
+
+  .companyGallery .galleryGrid {
+    width: auto;
+  }
+
+  .companyGallery .galleryCardDuplicate {
+    display: none;
+  }
 }
 
 /* Leadership */
@@ -372,6 +384,27 @@
     font-size: 30px;
   }
 
+  .companyGallery .galleryGrid {
+    display: flex;
+    gap: 14px;
+    width: auto;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    touch-action: pan-x;
+  }
+
+  .companyGallery .galleryGrid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .companyGallery .galleryCardDuplicate {
+    display: grid;
+  }
+
   .galleryGridThree {
     grid-template-columns: 1fr;
     grid-template-areas: none;
@@ -401,6 +434,15 @@
     min-height: 220px;
   }
 
+  .companyGallery .galleryCard {
+    flex: 0 0 78vw;
+    min-width: 0;
+    scroll-snap-align: start;
+    transform: none;
+    opacity: 1;
+    animation: none;
+  }
+
   .workshopShowcase {
     padding: 24px 16px;
   }
@@ -415,6 +457,6 @@
   }
 
   .galleryCard img {
-    height: 160px;
+    height: 200px;
   }
 }

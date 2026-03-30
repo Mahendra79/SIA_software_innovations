@@ -262,6 +262,117 @@
     renderCourses();
   };
 
+  const initCompanyGallery = () => {
+    const gallery = document.querySelector(".companyGallery .galleryGrid");
+    if (!gallery) return;
+
+    const mediaQuery = window.matchMedia("(max-width: 600px)");
+    const duplicateCards = gallery.querySelectorAll(".galleryCardDuplicate");
+    if (!duplicateCards.length) return;
+
+    let frameId = 0;
+    let lastTimestamp = 0;
+    let isInteracting = false;
+    let resumeTimer = 0;
+    const speed = 24;
+
+    const clearResumeTimer = () => {
+      if (resumeTimer) {
+        window.clearTimeout(resumeTimer);
+        resumeTimer = 0;
+      }
+    };
+
+    const getLoopWidth = () => gallery.scrollWidth / 2;
+
+    const normalizeScroll = () => {
+      const loopWidth = getLoopWidth();
+      if (!loopWidth) return;
+
+      if (gallery.scrollLeft >= loopWidth) {
+        gallery.scrollLeft -= loopWidth;
+      } else if (gallery.scrollLeft < 0) {
+        gallery.scrollLeft += loopWidth;
+      }
+    };
+
+    const step = (timestamp) => {
+      if (!mediaQuery.matches) {
+        frameId = 0;
+        lastTimestamp = 0;
+        return;
+      }
+
+      if (!lastTimestamp) lastTimestamp = timestamp;
+      const delta = Math.min(timestamp - lastTimestamp, 32);
+      lastTimestamp = timestamp;
+
+      if (!isInteracting) {
+        gallery.scrollLeft += (speed * delta) / 1000;
+        normalizeScroll();
+      }
+
+      frameId = window.requestAnimationFrame(step);
+    };
+
+    const startAutoScroll = () => {
+      if (!mediaQuery.matches || frameId) return;
+      lastTimestamp = 0;
+      if (gallery.scrollLeft === 0) {
+        gallery.scrollLeft = 1;
+      }
+      frameId = window.requestAnimationFrame(step);
+    };
+
+    const stopAutoScroll = () => {
+      if (frameId) {
+        window.cancelAnimationFrame(frameId);
+        frameId = 0;
+      }
+      lastTimestamp = 0;
+    };
+
+    const pauseAutoScroll = () => {
+      isInteracting = true;
+      clearResumeTimer();
+    };
+
+    const resumeAutoScroll = () => {
+      clearResumeTimer();
+      resumeTimer = window.setTimeout(() => {
+        isInteracting = false;
+      }, 900);
+    };
+
+    const syncMode = () => {
+      clearResumeTimer();
+      if (mediaQuery.matches) {
+        startAutoScroll();
+        return;
+      }
+
+      stopAutoScroll();
+      isInteracting = false;
+      gallery.scrollLeft = 0;
+    };
+
+    gallery.addEventListener("scroll", normalizeScroll, { passive: true });
+    gallery.addEventListener("pointerdown", pauseAutoScroll);
+    gallery.addEventListener("pointerup", resumeAutoScroll);
+    gallery.addEventListener("pointercancel", resumeAutoScroll);
+    gallery.addEventListener("touchstart", pauseAutoScroll, { passive: true });
+    gallery.addEventListener("touchend", resumeAutoScroll, { passive: true });
+    gallery.addEventListener("touchcancel", resumeAutoScroll, { passive: true });
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", syncMode);
+    } else {
+      mediaQuery.addListener(syncMode);
+    }
+
+    syncMode();
+  };
+
   document.addEventListener("DOMContentLoaded", () => {
     const path = window.location.pathname;
     if (path === "/privacy-policy" || path === "/privacy-policy/") {
@@ -292,5 +403,6 @@
     setActiveNav();
     initFaq();
     initCourses();
+    initCompanyGallery();
   });
 })();
