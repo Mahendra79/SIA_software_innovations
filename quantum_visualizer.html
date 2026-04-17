@@ -57,8 +57,8 @@ header{display:flex;align-items:center;justify-content:space-between;
   position:sticky;top:0;z-index:300;backdrop-filter:blur(14px);}
 /* light theme overrides now in :root block above */.logo{display:flex;align-items:center;gap:10px;}
 .logo-orb{width:22px;height:22px;border-radius:6px;
-  background:#0b1224 url('assets/logo.png') center/82% no-repeat;
-  box-shadow:0 0 12px var(--cyan);animation:op 3s ease-in-out infinite;}
+  background:transparent url('assets/logo.png') center/contain no-repeat;
+  box-shadow:none;animation:none;}
 @keyframes op{0%,100%{box-shadow:0 0 10px var(--cyan),0 0 20px rgba(0,212,255,.25);}
   50%{box-shadow:0 0 18px var(--cyan),0 0 40px rgba(0,212,255,.4);}}
 .logo-text{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;}
@@ -82,10 +82,10 @@ header{display:flex;align-items:center;justify-content:space-between;
 #dock{position:fixed;left:0;top:0;bottom:0;width:52px;z-index:400;
   background:rgba(5,8,20,.98);border-right:1px solid var(--border);
   display:flex;flex-direction:column;align-items:center;padding:8px 0 8px;
-  gap:3px;overflow:hidden;}
+  gap:3px;overflow:visible;}
 .dock-logo{width:28px;height:28px;border-radius:7px;
-  background:#0b1224 url('assets/logo.png') center/80% no-repeat;
-  box-shadow:0 0 10px var(--cyan);margin-bottom:6px;flex-shrink:0;}
+  background:transparent url('assets/logo.png') center/contain no-repeat;
+  box-shadow:none;margin-bottom:6px;flex-shrink:0;}
 .dock-sep{width:30px;height:1px;background:var(--border);margin:2px 0;flex-shrink:0;}
 .dock-btn{width:36px;height:36px;border-radius:7px;border:1px solid transparent;
   background:transparent;color:var(--muted);cursor:pointer;
@@ -93,6 +93,7 @@ header{display:flex;align-items:center;justify-content:space-between;
   transition:all .2s;user-select:none;position:relative;flex-shrink:0;}
 .dock-btn:hover{color:var(--cyan);border-color:rgba(0,212,255,.4);background:rgba(0,212,255,.08);}
 .dock-btn.active{color:var(--cyan);border-color:var(--cyan);background:rgba(0,212,255,.12);}
+#dock-vqram{display:none;}
 /* Tooltip on dock buttons */
 .dock-btn::after{content:attr(data-tip);position:absolute;left:46px;top:50%;transform:translateY(-50%);
   background:var(--panel);border:1px solid var(--border);border-radius:4px;
@@ -337,6 +338,98 @@ select:focus{border-color:var(--cyan);}
   font-family:var(--font-mono);font-size:13px;font-weight:700;
   padding:5px 10px;border-radius:6px;border:2px solid;
   background:var(--panel2);opacity:.85;display:none;}
+
+/* Responsive overrides (append-only, keeps existing desktop code unchanged) */
+@media (max-width: 1024px){
+  .app-body{padding:14px 12px 84px;}
+  .g3{grid-template-columns:1fr 1fr;}
+  #page-fundamentals > div[style*="grid-template-columns:250px 1fr 240px"]{
+    grid-template-columns:1fr !important;
+  }
+  #page-circuit > div[style*="grid-template-columns:1fr 210px"]{
+    grid-template-columns:1fr !important;
+  }
+  .vqram-layout{grid-template-columns:1fr;}
+  .float-panel{
+    max-width:calc(100vw - 76px);
+    max-height:72vh;
+    overflow:auto;
+  }
+  .overlay-body{padding:14px;}
+}
+
+@media (max-width: 768px){
+  header{
+    flex-wrap:wrap;
+    gap:8px;
+    padding:10px 10px 10px 64px;
+  }
+  .logo-text{font-size:11px;letter-spacing:.04em;}
+  .nav-tabs{
+    order:3;
+    width:100%;
+  }
+  .nav-tab{
+    flex:1;
+    text-align:center;
+    padding:8px 10px;
+  }
+  .header-right{margin-left:auto;}
+  .sia-tag{display:none;}
+
+  .g2,.g3{grid-template-columns:1fr;}
+  #demo-panel [style*="grid-template-columns:200px 200px 1fr"]{
+    grid-template-columns:1fr !important;
+  }
+  .cr{grid-template-columns:72px 1fr 56px;}
+  .tb{gap:6px;}
+  #circ-wires{padding:12px 8px;}
+  .wire-row{height:48px;}
+  .dock-btn::after{display:none;}
+
+  .sbar{
+    padding:6px 10px;
+    gap:8px;
+    flex-wrap:wrap;
+    font-size:9px;
+  }
+  .sbar > div:nth-child(-n+2){display:none;}
+  .sbar > div[style*="margin-left:auto"]{
+    margin-left:0 !important;
+    width:100%;
+    text-align:left;
+  }
+
+  canvas#bloch-main,
+  canvas#qsph-main,
+  canvas#phase-q1,
+  canvas#bloch-circ,
+  canvas#vq-bloch,
+  canvas#wave-canvas{
+    width:100%;
+    max-width:260px;
+    height:auto;
+    margin-left:auto;
+    margin-right:auto;
+    display:block;
+  }
+}
+
+@media (max-width: 520px){
+  #dock{width:46px;}
+  .dock-logo{width:24px;height:24px;}
+  .dock-btn{width:32px;height:32px;font-size:14px;}
+  .dock-sep{width:24px;}
+
+  header{padding-left:56px;}
+  .logo-text{display:none;}
+
+  .app-body{margin-left:46px;padding:12px 8px 92px;}
+  .overlay{left:46px;}
+  .sbar{left:46px;}
+  .overlay-title{font-size:11px;}
+  .overlay-close{font-size:11px;padding:4px 8px;}
+}
 </style>
 </head>
 <body>
@@ -811,9 +904,9 @@ select:focus{border-color:var(--cyan);}
 <div class="sbar">
   <div><span></span></div>
   <div><span></span></div>
-  <div><span id="sb-q"></span></div>
-  <div><span id="sb-g"></span></div>
-  <div><span id="sb-st"></span></div>
+  <div>QUBITS: <span id="sb-q">1</span></div>
+  <div>GATES: <span id="sb-g">0</span></div>
+  <div>STATE: <span id="sb-st">|0⟩</span></div>
   <div style="margin-left:auto;">SIA SOFTWARE INNOVATIONS PRIVATE LIMITED</div>
 </div>
 
@@ -1363,6 +1456,23 @@ function circChangeQubits(){
 
 // ─ DRAG-AND-DROP ─
 function initDragDrop(){
+  const clearWireHighlights=()=>document.querySelectorAll('.wire-line.drag-over').forEach(l=>l.classList.remove('drag-over'));
+  const getWireFromPoint=(x,y)=>{
+    const el=document.elementFromPoint(x,y);
+    if(!el)return null;
+    return el.closest ? el.closest('.wire-line') : null;
+  };
+  const setGhost=(gate,color,x,y)=>{
+    const ghost=document.getElementById('drag-ghost');
+    ghost.textContent=gate;
+    ghost.style.color=color;
+    ghost.style.borderColor=color;
+    ghost.style.left=(x+12)+'px';
+    ghost.style.top=(y-16)+'px';
+    ghost.style.display='block';
+  };
+  const hideGhost=()=>{document.getElementById('drag-ghost').style.display='none';};
+
   // Drag start on gate palette buttons
   document.querySelectorAll('[data-gate]').forEach(btn=>{
     btn.addEventListener('dragstart',e=>{
@@ -1378,9 +1488,50 @@ function initDragDrop(){
     });
     btn.addEventListener('dragend',e=>{
       btn.classList.remove('dragging-src');
-      document.getElementById('drag-ghost').style.display='none';
+      clearWireHighlights();
+      hideGhost();
       dragGate=null;
     });
+
+    // Mobile touch fallback for drag/drop
+    btn.addEventListener('touchstart',e=>{
+      const t=e.touches[0];
+      if(!t)return;
+      dragGate=btn.getAttribute('data-gate');
+      btn.classList.add('dragging-src');
+      setGhost(dragGate,getComputedStyle(btn).color,t.clientX,t.clientY);
+      e.preventDefault();
+    },{passive:false});
+
+    btn.addEventListener('touchmove',e=>{
+      if(!dragGate)return;
+      const t=e.touches[0];
+      if(!t)return;
+      setGhost(dragGate,getComputedStyle(btn).color,t.clientX,t.clientY);
+      clearWireHighlights();
+      const line=getWireFromPoint(t.clientX,t.clientY);
+      if(line)line.classList.add('drag-over');
+      e.preventDefault();
+    },{passive:false});
+
+    const finishTouchDrag=(evt)=>{
+      if(!dragGate)return;
+      const t=(evt.changedTouches&&evt.changedTouches[0])||(evt.touches&&evt.touches[0]);
+      clearWireHighlights();
+      if(t){
+        const line=getWireFromPoint(t.clientX,t.clientY);
+        if(line){
+          const q=parseInt(line.getAttribute('data-q'));
+          addGateToQ(dragGate,q);
+        }
+      }
+      btn.classList.remove('dragging-src');
+      hideGhost();
+      dragGate=null;
+      evt.preventDefault();
+    };
+    btn.addEventListener('touchend',finishTouchDrag,{passive:false});
+    btn.addEventListener('touchcancel',finishTouchDrag,{passive:false});
   });
   document.addEventListener('dragover',e=>{
     const ghost=document.getElementById('drag-ghost');
