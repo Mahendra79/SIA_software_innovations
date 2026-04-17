@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>HDQS Quantum Visualiser — SIA Software Innovations</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root,[data-theme="dark"]{
+  --bg:#03050f;--bg2:#070b18;--panel:#0a0f1e;--panel2:#0e1428;
+  --border:#1a2444;--border2:#243060;
+  --cyan:#00d4ff;--violet:#7c3aed;--gold:#ff9d00;
+  --magenta:#d946ef;--green:#00ff88;--red:#f43f5e;
+  --text:#d8e8ff;--muted:#4a5a7a;--muted2:#2a3555;
+  --font-mono:'Space Mono',monospace;--font-body:'Exo 2',sans-serif;
+  --gH:#00d4ff;--gX:#f43f5e;--gY:#fb923c;--gZ:#00ff88;
+  --gS:#7c3aed;--gT:#d946ef;--gSdag:#a855f7;--gTdag:#e879f9;
+  --gRX:#f97316;--gRY:#22d3ee;--gRZ:#818cf8;
+  --gCN:#00d4ff;--gCZ:#34d399;--gSW:#fbbf24;--gCCX:#f472b6;
+  --gME:#00ff88;--gRS:#f43f5e;
+}
+/* LIGHT THEME: deep navy blue backgrounds, high-contrast text */
+[data-theme="light"]{
+  --bg:#0d1b2e;--bg2:#0f2040;--panel:#122547;--panel2:#163060;
+  --border:#1e3a6e;--border2:#2a5090;
+  --cyan:#38bdf8;--violet:#a78bfa;--gold:#fbbf24;
+  --magenta:#f0abfc;--green:#34d399;--red:#f87171;
+  --text:#e8f4ff;--muted:#7aadcc;--muted2:#3a6a9a;
+  --gH:#38bdf8;--gX:#f87171;--gY:#fb923c;--gZ:#34d399;
+  --gS:#a78bfa;--gT:#f0abfc;--gSdag:#c084fc;--gTdag:#e879f9;
+  --gRX:#f97316;--gRY:#22d3ee;--gRZ:#818cf8;
+  --gCN:#38bdf8;--gCZ:#6ee7b7;--gSW:#fcd34d;--gCCX:#f9a8d4;
+  --gME:#34d399;--gRS:#f87171;
+}
+[data-theme="light"] body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse at 20% 50%,rgba(56,189,248,.06) 0%,transparent 55%),
+             radial-gradient(ellipse at 80% 20%,rgba(167,139,250,.05) 0%,transparent 50%);}
+[data-theme="light"] .cbox{background:rgba(56,189,248,.07);border-color:rgba(56,189,248,.2);}
+[data-theme="light"] .float-panel{background:rgba(13,27,46,.97);box-shadow:0 8px 32px rgba(0,0,0,.6);}
+[data-theme="light"] .overlay{background:rgba(10,20,38,.98);}
+[data-theme="light"] .overlay-hdr{background:rgba(13,27,46,.98);}
+[data-theme="light"] header{background:rgba(13,27,46,.97);}
+[data-theme="light"] .sbar{background:rgba(13,27,46,.97);}
+[data-theme="light"] #dock{background:rgba(9,18,34,.99);border-right-color:#1e3a6e;}
+[data-theme="light"] select{background:var(--panel2);color:var(--text);border-color:var(--border);}
+[data-theme="light"] .btn{background:rgba(255,255,255,.03);color:var(--text);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;overflow-x:hidden;transition:background .3s,color .3s;}
+[data-theme="dark"] body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse at 15% 60%,rgba(0,212,255,.035) 0%,transparent 55%),
+             radial-gradient(ellipse at 85% 15%,rgba(124,58,237,.04) 0%,transparent 50%);}
+
+/* ─ HEADER ─ */
+header{display:flex;align-items:center;justify-content:space-between;
+  padding:10px 20px 10px 72px;/* left pad for dock */
+  background:rgba(7,11,24,.97);border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:300;backdrop-filter:blur(14px);}
+/* light theme overrides now in :root block above */.logo{display:flex;align-items:center;gap:10px;}
+.logo-orb{width:22px;height:22px;border-radius:6px;
+  background:#0b1224 url('assets/logo.png') center/82% no-repeat;
+  box-shadow:0 0 12px var(--cyan);animation:op 3s ease-in-out infinite;}
+@keyframes op{0%,100%{box-shadow:0 0 10px var(--cyan),0 0 20px rgba(0,212,255,.25);}
+  50%{box-shadow:0 0 18px var(--cyan),0 0 40px rgba(0,212,255,.4);}}
+.logo-text{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;}
+.logo-text em{color:var(--cyan);font-style:normal;}
+.nav-tabs{display:flex;gap:3px;}
+.nav-tab{font-family:var(--font-mono);font-size:11px;letter-spacing:.05em;
+  padding:6px 14px;border-radius:4px;border:1px solid transparent;
+  background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;}
+.nav-tab:hover{color:var(--text);}
+.nav-tab.active{color:var(--cyan);border-color:var(--cyan);background:rgba(0,212,255,.07);}
+.header-right{display:flex;align-items:center;gap:8px;}
+.sia-tag{font-family:var(--font-mono);font-size:10px;color:var(--muted);}
+.theme-btn{width:30px;height:30px;border-radius:6px;border:1px solid var(--border);
+  background:transparent;color:var(--muted);cursor:pointer;font-size:15px;
+  display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.theme-btn:hover{color:var(--cyan);border-color:var(--cyan);}
+
+/* ══════════════════════════════════════════════
+   VERTICAL DOCK — left edge, always visible
+══════════════════════════════════════════════ */
+#dock{position:fixed;left:0;top:0;bottom:0;width:52px;z-index:400;
+  background:rgba(5,8,20,.98);border-right:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;padding:8px 0 8px;
+  gap:3px;overflow:hidden;}
+.dock-logo{width:28px;height:28px;border-radius:7px;
+  background:#0b1224 url('assets/logo.png') center/80% no-repeat;
+  box-shadow:0 0 10px var(--cyan);margin-bottom:6px;flex-shrink:0;}
+.dock-sep{width:30px;height:1px;background:var(--border);margin:2px 0;flex-shrink:0;}
+.dock-btn{width:36px;height:36px;border-radius:7px;border:1px solid transparent;
+  background:transparent;color:var(--muted);cursor:pointer;
+  font-size:16px;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;user-select:none;position:relative;flex-shrink:0;}
+.dock-btn:hover{color:var(--cyan);border-color:rgba(0,212,255,.4);background:rgba(0,212,255,.08);}
+.dock-btn.active{color:var(--cyan);border-color:var(--cyan);background:rgba(0,212,255,.12);}
+/* Tooltip on dock buttons */
+.dock-btn::after{content:attr(data-tip);position:absolute;left:46px;top:50%;transform:translateY(-50%);
+  background:var(--panel);border:1px solid var(--border);border-radius:4px;
+  font-family:var(--font-mono);font-size:10px;color:var(--text);
+  padding:3px 8px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;z-index:500;}
+.dock-btn:hover::after{opacity:1;}
+
+/* ─ MAIN BODY ─ */
+.app-body{margin-left:52px;padding:18px 20px 65px;position:relative;z-index:1;
+  min-height:calc(100vh - 48px - 32px);}
+
+/* ─ PAGES ─ */
+.page{display:none;}.page.active{display:block;}
+
+/* ─ CARDS ─ */
+.card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px;}
+.ct{font-family:var(--font-mono);font-size:11px;color:var(--cyan);letter-spacing:.05em;margin-bottom:10px;}
+.sec-hd{font-family:var(--font-mono);font-size:10px;letter-spacing:.18em;color:var(--muted);
+  text-transform:uppercase;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border);}
+.sec-hd em{color:var(--cyan);font-style:normal;}
+
+/* ─ GRID ─ */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.col{display:flex;flex-direction:column;gap:12px;}
+
+/* ─ BTNS ─ */
+.btn{font-family:var(--font-mono);font-size:11px;padding:7px 14px;
+  border-radius:4px;border:1px solid var(--border);
+  background:rgba(255,255,255,.03);color:var(--text);cursor:pointer;transition:all .15s;}
+.btn:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,212,255,.06);}
+.btn.pri{border-color:var(--cyan);color:var(--cyan);background:rgba(0,212,255,.1);}
+.btn.pri:hover{background:rgba(0,212,255,.2);}
+.btn.suc{border-color:var(--green);color:var(--green);background:rgba(0,255,136,.07);}
+.btn.warn{border-color:var(--gold);color:var(--gold);background:rgba(255,157,0,.07);}
+.btn.danger{border-color:var(--red);color:var(--red);}
+.btn-flash{animation:flash .4s ease;}
+@keyframes flash{0%,100%{background:rgba(0,212,255,.1);}50%{background:rgba(0,212,255,.38);}}
+
+/* ─ GATE BUTTONS (palette) ─ */
+.gb{font-family:var(--font-mono);font-size:12px;font-weight:700;
+  min-width:40px;height:38px;border-radius:6px;border:1px solid;
+  background:var(--panel2);cursor:grab;transition:all .15s;
+  display:inline-flex;align-items:center;justify-content:center;
+  user-select:none;padding:0 6px;}
+.gb:hover{transform:translateY(-2px);filter:brightness(1.35);}
+.gb.dragging-src{opacity:.5;transform:scale(.95);}
+.gb[draggable="true"]{cursor:grab;}
+.gH{border-color:var(--gH);color:var(--gH);}
+.gX{border-color:var(--gX);color:var(--gX);}
+.gY{border-color:var(--gY);color:var(--gY);}
+.gZ{border-color:var(--gZ);color:var(--gZ);}
+.gS{border-color:var(--gS);color:var(--gS);}
+.gT{border-color:var(--gT);color:var(--gT);}
+.gSdag{border-color:var(--gSdag);color:var(--gSdag);}
+.gTdag{border-color:var(--gTdag);color:var(--gTdag);}
+.gRX{border-color:var(--gRX);color:var(--gRX);}
+.gRY{border-color:var(--gRY);color:var(--gRY);}
+.gRZ{border-color:var(--gRZ);color:var(--gRZ);}
+.gCN{border-color:var(--gCN);color:var(--gCN);}
+.gCZ{border-color:var(--gCZ);color:var(--gCZ);}
+.gSW{border-color:var(--gSW);color:var(--gSW);}
+.gCCX{border-color:var(--gCCX);color:var(--gCCX);}
+.gME{border-color:var(--gME);color:var(--gME);}
+.gRS{border-color:var(--gRS);color:var(--gRS);}
+
+/* ─ CIRCUIT WIRES ─ */
+#circ-wires{background:var(--bg2);border:1px solid var(--border);border-radius:8px;
+  padding:16px 12px;min-height:100px;overflow-x:auto;}
+.wire-row{display:flex;align-items:center;height:52px;margin-bottom:4px;position:relative;}
+.wire-label{font-family:var(--font-mono);font-size:12px;width:32px;flex-shrink:0;font-weight:700;}
+.wire-line{flex:1;height:2px;background:var(--border);position:relative;display:flex;align-items:center;
+  min-height:52px;border-radius:2px;}
+.wire-line.drag-over{background:rgba(0,212,255,.15);border:1px dashed var(--cyan);border-radius:4px;}
+.wire-end{font-family:var(--font-mono);font-size:10px;color:var(--muted);width:28px;text-align:right;flex-shrink:0;}
+/* Gate chips on wires */
+.gate-chip{font-family:var(--font-mono);font-size:12px;font-weight:700;
+  height:36px;min-width:36px;padding:0 8px;border-radius:5px;
+  border:2px solid;background:var(--panel);
+  display:inline-flex;align-items:center;justify-content:center;
+  cursor:pointer;white-space:nowrap;position:relative;z-index:2;
+  transition:all .15s;flex-shrink:0;margin:0 3px;}
+.gate-chip:hover{filter:brightness(1.3);}
+.gate-chip.step-active{box-shadow:0 0 12px currentColor;}
+.gate-chip.ctrl-dot{font-size:18px;min-width:28px;padding:0 4px;}
+/* Step track */
+.step-track{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
+.step-pill{font-family:var(--font-mono);font-size:10px;
+  padding:3px 8px;border-radius:10px;border:1px solid var(--border);color:var(--muted);}
+.step-pill.done{border-color:var(--green);color:var(--green);}
+.step-pill.current{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 6px rgba(0,212,255,.3);}
+
+/* ─ TOOLBAR ─ */
+.tb{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-bottom:10px;}
+.tsep{width:1px;height:24px;background:var(--border);}
+select{font-family:var(--font-mono);font-size:11px;
+  background:var(--panel2);color:var(--text);
+  border:1px solid var(--border);border-radius:4px;padding:5px 8px;cursor:pointer;outline:none;}
+select:focus{border-color:var(--cyan);}
+.slider{width:100%;accent-color:var(--cyan);cursor:pointer;}
+.cr{display:grid;grid-template-columns:80px 1fr 60px;gap:8px;align-items:center;margin-bottom:8px;}
+.cl{font-size:11px;color:var(--muted);}
+.cv{font-family:var(--font-mono);font-size:11px;color:var(--cyan);text-align:right;}
+
+/* ─ CONCEPT BOX ─ */
+.cbox{background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.12);
+  border-radius:6px;padding:11px;margin-bottom:12px;font-size:13px;line-height:1.7;color:var(--muted);}
+
+.cbox strong{color:var(--text);}.cbox .hl{color:var(--cyan);}
+
+/* ─ HISTOGRAM — horizontal bars, all states, scrollable ─ */
+.hist-wrap{max-height:280px;overflow-y:auto;overflow-x:hidden;}
+.hist-row{display:flex;align-items:center;gap:6px;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.03);}
+.hist-lbl{font-family:var(--font-mono);font-size:9px;color:var(--cyan);width:88px;flex-shrink:0;text-align:right;white-space:nowrap;overflow:hidden;}
+.hist-bar-track{flex:1;height:14px;background:var(--panel2);border-radius:3px;overflow:hidden;}
+.hist-bar-fill{height:100%;border-radius:3px;transition:width .35s ease;}
+.hist-pct{font-family:var(--font-mono);font-size:9px;color:var(--muted);width:40px;text-align:right;flex-shrink:0;}
+/* Legacy vertical histogram kept for demos (small n) */
+.hw{display:flex;align-items:flex-end;gap:3px;height:68px;}
+.hb{border-radius:2px 2px 0 0;flex:1;min-width:5px;transition:height .35s ease;}
+.hlb{display:flex;gap:3px;margin-top:3px;}
+.hll{flex:1;font-family:var(--font-mono);font-size:9px;color:var(--muted);text-align:center;overflow:hidden;}
+
+/* ─ STATE TABLE ─ */
+.svt{width:100%;border-collapse:collapse;font-family:var(--font-mono);font-size:11px;}
+.svt th{color:var(--muted);font-weight:400;padding:4px 7px;border-bottom:1px solid var(--border);text-align:left;}
+.svt td{padding:3px 7px;border-bottom:1px solid rgba(26,36,68,.4);}
+.svt tr:hover td{background:rgba(0,212,255,.03);}
+.tds{color:var(--cyan);}.tda{color:#a78bfa;}.tdp{color:var(--green);}
+.rbox{background:var(--bg);border:1px solid var(--border);border-radius:6px;
+  padding:11px;font-family:var(--font-mono);font-size:11px;
+  line-height:1.9;color:var(--green);min-height:44px;white-space:pre-wrap;}
+
+/* ─ DENSITY MATRIX ─ */
+.dmg{display:inline-flex;flex-direction:column;gap:3px;}
+.dmr{display:flex;gap:3px;}
+.dmc{width:28px;height:28px;border-radius:3px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-size:8px;cursor:default;}
+.dm-note{font-family:var(--font-mono);font-size:10px;color:var(--muted);padding:6px 0;}
+
+/* ─ PHASE WHEEL ─ */
+.phase-amp-row{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
+.phase-swatch{width:14px;height:14px;border-radius:50%;border:1px solid rgba(255,255,255,.2);}
+
+/* ─ CHUNK CUBE ─ */
+.chk{background:var(--panel2);border:1px solid;border-radius:8px;padding:12px;
+  position:relative;overflow:hidden;}
+.chk::before{content:'';position:absolute;inset:0;border-radius:8px;
+  background:radial-gradient(circle at 50% 0%,rgba(var(--cr),.07) 0%,transparent 60%);
+  pointer-events:none;}
+.chk-top{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+.chk-name{font-family:var(--font-mono);font-size:12px;font-weight:700;}
+.chk-q{font-family:var(--font-mono);font-size:10px;color:var(--muted);}
+.hqb{display:inline-flex;align-items:center;gap:4px;font-family:var(--font-mono);font-size:10px;
+  padding:2px 8px;border-radius:10px;border:1px solid;}
+.hqr{border-color:var(--cyan);color:var(--cyan);background:rgba(0,212,255,.07);}
+.hqa{border-color:var(--green);color:var(--green);background:rgba(0,255,136,.07);}
+.hqm{border-color:var(--gold);color:var(--gold);background:rgba(255,157,0,.07);}
+.hqd{width:5px;height:5px;border-radius:50%;background:currentColor;animation:hd 2s infinite;}
+@keyframes hd{0%,100%{opacity:.4;}50%{opacity:1;}}
+.xgr{display:flex;gap:7px;align-items:center;flex-wrap:wrap;
+  padding:10px;background:rgba(0,212,255,.03);
+  border:1px solid rgba(0,212,255,.1);border-radius:6px;margin-bottom:10px;}
+
+/* ─ STATUS BAR ─ */
+.sbar{position:fixed;bottom:0;left:52px;right:0;z-index:200;
+  background:rgba(7,11,24,.97);border-top:1px solid var(--border);
+  padding:5px 20px;display:flex;gap:20px;
+  font-family:var(--font-mono);font-size:10px;color:var(--muted);}
+.sbar span{color:var(--cyan);}
+
+/* ─ SHOT SIMULATOR ─ */
+.shot-row{display:flex;align-items:center;gap:8px;}
+.shot-label{font-family:var(--font-mono);font-size:10px;color:var(--cyan);width:36px;flex-shrink:0;}
+.shot-track{flex:1;height:14px;background:var(--panel2);border-radius:3px;overflow:hidden;}
+.shot-fill{height:100%;border-radius:3px;transition:width .1s ease;}
+.shot-pct{font-family:var(--font-mono);font-size:10px;color:var(--muted);width:56px;text-align:right;}
+
+/* ══════════════════════════════════════════════
+   FLOATING PANELS — draggable, closable
+══════════════════════════════════════════════ */
+.float-panel{position:fixed;z-index:500;background:rgba(8,12,28,.97);
+  border:1px solid var(--border2);border-radius:10px;padding:12px;
+  backdrop-filter:blur(18px);box-shadow:0 10px 40px rgba(0,0,0,.6);
+  display:none;min-width:200px;}
+
+.float-panel.visible{display:block;}
+.float-hdr{display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:10px;cursor:move;user-select:none;}
+.float-title{font-family:var(--font-mono);font-size:10px;color:var(--cyan);letter-spacing:.06em;}
+.float-close{background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;line-height:1;padding:2px;}
+.float-close:hover{color:var(--red);}
+
+/* ══════════════════════════════════════════════
+   FULL-SCREEN OVERLAY — Demos & vQRAM
+══════════════════════════════════════════════ */
+.overlay{position:fixed;inset:0;left:52px;z-index:600;
+  background:rgba(3,5,15,.97);backdrop-filter:blur(4px);
+  display:none;flex-direction:column;overflow:hidden;}
+.overlay.visible{display:flex;}
+.overlay-hdr{display:flex;align-items:center;justify-content:space-between;
+  padding:12px 20px;border-bottom:1px solid var(--border);flex-shrink:0;
+  background:rgba(7,11,24,.95);}
+.overlay-title{font-family:var(--font-mono);font-size:13px;color:var(--cyan);letter-spacing:.06em;}
+.overlay-close{background:none;border:1px solid var(--border);border-radius:6px;
+  color:var(--muted);cursor:pointer;font-size:13px;padding:5px 12px;
+  font-family:var(--font-mono);transition:all .2s;}
+.overlay-close:hover{color:var(--red);border-color:var(--red);}
+.overlay-body{flex:1;overflow-y:auto;padding:20px;}
+
+/* Demo layout inside overlay */
+.demo-select-row{display:flex;gap:10px;align-items:center;margin-bottom:18px;flex-wrap:wrap;}
+.demo-selector{flex:1;min-width:220px;font-size:12px;padding:8px 10px;}
+#demo-panel{animation:fi .25s ease both;}
+
+/* vQRAM inside overlay — 2 col layout */
+.vqram-layout{display:grid;grid-template-columns:340px 1fr;gap:20px;}
+
+/* ─ NOISE PANEL ─ */
+#panel-noise{min-width:240px;}
+
+/* ─ SCROLLBAR ─ */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--panel);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+/* ─ ANIMATIONS ─ */
+@keyframes fi{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:none;}}
+.fi{animation:fi .3s ease both;}
+
+/* ─ ANGLE INPUT ─ */
+.angle-input{font-family:var(--font-mono);font-size:11px;width:60px;
+  background:var(--panel2);color:var(--text);border:1px solid var(--border);
+  border-radius:4px;padding:4px 6px;outline:none;text-align:center;}
+.angle-input:focus{border-color:var(--cyan);}
+/* Selected gate chip for angle editing */
+.gate-chip.selected{outline:2px solid var(--gold);outline-offset:1px;box-shadow:0 0 10px rgba(251,191,36,.4);}
+
+
+#drag-ghost{position:fixed;pointer-events:none;z-index:9999;
+  font-family:var(--font-mono);font-size:13px;font-weight:700;
+  padding:5px 10px;border-radius:6px;border:2px solid;
+  background:var(--panel2);opacity:.85;display:none;}
+</style>
+</head>
+<body>
+
+<!-- DRAG GHOST -->
+<div id="drag-ghost"></div>
+
+<!-- ══════════════════════════════════════════
+     VERTICAL DOCK
+══════════════════════════════════════════ -->
+<div id="dock">
+  <div class="dock-logo"></div>
+  <div class="dock-sep"></div>
+  <!-- Visualisation panels -->
+  <button class="dock-btn" id="dock-bloch" onclick="togglePanel('panel-bloch')" data-tip="Bloch Sphere">⊙</button>
+  <button class="dock-btn" id="dock-qsphere" onclick="togglePanel('panel-qsphere')" data-tip="Q-Sphere">◎</button>
+  <button class="dock-btn" id="dock-phase" onclick="togglePanel('panel-phase')" data-tip="Phase Wheel">⟳</button>
+  <button class="dock-btn" id="dock-dm" onclick="togglePanel('panel-dm')" data-tip="Density Matrix">▦</button>
+  <button class="dock-btn" id="dock-sv" onclick="togglePanel('panel-sv')" data-tip="State Vector">≡</button>
+  <div class="dock-sep"></div>
+  <!-- Noise -->
+  <button class="dock-btn" id="dock-noise" onclick="togglePanel('panel-noise')" data-tip="Noise Channels">≋</button>
+  <div class="dock-sep"></div>
+  <!-- Full-screen overlays -->
+  <button class="dock-btn" id="dock-demos" onclick="toggleOverlay('overlay-demos')" data-tip="Demos">▷</button>
+  <button class="dock-btn" id="dock-vqram" onclick="toggleOverlay('overlay-vqram')" data-tip="vQRAM / Chunks">⬡</button>
+</div>
+
+<!-- ══════════════════════════════════════════
+     FLOATING PANELS
+══════════════════════════════════════════ -->
+<div class="float-panel" id="panel-bloch" style="left:70px;top:80px;">
+  <div class="float-hdr" onmousedown="dragStart(event,'panel-bloch')">
+    <span class="float-title">// BLOCH SPHERE</span>
+    <button class="float-close" onclick="togglePanel('panel-bloch')">✕</button>
+  </div>
+  <canvas id="fp-bloch" width="200" height="200"></canvas>
+  <div id="fp-bloch-info" style="font-family:var(--font-mono);font-size:10px;color:var(--muted);text-align:center;line-height:1.9;margin-top:6px;"></div>
+</div>
+
+<div class="float-panel" id="panel-qsphere" style="left:70px;top:320px;">
+  <div class="float-hdr" onmousedown="dragStart(event,'panel-qsphere')">
+    <span class="float-title">// Q-SPHERE</span>
+    <button class="float-close" onclick="togglePanel('panel-qsphere')">✕</button>
+  </div>
+  <canvas id="fp-qsphere" width="200" height="200"></canvas>
+  <div id="fp-qsphere-info" style="font-family:var(--font-mono);font-size:10px;color:var(--muted);text-align:center;margin-top:6px;"></div>
+</div>
+
+<div class="float-panel" id="panel-phase" style="left:280px;top:80px;">
+  <div class="float-hdr" onmousedown="dragStart(event,'panel-phase')">
+    <span class="float-title">// PHASE WHEEL</span>
+    <button class="float-close" onclick="togglePanel('panel-phase')">✕</button>
+  </div>
+  <canvas id="fp-phase" width="180" height="180"></canvas>
+  <div id="fp-phase-info" style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-top:6px;line-height:1.8;"></div>
+</div>
+
+<div class="float-panel" id="panel-dm" style="left:280px;top:320px;min-width:220px;">
+  <div class="float-hdr" onmousedown="dragStart(event,'panel-dm')">
+    <span class="float-title">// DENSITY MATRIX |ρ|</span>
+    <button class="float-close" onclick="togglePanel('panel-dm')">✕</button>
+  </div>
+  <div id="fp-dm" style="display:flex;justify-content:center;padding:4px 0;overflow-x:auto;"></div>
+</div>
+
+<div class="float-panel" id="panel-sv" style="left:70px;top:550px;min-width:290px;">
+  <div class="float-hdr" onmousedown="dragStart(event,'panel-sv')">
+    <span class="float-title">// STATE VECTOR</span>
+    <button class="float-close" onclick="togglePanel('panel-sv')">✕</button>
+  </div>
+  <div style="max-height:220px;overflow-y:auto;">
+    <table class="svt"><thead><tr><th>State</th><th>Amplitude</th><th>Phase</th><th>Prob</th></tr></thead>
+    <tbody id="fp-sv-body"></tbody></table>
+  </div>
+</div>
+
+<div class="float-panel" id="panel-noise" style="left:70px;top:160px;min-width:270px;">
+  <div class="float-hdr" onmousedown="dragStart(event,'panel-noise')">
+    <span class="float-title">// NOISE CHANNELS</span>
+    <button class="float-close" onclick="togglePanel('panel-noise')">✕</button>
+  </div>
+  <div class="cbox" style="font-size:11px;padding:8px;margin-bottom:10px;">Decoherence shrinks the Bloch vector. Apply to single-qubit sandbox or circuit qubits.</div>
+  <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap;">
+    <span style="font-size:11px;color:var(--muted);">Target:</span>
+    <select id="noise-target" style="font-size:11px;">
+      <option value="q1">Fundamentals Q</option>
+    </select>
+  </div>
+  <div style="display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;">
+    <button class="btn" style="font-size:10px;border-color:#f87171;color:#f87171;" onclick="applyNoise('bf')">Bit-Flip</button>
+    <button class="btn" style="font-size:10px;border-color:#a78bfa;color:#a78bfa;" onclick="applyNoise('pf')">Phase-Flip</button>
+    <button class="btn" style="font-size:10px;border-color:var(--gold);color:var(--gold);" onclick="applyNoise('dp')">Depolar</button>
+    <button class="btn" style="font-size:10px;border-color:var(--muted);color:var(--muted);" onclick="applyNoise('ad')">Amp.Damp</button>
+  </div>
+  <div class="cr">
+    <span class="cl">p</span>
+    <input type="range" class="slider" id="noise-p" min="0" max="100" value="10"
+      oninput="document.getElementById('noise-pd').textContent=(this.value/100).toFixed(2)">
+    <span class="cv" id="noise-pd">0.10</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     DEMOS OVERLAY
+══════════════════════════════════════════ -->
+<div class="overlay" id="overlay-demos">
+  <div class="overlay-hdr">
+    <span class="overlay-title">⬡ PRESET DEMONSTRATIONS</span>
+    <button class="overlay-close" onclick="toggleOverlay('overlay-demos')">✕ CLOSE</button>
+  </div>
+  <div class="overlay-body">
+    <div class="demo-select-row">
+      <select class="demo-selector" id="demo-select" onchange="runSelectedDemo()">
+        <option value="">— Select a demonstration —</option>
+      </select>
+      <button class="btn pri" onclick="runSelectedDemo()">▶ RUN</button>
+    </div>
+    <div id="demo-panel">
+      <div style="font-family:var(--font-mono);font-size:13px;color:var(--muted);text-align:center;padding:40px 0;">
+        Select a demo from the dropdown above
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     vQRAM OVERLAY
+══════════════════════════════════════════ -->
+<div class="overlay" id="overlay-vqram">
+  <div class="overlay-hdr">
+    <span class="overlay-title">⬡ HDQS vQRAM / CHUNK ARCHITECTURE</span>
+    <button class="overlay-close" onclick="toggleOverlay('overlay-vqram')">✕ CLOSE</button>
+  </div>
+  <div class="overlay-body">
+    <div class="cbox" style="margin-bottom:16px;">
+      HDQS decomposes large qubit spaces into <strong>chunk cubes</strong> (max 5Q/5 chunks). <strong>Hyper-qubits</strong> (Router/Accel/Mem) propagate entanglement-influence as wave corridors. Cross-chunk gates run via HQ tunnelling without exponential tensor expansion.
+    </div>
+    <div class="vqram-layout">
+      <!-- Left: controls -->
+      <div class="col">
+        <div class="card">
+          <div class="ct">// HYPER-SYSTEM CONFIG</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px;">
+            <div>
+              <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Chunks (1–5)</div>
+              <select id="vq-nc" onchange="initVQ()" style="width:100%;">
+                <option>1</option><option>2</option><option value="3" selected>3</option><option>4</option><option>5</option>
+              </select>
+            </div>
+            <div>
+              <div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Q/Chunk (1–5)</div>
+              <select id="vq-qpc" onchange="initVQ()" style="width:100%;">
+                <option>1</option><option value="2" selected>2</option><option>3</option><option>4</option><option>5</option>
+              </select>
+            </div>
+          </div>
+          <div id="vq-hq-badges" style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px;"></div>
+
+          <div class="ct">// WITHIN-CHUNK OPS</div>
+          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:6px;">
+            <span style="font-size:11px;color:var(--muted);">Chunk:</span>
+            <select id="vq-tc"><option value="all">All</option></select>
+            <span style="font-size:11px;color:var(--muted);">Q:</span>
+            <select id="vq-tq"><option value="0">Q0</option></select>
+          </div>
+          <div class="tb">
+            <button class="gb gH" onclick="vqG('H')" style="height:34px;">H</button>
+            <button class="gb gX" onclick="vqG('X')" style="height:34px;">X</button>
+            <button class="gb gY" onclick="vqG('Y')" style="height:34px;">Y</button>
+            <button class="gb gZ" onclick="vqG('Z')" style="height:34px;">Z</button>
+            <button class="gb gRY" onclick="vqR('RY')" style="height:34px;">RY</button>
+            <div class="tsep"></div>
+            <button class="gb gCN" onclick="vqCNOT()" style="height:34px;min-width:52px;font-size:10px;">CNOT</button>
+            <div class="tsep"></div>
+            <button class="gb gME" onclick="vqMeas()" style="height:34px;min-width:52px;font-size:10px;">MEAS</button>
+            <button class="gb gRS" onclick="initVQ()" style="height:34px;">RST</button>
+          </div>
+          <div class="cr">
+            <span class="cl">θ</span>
+            <input type="range" class="slider" id="vq-angle" min="0" max="628" value="157"
+              oninput="document.getElementById('vq-angle-d').textContent=(this.value/100).toFixed(2)+'r'">
+            <span class="cv" id="vq-angle-d">1.57r</span>
+          </div>
+
+          <div class="ct" style="margin-top:10px;">// CROSS-CHUNK VIA HQ</div>
+          <div class="xgr" style="font-size:11px;">
+            <span style="color:var(--muted);">C:</span>
+            <select id="xg-cc"><option>0</option></select>
+            <span style="color:var(--muted);">Q:</span>
+            <select id="xg-cq"><option>0</option></select>
+            <span style="color:var(--cyan);">─HQ→</span>
+            <select id="xg-tc"><option>1</option></select>
+            <span style="color:var(--muted);">Q:</span>
+            <select id="xg-tq"><option>0</option></select>
+            <button class="btn pri" style="font-size:10px;padding:4px 10px;" onclick="vqXG('CNOT')">CNOT</button>
+            <button class="btn warn" style="font-size:10px;padding:4px 10px;" onclick="vqXG('CZ')">CZ</button>
+          </div>
+          <div id="xgate-log" style="font-family:var(--font-mono);font-size:10px;color:var(--muted);line-height:1.8;"></div>
+
+          <div class="ct" style="margin-top:10px;">// SYSTEM STATUS</div>
+          <div id="vq-status" style="font-family:var(--font-mono);font-size:11px;color:var(--muted);line-height:2;"></div>
+        </div>
+      </div>
+
+      <!-- Right: visualisation -->
+      <div class="col">
+        <div class="card" style="display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <div class="ct" style="align-self:flex-start;margin-bottom:0;">// GLOBAL BLOCH SPHERE</div>
+          <div style="font-size:11px;color:var(--muted);align-self:flex-start;">All chunks inside — each chunk = one coloured vector</div>
+          <canvas id="vq-bloch" width="300" height="300"></canvas>
+          <div id="vq-bloch-legend" style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;"></div>
+          <div id="vq-bloch-info" style="font-family:var(--font-mono);font-size:10px;color:var(--muted);text-align:center;line-height:1.9;"></div>
+        </div>
+        <div class="card" style="padding:0;overflow:hidden;">
+          <div style="padding:12px 12px 4px;">
+            <div class="ct" style="margin-bottom:3px;">// HYPER-QUBIT WAVE PROPAGATION</div>
+          </div>
+          <canvas id="wave-canvas" width="400" height="110" style="display:block;width:100%;"></canvas>
+        </div>
+        <div class="card">
+          <div class="ct">// CHUNK STATE PANELS</div>
+          <div id="chunk-grid" style="display:grid;gap:8px;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     HEADER
+══════════════════════════════════════════ -->
+<header>
+  <div class="logo">
+    <div class="logo-orb"></div>
+    <div class="logo-text">HDQS <em>QUANTUM</em> VISUALISER <em style="font-size:10px;opacity:.6"></em></div>
+  </div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="showPage('fundamentals',this)">Fundamentals</button>
+    <button class="nav-tab" onclick="showPage('circuit',this)">Circuit Lab</button>
+  </div>
+  <div class="header-right">
+    <button class="theme-btn" onclick="toggleTheme()" id="theme-btn" title="Toggle theme">☀</button>
+    <div class="sia-tag">SIA SOFTWARE INNOVATIONS</div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════
+     MAIN BODY
+══════════════════════════════════════════ -->
+<div class="app-body">
+
+<!-- ═══════ PAGE 1: FUNDAMENTALS ═══════ -->
+<div class="page active" id="page-fundamentals">
+  <div style="display:grid;grid-template-columns:250px 1fr 240px;gap:14px;margin-bottom:16px;">
+
+    <!-- Bloch + Q-Sphere -->
+    <div class="card fi">
+      <div class="ct">// BLOCH SPHERE</div>
+      <canvas id="bloch-main" width="210" height="210" style="display:block;"></canvas>
+      <div id="bloch-main-info" style="font-family:var(--font-mono);font-size:10px;color:var(--muted);text-align:center;line-height:2;margin-top:6px;">
+        State: <span id="bm-state" style="color:var(--cyan);">|0⟩</span><br>
+        P(0)=<span id="bm-p0" style="color:var(--cyan);">1.000</span> P(1)=<span id="bm-p1" style="color:var(--violet);">0.000</span>
+      </div>
+      <div class="ct" style="margin-top:12px;">// Q-SPHERE</div>
+      <canvas id="qsph-main" width="210" height="210" style="display:block;"></canvas>
+      <div id="qsph-main-info" style="font-family:var(--font-mono);font-size:10px;color:var(--muted);text-align:center;margin-top:4px;line-height:1.7;"></div>
+    </div>
+
+    <!-- Gate sandbox -->
+    <div class="card fi">
+      <div class="ct">// SINGLE-QUBIT GATE SANDBOX</div>
+      <div class="cbox">
+        <strong>H</strong>=superposition · <strong>X</strong>=flip · <strong>Z</strong>=phase ·
+        <span class="hl">RX/RY/RZ</span>=rotate by θ · <strong>MEAS</strong>=collapse
+      </div>
+      <div class="tb">
+        <button class="gb gH" onclick="q1Gate('H')">H</button>
+        <button class="gb gX" onclick="q1Gate('X')">X</button>
+        <button class="gb gY" onclick="q1Gate('Y')">Y</button>
+        <button class="gb gZ" onclick="q1Gate('Z')">Z</button>
+        <button class="gb gS" onclick="q1Gate('S')">S</button>
+        <button class="gb gT" onclick="q1Gate('T')">T</button>
+        <button class="gb gSdag" onclick="q1Gate('SDAG')">S†</button>
+        <button class="gb gTdag" onclick="q1Gate('TDAG')">T†</button>
+        <div class="tsep"></div>
+        <button class="gb gRX" onclick="q1Rot('RX')">RX</button>
+        <button class="gb gRY" onclick="q1Rot('RY')">RY</button>
+        <button class="gb gRZ" onclick="q1Rot('RZ')">RZ</button>
+        <div class="tsep"></div>
+        <button class="gb gME" onclick="q1Measure()" style="min-width:52px;">MEAS</button>
+        <button class="gb gRS" onclick="q1Reset()">RST</button>
+      </div>
+      <div class="cr">
+        <span class="cl">Angle θ</span>
+        <input type="range" class="slider" id="q1-angle" min="0" max="628" value="157"
+          oninput="angDisp(this.value,'q1-angle-d')">
+        <span class="cv" id="q1-angle-d">π/2</span>
+      </div>
+      <div class="g2" style="margin-top:8px;">
+        <div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:5px;">Probability</div>
+          <div style="display:flex;align-items:flex-end;gap:4px;height:56px;">
+            <div id="qh0" style="flex:1;height:56px;background:var(--cyan);border-radius:2px 2px 0 0;transition:height .3s;"></div>
+            <div id="qh1" style="flex:1;height:0px;background:var(--violet);border-radius:2px 2px 0 0;transition:height .3s;"></div>
+          </div>
+          <div style="display:flex;gap:4px;margin-top:3px;">
+            <div class="hll" style="flex:1;">|0⟩</div>
+            <div class="hll" style="flex:1;">|1⟩</div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:var(--muted);margin-bottom:5px;">State Vector</div>
+          <table class="svt" style="font-size:10px;">
+            <tr><th>State</th><th>Amp</th><th>Prob</th></tr>
+            <tbody id="sv-q1"></tbody>
+          </table>
+          <div id="q1-phase-info" style="margin-top:6px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phase Wheel -->
+    <div class="card fi">
+      <div class="ct">// PHASE WHEEL</div>
+      <canvas id="phase-q1" width="215" height="215" style="display:block;margin:0 auto 12px;"></canvas>
+      <div class="cbox" style="font-size:11px;padding:8px;margin-bottom:0;">
+        Use dock panel <strong>≋</strong> for noise channels · <strong>⊙</strong> for Bloch · <strong>▦</strong> for density matrix
+      </div>
+    </div>
+  </div>
+
+  <div class="sec-hd"><em>//</em> QUANTUM CONCEPTS</div>
+  <div class="g3">
+    <div class="card fi">
+      <div class="ct">// SUPERPOSITION</div>
+      <div class="cbox"><strong>|ψ⟩ = α|0⟩ + β|1⟩</strong> simultaneously.<br><span class="hl">H|0⟩ = (|0⟩+|1⟩)/√2</span></div>
+      <button class="btn pri" onclick="demoS()">Demo: H|0⟩</button>
+      <div id="res-s" class="rbox" style="margin-top:8px;font-size:11px;min-height:32px;"></div>
+    </div>
+    <div class="card fi">
+      <div class="ct">// WAVEFUNCTION COLLAPSE</div>
+      <div class="cbox">Measurement collapses superposition. P(0)=|α|², P(1)=|β|².</div>
+      <button class="btn pri" onclick="demoC()">Demo: |+⟩ → Measure</button>
+      <div id="res-c" class="rbox" style="margin-top:8px;font-size:11px;min-height:32px;"></div>
+    </div>
+    <div class="card fi">
+      <div class="ct">// PHASE INTERFERENCE</div>
+      <div class="cbox">H·Z·H|0⟩ = |1⟩ — phase flip causes <strong>destructive interference</strong>.</div>
+      <button class="btn pri" onclick="demoI()">Demo: H → Z → H</button>
+      <div id="res-i" class="rbox" style="margin-top:8px;font-size:11px;min-height:32px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ PAGE 2: CIRCUIT LAB ═══════ -->
+<div class="page" id="page-circuit">
+
+  <!-- GATE PALETTE — drag-source -->
+  <div class="card fi" style="margin-bottom:14px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
+      <div class="ct" style="margin-bottom:0;">// GATE PALETTE — drag gates onto qubit wires</div>
+      <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+        <span style="font-size:11px;color:var(--muted);">Qubits:</span>
+        <select id="circ-nq" onchange="circChangeQubits()">
+          <option value="1">1</option><option value="2" selected>2</option>
+          <option value="3">3</option><option value="4">4</option>
+          <option value="5">5</option><option value="6">6</option>
+          <option value="7">7</option><option value="8">8</option>
+          <option value="9">9</option><option value="10">10</option>
+        </select>
+        <button class="btn pri" id="run-btn" onclick="runFull()">▶ RUN</button>
+        <button class="btn suc" onclick="circStep()" id="step-btn">STEP</button>
+        <button class="btn" onclick="circUndo()">↩ UNDO</button>
+        <button class="btn danger" onclick="clearCirc()">CLEAR</button>
+        <button class="btn" onclick="togglePanel('panel-dm')" title="Show Density Matrix">▦ DM</button>
+        <button class="btn" onclick="exportPDF()" title="Export circuit report to PDF" style="border-color:var(--gold);color:var(--gold);">⬇ PDF</button>
+      </div>
+    </div>
+
+    <!-- θ for rotation gates + selected gate editor -->
+    <div style="display:flex;gap:12px;align-items:center;margin-bottom:8px;flex-wrap:wrap;">
+      <span style="font-size:11px;color:var(--muted);">Rotation θ:</span>
+      <input type="range" class="slider" id="circ-angle" min="0" max="628" value="157" style="width:140px;"
+        oninput="syncAngleFromSlider()">
+      <input type="number" class="angle-input" id="circ-angle-num" min="0" max="6.28" step="0.01" value="1.57"
+        oninput="syncAngleFromNum()" title="Type angle in radians">
+      <span class="cv" id="circ-angle-d">1.57r</span>
+    </div>
+    <div id="selected-gate-row" style="display:none;background:rgba(251,191,36,.08);border:1px solid rgba(251,191,36,.3);border-radius:6px;padding:8px;margin-bottom:8px;font-family:var(--font-mono);font-size:11px;">
+      <span style="color:var(--gold);">● Selected: </span><span id="selected-gate-info" style="color:var(--text);"></span>
+      <button class="btn warn" style="font-size:10px;padding:3px 10px;margin-left:10px;" onclick="updateSelectedGateAngle()">Update θ</button>
+      <button class="btn" style="font-size:10px;padding:3px 10px;" onclick="deselectGate()">Deselect</button>
+    </div>
+    <!-- ctrl/ctrl2 selects for multi-qubit gates -->
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px;">
+      <span style="font-size:11px;color:var(--muted);">Control Q:</span>
+      <select id="circ-cq"><option value="">None</option></select>
+      <span style="font-size:11px;color:var(--muted);">Ctrl2 Q (CCX):</span>
+      <select id="circ-cq2"><option value="">None</option></select>
+    </div>
+
+    <!-- All gate buttons as drag sources -->
+    <div class="tb">
+      <button class="gb gH" draggable="true" data-gate="H" title="H — Hadamard: superposition">H</button>
+      <button class="gb gX" draggable="true" data-gate="X" title="X — Pauli-X: bit flip">X</button>
+      <button class="gb gY" draggable="true" data-gate="Y" title="Y — Pauli-Y: bit+phase flip">Y</button>
+      <button class="gb gZ" draggable="true" data-gate="Z" title="Z — Pauli-Z: phase flip">Z</button>
+      <button class="gb gS" draggable="true" data-gate="S" title="S — phase π/2">S</button>
+      <button class="gb gT" draggable="true" data-gate="T" title="T — phase π/4">T</button>
+      <button class="gb gSdag" draggable="true" data-gate="SDAG" title="S† — phase -π/2" style="min-width:44px;">S†</button>
+      <button class="gb gTdag" draggable="true" data-gate="TDAG" title="T† — phase -π/4" style="min-width:44px;">T†</button>
+      <div class="tsep"></div>
+      <button class="gb gRX" draggable="true" data-gate="RX" title="RX(θ) — rotate around X">RX</button>
+      <button class="gb gRY" draggable="true" data-gate="RY" title="RY(θ) — rotate around Y">RY</button>
+      <button class="gb gRZ" draggable="true" data-gate="RZ" title="RZ(θ) — rotate around Z">RZ</button>
+      <div class="tsep"></div>
+      <button class="gb gCN" draggable="true" data-gate="CNOT" title="CNOT — needs Control Q" style="min-width:52px;">CNOT</button>
+      <button class="gb gCZ" draggable="true" data-gate="CZ" title="CZ — controlled-Z">CZ</button>
+      <button class="gb gSW" draggable="true" data-gate="SWAP" title="SWAP — needs Control Q" style="min-width:52px;">SWAP</button>
+      <button class="gb gCCX" draggable="true" data-gate="CCX" title="CCX Toffoli — needs Control + Ctrl2">CCX</button>
+      <div class="tsep"></div>
+      <button class="gb gME" draggable="true" data-gate="MEAS" title="Measure" style="min-width:52px;">MEAS</button>
+    </div>
+  </div>
+
+  <!-- CIRCUIT DIAGRAM -->
+  <div class="card fi" style="margin-bottom:14px;">
+    <div class="ct">// CIRCUIT DIAGRAM — drop gates here, click chips to remove</div>
+    <div id="step-track" class="step-track" style="display:none;"></div>
+    <div id="circ-wires"></div>
+  </div>
+
+  <!-- OUTPUT: Histogram + Bloch side by side -->
+  <div style="display:grid;grid-template-columns:1fr 210px;gap:14px;margin-bottom:14px;">
+    <div class="card fi">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+        <div class="ct" style="margin-bottom:0;">// PROBABILITY HISTOGRAM</div>
+        <span id="circ-hist-note" style="font-family:var(--font-mono);font-size:10px;color:var(--muted);"></span>
+      </div>
+      <div id="circ-hist" class="hist-wrap" style="min-height:60px;"></div>
+    </div>
+    <div class="card fi">
+      <div class="ct">// GLOBAL BLOCH — ALL QUBITS</div>
+      <canvas id="bloch-circ" width="185" height="185" style="display:block;margin:0 auto;"></canvas>
+      <div id="bloch-circ-legend" style="display:flex;flex-wrap:wrap;gap:4px;justify-content:center;margin-top:4px;"></div>
+      <div id="bc-info" style="font-family:var(--font-mono);font-size:10px;color:var(--muted);text-align:center;line-height:1.9;margin-top:4px;max-height:80px;overflow-y:auto;"></div>
+    </div>
+  </div>
+
+  <!-- Shot simulator -->
+  <div class="card fi">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <div class="ct" style="margin-bottom:0;">// SHOT SIMULATOR</div>
+      <div style="display:flex;gap:6px;align-items:center;">
+        <span style="font-size:11px;color:var(--muted);">Shots:</span>
+        <select id="shot-count">
+          <option value="10">10</option><option value="50">50</option>
+          <option value="100" selected>100</option><option value="500">500</option><option value="1000">1000</option>
+        </select>
+        <button class="btn pri" onclick="runShots()">▶ SIMULATE</button>
+      </div>
+    </div>
+    <div id="shot-bars" style="display:flex;flex-direction:column;gap:4px;margin-top:4px;"></div>
+    <div id="shot-total" style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-top:6px;"></div>
+  </div>
+
+</div><!-- end circuit page -->
+
+</div><!-- end .app-body -->
+
+<div class="sbar">
+  <div style="margin-left:auto;">SIA SOFTWARE INNOVATIONS PRIVATE LIMITED</div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT ENGINE
+══════════════════════════════════════════ -->
+<script>
+'use strict';
+// ─ COMPLEX MATH ─
+const Cx={
+  add:(a,b)=>[a[0]+b[0],a[1]+b[1]],
+  mul:(a,b)=>[a[0]*b[0]-a[1]*b[1],a[0]*b[1]+a[1]*b[0]],
+  scale:(a,s)=>[a[0]*s,a[1]*s],
+  conj:(a)=>[a[0],-a[1]],
+  abs2:(a)=>a[0]*a[0]+a[1]*a[1],
+  abs:(a)=>Math.sqrt(a[0]*a[0]+a[1]*a[1]),
+  ei:(t)=>[Math.cos(t),Math.sin(t)],
+  phase:(a)=>Math.atan2(a[1],a[0])
+};
+function mMul(A,B,d){const R=new Array(d*d);for(let i=0;i<d;i++)for(let j=0;j<d;j++){let s=[0,0];for(let k=0;k<d;k++)s=Cx.add(s,Cx.mul(A[i*d+k],B[k*d+j]));R[i*d+j]=s;}return R;}
+function mVec(A,v,d){return Array.from({length:d},(_,i)=>v.reduce((s,x,j)=>Cx.add(s,Cx.mul(A[i*d+j],x)),[0,0]));}
+function dag(A,d){const R=new Array(d*d);for(let i=0;i<d;i++)for(let j=0;j<d;j++)R[i*d+j]=Cx.conj(A[j*d+i]);return R;}
+function mAdd(A,B){return A.map((v,i)=>Cx.add(v,B[i]));}
+function mSc(A,s){return A.map(v=>Cx.scale(v,s));}
+function eye(d){const I=new Array(d*d).fill(null).map(()=>[0,0]);for(let i=0;i<d;i++)I[i*d+i]=[1,0];return I;}
+function outer(v,d){const R=new Array(d*d);for(let i=0;i<d;i++)for(let j=0;j<d;j++)R[i*d+j]=Cx.mul(v[i],Cx.conj(v[j]));return R;}
+function trRe(rho,d){let t=0;for(let i=0;i<d;i++)t+=rho[i*d+i][0];return t;}
+function diagR(rho,d){return Array.from({length:d},(_,i)=>Math.max(0,rho[i*d+i][0]));}
+function renorm(rho,d){const t=trRe(rho,d);if(Math.abs(t)<1e-14)return rho;return rho.map(v=>Cx.scale(v,1/t));}
+function applyU(rho,U,d){return renorm(mMul(mMul(U,rho,d),dag(U,d),d),d);}
+function kron(A,dA,B,dB){const d=dA*dB,R=new Array(d*d);
+  for(let i=0;i<dA;i++)for(let k=0;k<dB;k++)for(let j=0;j<dA;j++)for(let l=0;l<dB;l++)
+    R[(i*dB+k)*d+(j*dB+l)]=Cx.mul(A[i*dA+j],B[k*dB+l]);return R;}
+const I2=eye(2);
+
+// ─ GATE MATRICES ─
+const GM={
+  I:eye(2),X:[[0,0],[1,0],[1,0],[0,0]],Y:[[0,0],[0,-1],[0,1],[0,0]],
+  Z:[[1,0],[0,0],[0,0],[-1,0]],
+  H:[[1/Math.SQRT2,0],[1/Math.SQRT2,0],[1/Math.SQRT2,0],[-1/Math.SQRT2,0]],
+  S:[[1,0],[0,0],[0,0],[0,1]],T:[[1,0],[0,0],[0,0],[1/Math.SQRT2,1/Math.SQRT2]],
+  SDAG:[[1,0],[0,0],[0,0],[0,-1]],TDAG:[[1,0],[0,0],[0,0],[1/Math.SQRT2,-1/Math.SQRT2]],
+};
+function rotX(t){const c=Math.cos(t/2),s=Math.sin(t/2);return[[c,0],[0,s],[0,-s],[c,0]];}
+function rotY(t){const c=Math.cos(t/2),s=Math.sin(t/2);return[[c,0],[-s,0],[s,0],[c,0]];}
+function rotZ(t){return[Cx.ei(-t/2),[0,0],[0,0],Cx.ei(t/2)];}
+
+function buildSG(U,q,n){
+  if(n===1)return{mat:U,d:2};
+  let ops=Array.from({length:n},(_,i)=>i===q?U:I2);
+  let res=ops[0],d=2;
+  for(let i=1;i<n;i++){res=kron(res,d,ops[i],2);d*=2;}
+  return{mat:res,d};
+}
+function buildCNOT(ctrl,tgt,n){
+  const d=1<<n,U=eye(d);
+  for(let i=0;i<d;i++){const b=i.toString(2).padStart(n,'0').split('').map(Number);
+    if(b[ctrl]===1){const f=[...b];f[tgt]=1-f[tgt];const j=parseInt(f.join(''),2);
+      U[i*d+i]=[0,0];U[j*d+j]=[0,0];U[i*d+j]=[1,0];U[j*d+i]=[1,0];}}
+  return{mat:U,d};
+}
+function buildCZ(ctrl,tgt,n){
+  const d=1<<n,U=eye(d);
+  for(let i=0;i<d;i++){const b=i.toString(2).padStart(n,'0').split('').map(Number);
+    if(b[ctrl]===1&&b[tgt]===1)U[i*d+i]=[-1,0];}
+  return{mat:U,d};
+}
+function buildSWAP(q1,q2,n){
+  const d=1<<n,U=eye(d);
+  for(let i=0;i<d;i++){const b=i.toString(2).padStart(n,'0').split('').map(Number);
+    if(b[q1]!==b[q2]){const f=[...b];const tmp=f[q1];f[q1]=f[q2];f[q2]=tmp;
+      const j=parseInt(f.join(''),2);
+      U[i*d+i]=[0,0];U[j*d+j]=[0,0];U[i*d+j]=[1,0];U[j*d+i]=[1,0];}}
+  return{mat:U,d};
+}
+function buildCCX(c1,c2,tgt,n){
+  const d=1<<n,U=eye(d);
+  for(let i=0;i<d;i++){const b=i.toString(2).padStart(n,'0').split('').map(Number);
+    if(b[c1]===1&&b[c2]===1){const f=[...b];f[tgt]=1-f[tgt];const j=parseInt(f.join(''),2);
+      U[i*d+i]=[0,0];U[j*d+j]=[0,0];U[i*d+j]=[1,0];U[j*d+i]=[1,0];}}
+  return{mat:U,d};
+}
+function ptrace1(rho,q,n){
+  const d=1<<n;
+  function buildIdx(qv,ev){const bits=[];let eb=ev;
+    for(let ii=n-1;ii>=0;ii--){if(ii===q)bits.unshift(qv);else{bits.unshift(eb&1);eb>>=1;}}
+    return parseInt(bits.join(''),2);}
+  const out=Array(4).fill(null).map(()=>[0,0]);const envD=d>>1;
+  for(let a=0;a<2;a++) for(let b=0;b<2;b++){let s=[0,0];
+    for(let e=0;e<envD;e++) s=Cx.add(s,rho[buildIdx(a,e)*d+buildIdx(b,e)]);out[a*2+b]=s;}
+  return out;
+}
+function ptrace1SV(sv,q,n){
+  const d=1<<n;
+  function buildIdx(qv,ev){const bits=[];let eb=ev;
+    for(let ii=n-1;ii>=0;ii--){if(ii===q)bits.unshift(qv);else{bits.unshift(eb&1);eb>>=1;}}
+    return parseInt(bits.join(''),2);}
+  const out=Array(4).fill(null).map(()=>[0,0]);const envD=d>>1;
+  for(let a=0;a<2;a++) for(let b=0;b<2;b++){let s=[0,0];
+    for(let e=0;e<envD;e++){const ia=buildIdx(a,e),ib=buildIdx(b,e);
+      s=Cx.add(s,Cx.mul(sv[ia],Cx.conj(sv[ib])));} out[a*2+b]=s;}
+  return out;
+}
+function blochVec(rho1){
+  function tr2(B){let s=[0,0];for(let i=0;i<2;i++)for(let k=0;k<2;k++)s=Cx.add(s,Cx.mul(rho1[i*2+k],B[k*2+i]));return s[0];}
+  return{x:tr2([[0,0],[1,0],[1,0],[0,0]]),y:tr2([[0,0],[0,-1],[0,1],[0,0]]),z:tr2([[1,0],[0,0],[0,0],[-1,0]])};
+}
+function purityV(rho,d){let s=0;const r2=mMul(rho,rho,d);for(let i=0;i<d;i++)s+=r2[i*d+i][0];return Math.min(1,Math.max(0,s));}
+function crossChunkGate(rhoA,rhoB,qA,qB,nA,nB,type){
+  const dA=1<<nA,dB=1<<nB,dAB=dA*dB;
+  const rhoAB=new Array(dAB*dAB).fill(null).map(()=>[0,0]);
+  for(let ia=0;ia<dA;ia++)for(let ib=0;ib<dB;ib++)for(let ja=0;ja<dA;ja++)for(let jb=0;jb<dB;jb++)
+    rhoAB[(ia*dB+ib)*dAB+(ja*dB+jb)]=Cx.mul(rhoA[ia*dA+ja],rhoB[ib*dB+jb]);
+  const Ug=type==='CNOT'?buildCNOT(qA,nA+qB,nA+nB):buildCZ(qA,nA+qB,nA+nB);
+  const rhoAB2=applyU(rhoAB,Ug.mat,dAB);
+  const nRhoA=Array(dA*dA).fill(null).map(()=>[0,0]);
+  for(let ia=0;ia<dA;ia++)for(let ja=0;ja<dA;ja++){let s=[0,0];
+    for(let ib=0;ib<dB;ib++)s=Cx.add(s,rhoAB2[(ia*dB+ib)*dAB+(ja*dB+ib)]);nRhoA[ia*dA+ja]=s;}
+  const nRhoB=Array(dB*dB).fill(null).map(()=>[0,0]);
+  for(let ib=0;ib<dB;ib++)for(let jb=0;jb<dB;jb++){let s=[0,0];
+    for(let ia=0;ia<dA;ia++)s=Cx.add(s,rhoAB2[(ia*dB+ib)*dAB+(ia*dB+jb)]);nRhoB[ib*dB+jb]=s;}
+  return{rhoA:renorm(nRhoA,dA),rhoB:renorm(nRhoB,dB)};
+}
+function hyperPropagate(chunks,src,str=0.15){
+  const bvS=blochVec(ptrace1(chunks[src].rho,0,chunks[src].n));
+  const ang=str*(Math.abs(bvS.x)+Math.abs(bvS.y)+Math.abs(bvS.z));
+  if(ang<1e-6)return;
+  [src-1,src+1].forEach(ni=>{if(ni<0||ni>=chunks.length)return;
+    const c=chunks[ni];const d=1<<c.n;const Gp=buildSG(rotY(ang*0.28),0,c.n);
+    c.rho=applyU(c.rho,Gp.mat,d);c.sv=mVec(Gp.mat,c.sv,d);});
+}
+
+// ══ VISUALISERS ══
+function drawBloch(id,sz,vectors,colors){
+  const cv=document.getElementById(id);if(!cv)return;
+  const ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+  ctx.clearRect(0,0,W,H);
+  const cx=W/2,cy=H/2,r=sz*0.43;
+  const g=ctx.createRadialGradient(cx,cy,r*.1,cx,cy,r);
+  g.addColorStop(0,'rgba(0,212,255,0.05)');g.addColorStop(1,'transparent');
+  ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,r,0,6.28);ctx.fill();
+  ctx.strokeStyle='rgba(0,212,255,0.22)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,r,0,6.28);ctx.stroke();
+  for(let z=-2;z<=2;z++){if(!z)continue;const zn=z/3;const rr=r*Math.sqrt(1-zn*zn);const yy=cy-r*zn*.72;
+    ctx.strokeStyle='rgba(0,212,255,0.07)';ctx.lineWidth=.5;ctx.beginPath();ctx.ellipse(cx,yy,rr,rr*.33,0,0,6.28);ctx.stroke();}
+  ctx.strokeStyle='rgba(0,212,255,0.14)';ctx.lineWidth=.8;
+  ctx.beginPath();ctx.ellipse(cx,cy,r,r*.33,0,0,6.28);ctx.stroke();
+  ctx.beginPath();ctx.ellipse(cx,cy,r*.48,r,0,0,6.28);ctx.stroke();
+  function proj(x,y,z){return[cx+r*(x-y*.42),cy-r*(z*.82+y*.27)];}
+  function ax(x,y,z,lbl,col,dash=true){const[px,py]=proj(x,y,z);
+    ctx.save();ctx.strokeStyle=col;ctx.lineWidth=.7;if(dash)ctx.setLineDash([3,3]);
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(px,py);ctx.stroke();ctx.setLineDash([]);
+    ctx.fillStyle=col;ctx.font="9px 'Space Mono'";ctx.fillText(lbl,px+2,py+3);ctx.restore();}
+  ax(1.1,0,0,'|+⟩','rgba(0,212,255,.3)');ax(-1.1,0,0,'|-⟩','rgba(0,212,255,.18)');
+  ax(0,0,1.1,'|0⟩','rgba(255,255,255,.38)',false);ax(0,0,-1.1,'|1⟩','rgba(255,255,255,.22)');
+  ax(0,1.1,0,'|i⟩','rgba(124,58,237,.28)');
+  vectors.forEach((bv,i)=>{
+    const col=colors[i]||'#00d4ff';const[px,py]=proj(bv.x,bv.y,bv.z);
+    const ang=Math.atan2(py-cy,px-cx);const hs=8;
+    ctx.shadowColor=col;ctx.shadowBlur=14;ctx.strokeStyle=col;ctx.lineWidth=2.2;ctx.setLineDash([]);
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(px,py);ctx.stroke();
+    ctx.fillStyle=col;ctx.shadowBlur=18;
+    ctx.beginPath();ctx.moveTo(px,py);
+    ctx.lineTo(px-hs*Math.cos(ang-.38),py-hs*Math.sin(ang-.38));
+    ctx.lineTo(px-hs*Math.cos(ang+.38),py-hs*Math.sin(ang+.38));
+    ctx.closePath();ctx.fill();ctx.shadowBlur=0;
+  });
+  ctx.fillStyle='rgba(255,255,255,.3)';ctx.beginPath();ctx.arc(cx,cy,2.5,0,6.28);ctx.fill();
+}
+
+function phaseToHue(ph){return((ph/(2*Math.PI))*360+360)%360;}
+function hslStr(h,s,l,a){return`hsla(${h.toFixed(0)},${s}%,${l}%,${a})`;}
+
+function drawQSphere(id,sv,n,sz){
+  const cv=document.getElementById(id);if(!cv)return;
+  const ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+  ctx.clearRect(0,0,W,H);
+  const cx=W/2,cy=H/2,r=sz*0.41;
+  const g=ctx.createRadialGradient(cx,cy,r*.1,cx,cy,r);
+  g.addColorStop(0,'rgba(124,58,237,0.07)');g.addColorStop(1,'transparent');
+  ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,r,0,6.28);ctx.fill();
+  ctx.strokeStyle='rgba(124,58,237,0.3)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,r,0,6.28);ctx.stroke();
+  ctx.strokeStyle='rgba(124,58,237,0.12)';ctx.lineWidth=.7;
+  ctx.beginPath();ctx.ellipse(cx,cy,r,r*.3,0,0,6.28);ctx.stroke();
+  ctx.beginPath();ctx.ellipse(cx,cy,r*.45,r,0,0,6.28);ctx.stroke();
+  function proj(th,ph){const x=Math.sin(th)*Math.cos(ph);const y=Math.sin(th)*Math.sin(ph);const z=Math.cos(th);
+    return[cx+r*(x-y*.35),cy-r*(z*.8+y*.25)];}
+  const d=1<<n;
+  const levels=Array.from({length:n+1},()=>[]);
+  for(let i=0;i<d;i++){const k=i.toString(2).split('').filter(b=>b==='1').length;levels[k].push(i);}
+  for(let k=0;k<=n;k++){
+    const theta=k===0?0.05:k===n?Math.PI-0.05:k*Math.PI/n;
+    levels[k].forEach((si,j)=>{
+      const phi=levels[k].length===1?0:(2*Math.PI*j/levels[k].length);
+      const[px,py]=proj(theta,phi);
+      const prob=sv?Cx.abs2(sv[si]):0;if(prob<0.001)return;
+      if(k<n)levels[k+1].forEach((sj,jj)=>{
+        const phi2=levels[k+1].length===1?0:(2*Math.PI*jj/levels[k+1].length);
+        const[px2,py2]=proj((k+1)*Math.PI/n,phi2);
+        const prob2=sv?Cx.abs2(sv[sj]):0;if(prob2<0.001)return;
+        ctx.strokeStyle='rgba(124,58,237,0.1)';ctx.lineWidth=.5;
+        ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(px2,py2);ctx.stroke();});});}
+  const MAX_DOT_R=r*0.085,MIN_DOT_R=3;
+  let qsInfo='';
+  for(let k=0;k<=n;k++){
+    const theta=k===0?0.05:k===n?Math.PI-0.05:k*Math.PI/n;
+    levels[k].forEach((si,j)=>{
+      const phi=levels[k].length===1?0:(2*Math.PI*j/levels[k].length);
+      const[px,py]=proj(theta,phi);
+      const ampV=sv?sv[si]:[0,0];const prob=Cx.abs2(ampV);if(prob<0.0005)return;
+      const hue=phaseToHue(Cx.phase(ampV));
+      const dotR=Math.min(MAX_DOT_R,Math.max(MIN_DOT_R,Math.sqrt(prob)*r*0.52));
+      ctx.shadowColor=hslStr(hue,90,60,1);ctx.shadowBlur=dotR*2;
+      ctx.fillStyle=hslStr(hue,85,55,Math.min(1,prob*4+0.4));
+      ctx.beginPath();ctx.arc(px,py,dotR,0,6.28);ctx.fill();ctx.shadowBlur=0;
+      const lbl=si.toString(2).padStart(n,'0');
+      if(prob>0.01){ctx.fillStyle='rgba(200,220,255,0.7)';ctx.font="8px 'Space Mono'";
+        ctx.fillText(`|${lbl}⟩`,px+dotR+2,py+3);}
+      if(prob>0.02)qsInfo+=`|${lbl}⟩:${(prob*100).toFixed(0)}% `;});}
+  return qsInfo;
+}
+
+function drawPhaseWheel(id,sv,n){
+  const cv=document.getElementById(id);if(!cv)return;
+  const ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
+  ctx.clearRect(0,0,W,H);
+  const cx=W/2,cy=H/2,r=Math.min(W,H)*0.4;
+  for(let deg=0;deg<360;deg++){
+    const a1=deg*Math.PI/180,a2=(deg+1)*Math.PI/180;
+    ctx.strokeStyle=`hsla(${deg},80%,55%,0.4)`;ctx.lineWidth=r*.35;
+    ctx.beginPath();ctx.arc(cx,cy,r*.82,a1,a2);ctx.stroke();}
+  ctx.strokeStyle='rgba(124,58,237,0.3)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,r,0,6.28);ctx.stroke();
+  ctx.fillStyle='rgba(10,15,30,.8)';ctx.beginPath();ctx.arc(cx,cy,r*.55,0,6.28);ctx.fill();
+  ctx.fillStyle='rgba(124,58,237,0.2)';ctx.beginPath();ctx.arc(cx,cy,r*.55,0,6.28);ctx.fill();
+  [['0',1,0],['π/2',0,-1],['π',-1,0],['3π/2',0,1]].forEach(([l,x,y])=>{
+    ctx.fillStyle='rgba(180,200,255,0.5)';ctx.font="8px 'Space Mono'";
+    ctx.fillText(l,cx+x*(r+8)-4,cy+y*(r+8)+3);});
+  if(!sv){ctx.fillStyle='rgba(100,120,180,0.4)';ctx.font="10px 'Space Mono'";ctx.fillText('no state',cx-28,cy+4);return;}
+  const d=1<<n;const colors=['#00d4ff','#7c3aed','#ff9d00','#d946ef','#00ff88','#f43f5e','#fb923c','#22d3ee'];
+  let info='';
+  for(let i=0;i<Math.min(d,8);i++){const a=sv[i];const mag=Cx.abs(a);if(mag<0.02)continue;
+    const ph=Cx.phase(a);const col=colors[i%8];
+    const px=cx+Math.cos(ph)*r*.72*mag*1.4;const py=cy-Math.sin(ph)*r*.72*mag*1.4;
+    ctx.strokeStyle=col;ctx.lineWidth=2;ctx.shadowColor=col;ctx.shadowBlur=8;
+    ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(px,py);ctx.stroke();
+    ctx.fillStyle=col;ctx.beginPath();ctx.arc(px,py,3,0,6.28);ctx.fill();ctx.shadowBlur=0;
+    info+=`|${i.toString(2).padStart(n,'0')}⟩ φ=${(ph*180/Math.PI).toFixed(0)}°\n`;}
+  return info.trim();
+}
+
+// DM — full 2D matrix grid up to n=5 (d=32). For n>5 hide the dock button entirely.
+function renderDM(rho,n,el){
+  const d=1<<n;
+  if(!el)return;
+  if(n>5){
+    el.innerHTML=`<div class="dm-note">n=${n}: d=${d} — too large for DM display</div>`;
+    return;
+  }
+  const note=`<div class="dm-note" style="margin-top:4px;font-size:9px;">n=${n} · ρ (${d}×${d}) · cyan=diagonal · violet=off-diagonal</div>`;
+  if(n>2){
+    const cellSz=n<=3?24:n<=4?18:13;
+    const fSz=Math.max(6,cellSz-16);
+    let h=`<div style="overflow-x:auto;"><div class="dmg">`;
+    for(let i=0;i<d;i++){
+      h+='<div class="dmr">';
+      for(let j=0;j<d;j++){
+        if(!rho){h+=`<div class="dmc" style="width:${cellSz}px;height:${cellSz}px;font-size:${fSz}px;">·</div>`;continue;}
+        const v=Cx.abs(rho[i*d+j]);
+        const re=rho[i*d+j][0],im=rho[i*d+j][1];
+        const a=Math.min(1,v);
+        const bg=i===j?`rgba(0,212,255,${(a*.85).toFixed(2)})`:`rgba(124,58,237,${(a*.6).toFixed(2)})`;
+        const tip=`ρ[${i},${j}]=${re.toFixed(3)}${im>=0?'+':''}${im.toFixed(3)}i`;
+        h+=`<div class="dmc" style="width:${cellSz}px;height:${cellSz}px;font-size:${fSz}px;background:${bg};color:${a>.45?'#000':'rgba(180,210,255,.7)'};border:1px solid ${i===j?'rgba(0,212,255,.35)':'transparent'};" title="${tip}">${v.toFixed(1)}</div>`;
+      }
+      h+='</div>';
+    }
+    el.innerHTML=h+'</div></div>'+note;
+    return;
+  }
+  // Full 2D grid n<=2
+  let h='<div style="overflow-x:auto;"><div class="dmg">';
+  for(let i=0;i<d;i++){h+='<div class="dmr">';
+    for(let j=0;j<d;j++){
+      if(!rho){h+=`<div class="dmc">·</div>`;continue;}
+      const v=Cx.abs(rho[i*d+j]);const re=rho[i*d+j][0],im=rho[i*d+j][1];const a=Math.min(1,v);
+      const bg=i===j?`rgba(0,212,255,${(a*.85).toFixed(2)})`:`rgba(124,58,237,${(a*.65).toFixed(2)})`;
+      h+=`<div class="dmc" style="background:${bg};color:${a>.45?'#000':'rgba(180,210,255,.7)'};border:1px solid ${i===j?'rgba(0,212,255,.4)':'transparent'};" title="ρ[${i},${j}]=${re.toFixed(3)}${im>=0?'+':''}${im.toFixed(3)}i">${v.toFixed(2)}</div>`;
+    }h+='</div>';}
+  el.innerHTML=h+'</div></div>'+note;
+}
+
+// renderHistH — horizontal scrollable bars, shows ALL states
+function renderHistH(probs,states,wid,color){
+  const w=document.getElementById(wid);if(!w)return;
+  if(!probs.length){w.innerHTML='';return;}
+  const maxP=Math.max(...probs,0.001);
+  const COLORS=['#00d4ff','#7c3aed','#ff9d00','#d946ef','#00ff88','#f43f5e','#fb923c','#22d3ee','#a78bfa','#34d399','#fbbf24','#f9a8d4'];
+  let h='';
+  probs.forEach((p,i)=>{
+    const pct=(p*100).toFixed(1);
+    const barW=Math.max(p>.0001?1:0,Math.round(p/maxP*100));
+    const col=color||(COLORS[i%COLORS.length]);
+    if(p<0.0001&&barW===0)return; // skip truly zero
+    h+=`<div class="hist-row"><div class="hist-lbl">|${states[i]}⟩</div><div class="hist-bar-track"><div class="hist-bar-fill" style="width:${barW}%;background:${col};"></div></div><div class="hist-pct">${pct}%</div></div>`;
+  });
+  w.innerHTML=h||'<div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);padding:8px;">All probabilities ~0</div>';
+}
+// renderHist — vertical bars for demos/small n
+function renderHist(probs,states,wid,color){
+  const w=document.getElementById(wid);if(!w)return;
+  let b='<div class="hw">',l='<div class="hlb">';
+  probs.forEach((p,s)=>{
+    const h=Math.max(2,Math.round(p*64));
+    b+=`<div class="hb" style="height:${h}px;background:${p>.01?color:'rgba(255,255,255,.06)'};" title="${states[s]}:${(p*100).toFixed(1)}%"></div>`;
+    l+=`<div class="hll">${states[s]}</div>`;});
+  w.innerHTML=b+'</div>'+l+'</div>';
+}
+
+// Global last-known state — always reflects whatever ran last (circuit or fundamentals)
+let lastRho=null,lastSV=null,lastN=1;
+function setLastState(rho,sv,n){lastRho=rho;lastSV=sv;lastN=n;}
+
+// Update floating panels
+function updateFloating(rho,sv,n){
+  setLastState(rho,sv,n);
+  const d=1<<n;
+  const rho1=n>=5?(sv?ptrace1SV(sv,0,n):null):ptrace1(rho,0,n);
+  const bv=rho1?blochVec(rho1):{x:0,y:0,z:1};
+  drawBloch('fp-bloch',200,[bv],['#00d4ff']);
+  const fi=document.getElementById('fp-bloch-info');
+  if(fi)fi.textContent=`(${bv.x.toFixed(3)}, ${bv.y.toFixed(3)}, ${bv.z.toFixed(3)})`;
+  if(n<=8){const qi=drawQSphere('fp-qsphere',sv,n,200);
+    const fq=document.getElementById('fp-qsphere-info');if(fq)fq.textContent=qi||'';}
+  drawPhaseWheel('fp-phase',sv,n);
+  // DM — proper matrix
+  const dm_el=document.getElementById('fp-dm');
+  if(dm_el)renderDM(rho,n,dm_el);
+  // SV table
+  updateSVTable('fp-sv-body',sv,n,d);
+  // Hide DM dock button for n>5 (DM too large to be useful)
+  const dmBtn=document.getElementById('dock-dm');
+  if(dmBtn){dmBtn.style.display=n>5?'none':'flex';}
+  // If DM panel open and n>5, close it
+  if(n>5){const dp=document.getElementById('panel-dm');if(dp&&dp.classList.contains('visible')){dp.classList.remove('visible');if(dmBtn)dmBtn.classList.remove('active');}}
+  document.getElementById('sb-q').textContent=n;
+  let st='|ψ⟩';
+  if(sv){const p0=Cx.abs2(sv[0]);if(p0>0.999)st='|0…0⟩';else if(p0<0.001&&Cx.abs2(sv[d-1])>0.999)st='|1…1⟩';}
+  document.getElementById('sb-st').textContent=st;
+}
+function updateSVTable(tbodyId,sv,n,d){
+  const svb=document.getElementById(tbodyId);if(!svb)return;
+  svb.innerHTML='';
+  if(!sv){svb.innerHTML='<tr><td colspan="4" style="color:var(--muted);text-align:center;">Mixed state</td></tr>';return;}
+  const entries=[];
+  for(let i=0;i<d;i++){const pr=Cx.abs2(sv[i]);if(pr<0.0005)continue;entries.push({i,pr,a:sv[i]});}
+  entries.sort((a,b)=>b.pr-a.pr);
+  entries.slice(0,32).forEach(({i,pr,a})=>{
+    const ph=Cx.phase(a)*180/Math.PI;
+    svb.innerHTML+=`<tr><td class="tds">|${i.toString(2).padStart(n,'0')}⟩</td><td class="tda">${a[0].toFixed(3)}${a[1]>=0?'+':''}${a[1].toFixed(3)}i</td><td class="tda">${ph.toFixed(0)}°</td><td class="tdp">${(pr*100).toFixed(1)}%</td></tr>`;});
+}
+
+// ══ PAGE 1 ── FUNDAMENTALS ══
+let Q1rho=[[1,0],[0,0],[0,0],[0,0]];let Q1sv=[[1,0],[0,0]];let totalG=0;
+function angDisp(v,id){const r=v/100;let l=r.toFixed(2)+'r';
+  if(Math.abs(r-Math.PI/4)<.03)l='π/4';else if(Math.abs(r-Math.PI/2)<.03)l='π/2';
+  else if(Math.abs(r-Math.PI)<.03)l='π';else if(Math.abs(r-3*Math.PI/4)<.03)l='3π/4';
+  document.getElementById(id).textContent=l;}
+function q1Gate(nm){const U=GM[nm];Q1rho=applyU(Q1rho,U,2);Q1sv=mVec(U,Q1sv,2);totalG++;updQ1();}
+function q1Rot(ax){const t=parseFloat(document.getElementById('q1-angle').value)/100;
+  const U=ax==='RX'?rotX(t):ax==='RY'?rotY(t):rotZ(t);
+  Q1rho=applyU(Q1rho,U,2);Q1sv=mVec(U,Q1sv,2);totalG++;updQ1();}
+function q1Measure(){const p0=Math.max(0,Math.min(1,Q1rho[0][0]));const out=Math.random()<p0?0:1;
+  if(out===0){Q1rho=[[1,0],[0,0],[0,0],[0,0]];Q1sv=[[1,0],[0,0]];}
+  else{Q1rho=[[0,0],[0,0],[0,0],[1,0]];Q1sv=[[0,0],[1,0]];}
+  totalG++;updQ1();}
+function q1Reset(){Q1rho=[[1,0],[0,0],[0,0],[0,0]];Q1sv=[[1,0],[0,0]];updQ1();}
+function q1Noise(type){applyNoise(type);}// legacy alias
+function applyNoise(type){
+  const p=parseFloat(document.getElementById('noise-p').value)/100;
+  const target=document.getElementById('noise-target').value;
+  if(target==='q1'){
+    // Apply to fundamentals single qubit
+    const sp=Math.sqrt(Math.max(0,p)),sm=Math.sqrt(Math.max(0,1-p));
+    const r=Q1rho;
+    const applyK=Ks=>renorm(Ks.reduce((acc,K)=>mAdd(acc,applyU(r,K,2)),Array(4).fill(null).map(()=>[0,0])),2);
+    if(type==='bf')Q1rho=applyK([mSc(eye(2),sm),mSc(GM.X,sp)]);
+    else if(type==='pf')Q1rho=applyK([mSc(eye(2),sm),mSc(GM.Z,sp)]);
+    else if(type==='dp'){const s=Math.max(0,p/4);
+      Q1rho=applyK([mSc(eye(2),Math.sqrt(Math.max(0,1-3*s))),mSc(GM.X,Math.sqrt(s)),mSc(GM.Y,Math.sqrt(s)),mSc(GM.Z,Math.sqrt(s))]);}
+    else if(type==='ad'){const K0=[[1,0],[0,0],[0,0],[sm,0]];const K1=[[0,0],[sp,0],[0,0],[0,0]];
+      Q1rho=applyK([K0,K1]);}
+    Q1sv=null;totalG++;updQ1();
+  } else {
+    // Apply noise to circuit qubit
+    const qIdx=target==='all'?-1:parseInt(target.replace('q',''));
+    applyNoiseToCircuit(type,p,qIdx);
+  }
+}
+function applyNoiseToCircuit(type,p,qIdx){
+  // Run circuit to get current state then apply noise channel(s)
+  const n=cN,d=1<<n;
+  let sv=Array(d).fill(null).map(()=>[0,0]);sv[0]=[1,0];
+  let rho=outer(sv,d);
+  const ops=cStep>=0?cOps.slice(0,cStep+1):cOps;
+  ops.forEach(op=>{
+    if(op.type==='meas')return;
+    let U;
+    if(op.type==='single')U=buildSG(GM[op.gate],op.target,n).mat;
+    else if(op.type==='rot'){const Gm=op.gate==='RX'?rotX(op.theta):op.gate==='RY'?rotY(op.theta):rotZ(op.theta);U=buildSG(Gm,op.target,n).mat;}
+    else if(op.gate==='CNOT')U=buildCNOT(op.control,op.target,n).mat;
+    else if(op.gate==='CZ')U=buildCZ(op.control,op.target,n).mat;
+    else if(op.gate==='SWAP')U=buildSWAP(op.control,op.target,n).mat;
+    else if(op.gate==='CCX')U=buildCCX(op.control,op.control2,op.target,n).mat;
+    if(U){sv=mVec(U,sv,d);rho=applyU(rho,U,d);}
+  });
+  // Apply single-qubit noise channel on target qubit(s) via Kraus operators
+  const sp=Math.sqrt(Math.max(0,p)),sm=Math.sqrt(Math.max(0,1-p));
+  function noiseKraus(t){
+    let Ks=[];
+    if(type==='bf')Ks=[mSc(eye(2),sm),mSc(GM.X,sp)];
+    else if(type==='pf')Ks=[mSc(eye(2),sm),mSc(GM.Z,sp)];
+    else if(type==='dp'){const s=Math.max(0,p/4);Ks=[mSc(eye(2),Math.sqrt(Math.max(0,1-3*s))),mSc(GM.X,Math.sqrt(s)),mSc(GM.Y,Math.sqrt(s)),mSc(GM.Z,Math.sqrt(s))];}
+    else if(type==='ad'){Ks=[[[1,0],[0,0],[0,0],[sm,0]],[[0,0],[sp,0],[0,0],[0,0]]];}
+    // Kraus sum: ρ' = Σ_k K_k ρ K_k†
+    const newRho=Array(d*d).fill(null).map(()=>[0,0]);
+    Ks.forEach(K=>{
+      const KN=buildSG(K,t,n).mat;
+      const term=mMul(mMul(KN,rho,d),dag(KN,d),d);
+      for(let i=0;i<d*d;i++)newRho[i]=Cx.add(newRho[i],term[i]);
+    });
+    rho=renorm(newRho,d);
+  }
+  const targets=qIdx<0?Array.from({length:n},(_,i)=>i):[qIdx];
+  targets.forEach(t=>noiseKraus(t));
+  // Rebuild SV from diagonal (approximate — noise destroys coherence)
+  sv=null; // mixed state after noise
+  const probs=diagR(rho,d);
+  const states=Array.from({length:d},(_,i)=>i.toString(2).padStart(n,'0'));
+  renderHistH(probs,states,'circ-hist','#00d4ff');
+  const rho1=n>=5?{x:0,y:0,z:probs[0]-probs[1]}:blochVec(ptrace1(rho,0,n));
+  const bv=typeof rho1.x!=='undefined'?rho1:blochVec(ptrace1(rho,0,n));
+  drawBloch('bloch-circ',185,[bv],['#00d4ff']);
+  document.getElementById('bc-info').textContent=`(${bv.x.toFixed(3)}, ${bv.y.toFixed(3)}, ${bv.z.toFixed(3)})`;
+  updateFloating(rho,sv,n);
+}
+function updateNoiseTargetSelect(){
+  const sel=document.getElementById('noise-target');if(!sel)return;
+  sel.innerHTML='<option value="q1">Fundamentals Q</option><option value="all">Circuit — All Qubits</option>';
+  for(let i=0;i<cN;i++)sel.innerHTML+=`<option value="q${i}">Circuit — Q${i}</option>`;
+}
+function updQ1(){
+  const p0=Math.max(0,Math.min(1,Q1rho[0][0])),p1=1-p0;
+  document.getElementById('qh0').style.height=Math.max(2,Math.round(p0*56))+'px';
+  document.getElementById('qh1').style.height=Math.max(1,Math.round(p1*56))+'px';
+  const bv=blochVec(Q1rho);
+  document.getElementById('bm-p0').textContent=p0.toFixed(3);
+  document.getElementById('bm-p1').textContent=p1.toFixed(3);
+  let st='|ψ⟩';if(p0>0.999)st='|0⟩';else if(p1>0.999)st='|1⟩';
+  else if(Math.abs(p0-.5)<.02&&bv.x>.9)st='|+⟩';else if(Math.abs(p0-.5)<.02&&bv.x<-.9)st='|-⟩';
+  document.getElementById('bm-state').textContent=st;
+  const amps=Q1sv||[[Math.sqrt(p0),0],[Math.sqrt(p1),0]];
+  document.getElementById('sv-q1').innerHTML=['|0⟩','|1⟩'].map((s,i)=>{
+    const a=amps[i];const pr=Cx.abs2(a);
+    return`<tr><td class="tds">${s}</td><td class="tda">${a[0].toFixed(3)}${a[1]>=0?'+':''}${a[1].toFixed(3)}i</td><td class="tdp">${(pr*100).toFixed(1)}%</td></tr>`;}).join('');
+  if(Q1sv){
+    document.getElementById('q1-phase-info').innerHTML=Q1sv.map((a,i)=>{
+      const ph=(Cx.phase(a)*180/Math.PI).toFixed(0);const pr=Cx.abs2(a);if(pr<0.001)return'';
+      const hue=phaseToHue(Cx.phase(a));
+      return`<div class="phase-amp-row"><div class="phase-swatch" style="background:hsl(${hue},80%,55%)"></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--muted);">|${i}⟩</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text);"> ${ph}° (${(pr*100).toFixed(0)}%)</span></div>`;
+    }).join('');}
+  drawBloch('bloch-main',210,[bv],['#00d4ff']);
+  drawQSphere('qsph-main',Q1sv,1,210);
+  drawPhaseWheel('phase-q1',Q1sv,1);
+  updateFloating(Q1rho,Q1sv,1);
+  document.getElementById('sb-g').textContent=totalG;
+}
+function demoS(){q1Reset();q1Gate('H');const p=Q1rho[0][0];document.getElementById('res-s').textContent=`H|0⟩=(|0⟩+|1⟩)/√2\nP(0)=${p.toFixed(3)} P(1)=${(1-p).toFixed(3)}\n→ Bloch +X axis`;}
+function demoC(){q1Reset();q1Gate('H');const b=Q1rho[0][0];q1Measure();const r=Q1rho[0][0]>0.9?0:1;document.getElementById('res-c').textContent=`|+⟩: P(0)=${b.toFixed(3)} P(1)=${(1-b).toFixed(3)}\nMeasured: |${r}⟩ → Collapsed.`;}
+function demoI(){q1Reset();q1Gate('H');q1Gate('Z');q1Gate('H');document.getElementById('res-i').textContent=`H→Z→H|0⟩=|1⟩\nP(1)=${Q1rho[3][0].toFixed(3)} — destructive interference`;}
+
+// ══ PAGE 2 ── CIRCUIT LAB with DRAG-AND-DROP ══
+let cOps=[],cN=2,cStep=-1;
+let dragGate=null; // gate name being dragged
+let selectedGateIdx=-1; // index of gate selected for angle editing
+
+// ─ ANGLE SYNC: slider ↔ number input ─
+function syncAngleFromSlider(){
+  const v=parseFloat(document.getElementById('circ-angle').value)/100;
+  document.getElementById('circ-angle-num').value=v.toFixed(2);
+  document.getElementById('circ-angle-d').textContent=v.toFixed(2)+'r';
+}
+function syncAngleFromNum(){
+  const raw=parseFloat(document.getElementById('circ-angle-num').value);
+  if(isNaN(raw))return;
+  const clamped=Math.max(0,Math.min(6.28,raw));
+  document.getElementById('circ-angle').value=Math.round(clamped*100);
+  document.getElementById('circ-angle-d').textContent=clamped.toFixed(2)+'r';
+}
+function getCircAngle(){return parseFloat(document.getElementById('circ-angle').value)/100;}
+
+// ─ SELECTED GATE EDITING ─
+function selectGate(idx){
+  selectedGateIdx=idx;
+  const op=cOps[idx];
+  const lbl=op.type==='rot'?`${op.gate}(${op.theta.toFixed(3)}r) on Q${op.target}`:`${op.gate} on Q${op.target} (not a rotation gate)`;
+  document.getElementById('selected-gate-info').textContent=lbl;
+  document.getElementById('selected-gate-row').style.display='block';
+  if(op.type==='rot'){
+    document.getElementById('circ-angle').value=Math.round(op.theta*100);
+    document.getElementById('circ-angle-num').value=op.theta.toFixed(3);
+    document.getElementById('circ-angle-d').textContent=op.theta.toFixed(2)+'r';
+  }
+  renderWires();
+}
+function deselectGate(){
+  selectedGateIdx=-1;
+  document.getElementById('selected-gate-row').style.display='none';
+  renderWires();
+}
+function updateSelectedGateAngle(){
+  if(selectedGateIdx<0||selectedGateIdx>=cOps.length)return;
+  const op=cOps[selectedGateIdx];
+  if(op.type!=='rot'){alert('Only rotation gates (RX/RY/RZ) have an adjustable angle.');return;}
+  const newTheta=getCircAngle();
+  cOps[selectedGateIdx].theta=newTheta;
+  document.getElementById('selected-gate-info').textContent=`${op.gate}(${newTheta.toFixed(3)}r) on Q${op.target}`;
+  renderWires();runCirc(false);
+}
+
+function initCirc(){
+  cN=parseInt(document.getElementById('circ-nq').value);
+  rebuildQSelects();
+}
+function rebuildQSelects(){
+  const cq=document.getElementById('circ-cq');const cq2=document.getElementById('circ-cq2');
+  cq.innerHTML='<option value="">None</option>';cq2.innerHTML='<option value="">None</option>';
+  for(let i=0;i<cN;i++){cq.innerHTML+=`<option value="${i}">Q${i}</option>`;cq2.innerHTML+=`<option value="${i}">Q${i}</option>`;}
+}
+function circChangeQubits(){
+  const newN=parseInt(document.getElementById('circ-nq').value);
+  cOps=cOps.filter(op=>{
+    if(op.target>=newN)return false;
+    if(op.control!==null&&op.control!==undefined&&op.control>=newN)return false;
+    if(op.control2!==null&&op.control2!==undefined&&op.control2>=newN)return false;
+    return true;});
+  cN=newN;rebuildQSelects();cStep=-1;renderWires();runCirc(false);updateNoiseTargetSelect();
+}
+
+// ─ DRAG-AND-DROP ─
+function initDragDrop(){
+  // Drag start on gate palette buttons
+  document.querySelectorAll('[data-gate]').forEach(btn=>{
+    btn.addEventListener('dragstart',e=>{
+      dragGate=btn.getAttribute('data-gate');
+      btn.classList.add('dragging-src');
+      // ghost
+      const ghost=document.getElementById('drag-ghost');
+      ghost.textContent=dragGate;ghost.style.color=getComputedStyle(btn).color;
+      ghost.style.borderColor=getComputedStyle(btn).color;
+      ghost.style.display='block';
+      e.dataTransfer.effectAllowed='copy';
+      e.dataTransfer.setDragImage(document.createElement('div'),0,0);
+    });
+    btn.addEventListener('dragend',e=>{
+      btn.classList.remove('dragging-src');
+      document.getElementById('drag-ghost').style.display='none';
+      dragGate=null;
+    });
+  });
+  document.addEventListener('dragover',e=>{
+    const ghost=document.getElementById('drag-ghost');
+    if(ghost.style.display!=='none'){ghost.style.left=(e.clientX+12)+'px';ghost.style.top=(e.clientY-16)+'px';}
+  });
+}
+
+function setupWireDropZones(){
+  document.querySelectorAll('.wire-line').forEach(line=>{
+    line.addEventListener('dragenter',e=>{e.preventDefault();line.classList.add('drag-over');});
+    line.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='copy';});
+    line.addEventListener('dragleave',e=>{line.classList.remove('drag-over');});
+    line.addEventListener('drop',e=>{
+      e.preventDefault();line.classList.remove('drag-over');
+      if(!dragGate)return;
+      const q=parseInt(line.getAttribute('data-q'));
+      addGateToQ(dragGate,q);
+    });
+  });
+}
+
+function addGateToQ(gateName,targetQ){
+  const cv=document.getElementById('circ-cq').value;
+  const cv2=document.getElementById('circ-cq2').value;
+  const c=cv===''?null:parseInt(cv);
+  const c2=cv2===''?null:parseInt(cv2);
+  const theta=getCircAngle();
+  const isRot=['RX','RY','RZ'].includes(gateName);
+  const isTwo=['CNOT','CZ','SWAP'].includes(gateName);
+  const isThree=gateName==='CCX';
+  if((isTwo)&&c===null){alert(`${gateName} needs a control qubit. Set "Control Q" above.`);return;}
+  if(isThree&&(c===null||c2===null)){alert('CCX needs Control Q and Ctrl2 Q set above.');return;}
+  if(c!==null&&c===targetQ){alert('Control qubit must differ from target.');return;}
+  if(isThree&&(c===targetQ||c2===targetQ||c===c2)){alert('CCX: ctrl, ctrl2, target must all differ.');return;}
+  const type=isThree?'three':isTwo?'two':gateName==='MEAS'?'meas':isRot?'rot':'single';
+  cOps.push({type,gate:gateName,target:targetQ,control:c,control2:c2,theta:isRot?theta:null});
+  cStep=-1;renderWires();runCirc(false);
+}
+
+function clearCirc(){cOps=[];cStep=-1;document.getElementById('step-track').style.display='none';renderWires();runCirc(false);}
+function circUndo(){if(cOps.length){cOps.pop();cStep=-1;renderWires();runCirc(false);}}
+function runFull(){
+  cStep=-1;document.getElementById('step-track').style.display='none';
+  renderWires();runCirc(true);
+}
+function circStep(){
+  if(!cOps.length){alert('Add gates first');return;}
+  if(cStep<cOps.length-1)cStep++;else cStep=0;
+  renderWires();runCirc(false);
+  const st=document.getElementById('step-track');st.style.display='flex';
+  st.innerHTML=cOps.map((op,i)=>{
+    const lbl=op.type==='meas'?'M':op.type==='rot'?`${op.gate}(${op.theta.toFixed(1)})`:op.gate;
+    const cls=i<cStep?'done':i===cStep?'current':'';
+    return`<div class="step-pill ${cls}">${lbl} Q${op.target}</div>`;}).join('');
+}
+
+// Gate colour map (for chips on wires)
+const GATE_COLORS={H:'var(--gH)',X:'var(--gX)',Y:'var(--gY)',Z:'var(--gZ)',S:'var(--gS)',T:'var(--gT)',SDAG:'var(--gSdag)',TDAG:'var(--gTdag)',RX:'var(--gRX)',RY:'var(--gRY)',RZ:'var(--gRZ)',CNOT:'var(--gCN)',CZ:'var(--gCZ)',SWAP:'var(--gSW)',CCX:'var(--gCCX)',MEAS:'var(--gME)'};
+const QUBIT_COLS=['#00d4ff','#7c3aed','#ff9d00','#d946ef','#00ff88','#22d3ee','#fb923c','#f43f5e','#a78bfa','#34d399'];
+
+function renderWires(){
+  const el=document.getElementById('circ-wires');el.innerHTML='';
+  const ops=cStep>=0?cOps.slice(0,cStep+1):cOps;
+  for(let q=0;q<cN;q++){
+    const qcol=QUBIT_COLS[q%10];
+    const row=document.createElement('div');row.className='wire-row';
+    const lbl=document.createElement('div');
+    lbl.className='wire-label';lbl.style.color=qcol;lbl.textContent=`Q${q}`;
+    // Drop zone line
+    const line=document.createElement('div');line.className='wire-line';
+    line.setAttribute('data-q',q);
+    // Horizontal wire line behind chips
+    const wireLine=document.createElement('div');
+    wireLine.style.cssText=`position:absolute;top:50%;left:0;right:0;height:2px;background:${qcol}33;pointer-events:none;`;
+    line.appendChild(wireLine);
+    // Gate chips
+    ops.forEach((op,idx)=>{
+      const involved=op.target===q||op.control===q||op.control2===q;
+      if(!involved)return;
+      const gc=document.createElement('div');gc.className='gate-chip';
+      const gcol=GATE_COLORS[op.gate]||qcol;
+      gc.style.borderColor=gcol;gc.style.color=gcol;
+      if(cStep>=0&&idx===cStep)gc.classList.add('step-active');
+      if(op.target===q){
+        if(op.type==='meas')gc.textContent='M';
+        else if(op.type==='rot')gc.textContent=`${op.gate}(${op.theta.toFixed(1)})`;
+        else if(op.gate==='CNOT')gc.textContent='⊕';
+        else if(op.gate==='CZ')gc.textContent='Cz';
+        else if(op.gate==='SWAP')gc.textContent='×';
+        else if(op.gate==='CCX')gc.textContent='⊕';
+        else gc.textContent=op.gate;
+      } else if(op.control2===q){
+        gc.classList.add('ctrl-dot');gc.textContent='●₂';gc.style.color=gcol;
+      } else {
+        gc.classList.add('ctrl-dot');gc.textContent='●';gc.style.color=gcol;
+      }
+      gc.title=op.type==='rot'?`${op.gate}(${op.theta.toFixed(2)}) — click to remove, dblclick to edit angle`:`${op.gate} — click to remove`;
+      if(selectedGateIdx===idx)gc.classList.add('selected');
+      gc.onclick=(()=>{const ii=idx;return()=>{cOps.splice(ii,1);if(selectedGateIdx===ii)deselectGate();else{selectedGateIdx=-1;document.getElementById('selected-gate-row').style.display='none';}cStep=-1;renderWires();runCirc(false);}})();
+      if(op.type==='rot'){gc.ondblclick=(e=>{e.stopPropagation();selectGate(idx);});}
+      line.appendChild(gc);
+    });
+    const end=document.createElement('div');end.className='wire-end';end.textContent='[M]';
+    row.appendChild(lbl);row.appendChild(line);row.appendChild(end);
+    el.appendChild(row);
+  }
+  setupWireDropZones();
+}
+
+function runCirc(flash=false){
+  const n=cN,d=1<<n;
+  let sv=Array(d).fill(null).map(()=>[0,0]);sv[0]=[1,0];
+  let rho=n<5?outer(sv,d):null;
+  const ops=cStep>=0?cOps.slice(0,cStep+1):cOps;
+  ops.forEach(op=>{
+    if(op.type==='meas')return;
+    let U;
+    if(op.type==='single')U=buildSG(GM[op.gate],op.target,n).mat;
+    else if(op.type==='rot'){const Gm=op.gate==='RX'?rotX(op.theta):op.gate==='RY'?rotY(op.theta):rotZ(op.theta);U=buildSG(Gm,op.target,n).mat;}
+    else if(op.gate==='CNOT')U=buildCNOT(op.control,op.target,n).mat;
+    else if(op.gate==='CZ')U=buildCZ(op.control,op.target,n).mat;
+    else if(op.gate==='SWAP')U=buildSWAP(op.control,op.target,n).mat;
+    else if(op.gate==='CCX')U=buildCCX(op.control,op.control2,op.target,n).mat;
+    if(U){sv=mVec(U,sv,d);if(rho)rho=applyU(rho,U,d);}
+  });
+  const probs=Array.from({length:d},(_,i)=>Cx.abs2(sv[i]));
+  const states=Array.from({length:d},(_,i)=>i.toString(2).padStart(n,'0'));
+  renderHistH(probs,states,'circ-hist','#00d4ff');
+  const hn=document.getElementById('circ-hist-note');if(hn)hn.textContent=`${d} states · n=${n}`;
+
+  // Global Bloch: compute reduced Bloch vector for each qubit
+  const fullRho=rho||outer(sv,d);
+  const bvAll=[],colAll=[];
+  const QCOLS=['#00d4ff','#7c3aed','#ff9d00','#d946ef','#00ff88','#22d3ee','#fb923c','#f43f5e','#a78bfa','#34d399'];
+  const maxBlochQ=Math.min(n,5); // show up to 5 qubit vectors for readability
+  for(let q=0;q<maxBlochQ;q++){
+    const rho1q=n>=5?ptrace1SV(sv,q,n):ptrace1(fullRho,q,n);
+    bvAll.push(blochVec(rho1q));
+    colAll.push(QCOLS[q%10]);
+  }
+  drawBloch('bloch-circ',185,bvAll,colAll);
+
+  // Legend
+  const legendEl=document.getElementById('bloch-circ-legend');
+  if(legendEl){
+    legendEl.innerHTML=bvAll.map((_,q)=>`<span style="font-family:var(--font-mono);font-size:9px;color:${QCOLS[q%10]};display:flex;align-items:center;gap:2px;"><span style="width:7px;height:7px;background:${QCOLS[q%10]};border-radius:50%;display:inline-block;"></span>Q${q}</span>`).join('');
+    if(n>5)legendEl.innerHTML+='<span style="font-family:var(--font-mono);font-size:9px;color:var(--muted);">(Q0–Q4 shown)</span>';
+  }
+  // Info: xyz for Q0
+  const bv0=bvAll[0]||{x:0,y:0,z:1};
+  const infoEl=document.getElementById('bc-info');
+  if(infoEl){
+    infoEl.innerHTML=bvAll.map((bv,q)=>`<span style="color:${QCOLS[q%10]};">Q${q}:(${bv.x.toFixed(2)},${bv.y.toFixed(2)},${bv.z.toFixed(2)})</span>`).join('<br>');
+  }
+
+  updateFloating(fullRho,sv,n);
+  if(flash){const rb=document.getElementById('run-btn');rb.classList.remove('btn-flash');void rb.offsetWidth;rb.classList.add('btn-flash');setTimeout(()=>rb.classList.remove('btn-flash'),400);}
+  document.getElementById('sb-g').textContent=ops.length;
+}
+
+function runShots(){
+  const shots=parseInt(document.getElementById('shot-count').value);
+  const n=cN,d=1<<n;
+  let sv=Array(d).fill(null).map(()=>[0,0]);sv[0]=[1,0];
+  const ops=cStep>=0?cOps.slice(0,cStep+1):cOps;
+  ops.forEach(op=>{if(op.type==='meas')return;let U;
+    if(op.type==='single')U=buildSG(GM[op.gate],op.target,n).mat;
+    else if(op.type==='rot'){const Gm=op.gate==='RX'?rotX(op.theta):op.gate==='RY'?rotY(op.theta):rotZ(op.theta);U=buildSG(Gm,op.target,n).mat;}
+    else if(op.gate==='CNOT')U=buildCNOT(op.control,op.target,n).mat;
+    else if(op.gate==='CZ')U=buildCZ(op.control,op.target,n).mat;
+    else if(op.gate==='SWAP')U=buildSWAP(op.control,op.target,n).mat;
+    else if(op.gate==='CCX')U=buildCCX(op.control,op.control2,op.target,n).mat;
+    if(U)sv=mVec(U,sv,d);});
+  const probs=Array.from({length:d},(_,i)=>Cx.abs2(sv[i]));
+  const counts=new Array(d).fill(0);
+  for(let s=0;s<shots;s++){let r=Math.random(),cum=0;for(let i=0;i<d;i++){cum+=probs[i];if(r<cum){counts[i]++;break;}}}
+  const entries=counts.map((c,i)=>({c,i})).filter(e=>e.c>0);entries.sort((a,b)=>b.c-a.c);
+  const COLS=['#00d4ff','#7c3aed','#ff9d00','#d946ef','#00ff88','#f43f5e','#fb923c','#a78bfa'];
+  const barsEl=document.getElementById('shot-bars');barsEl.innerHTML='';
+  entries.slice(0,16).forEach(({c,i})=>{const pct=(c/shots*100).toFixed(1);const col=COLS[i%8];
+    const lbl=i.toString(2).padStart(n,'0');
+    barsEl.innerHTML+=`<div class="shot-row"><div class="shot-label">|${lbl}⟩</div><div class="shot-track"><div class="shot-fill" style="width:${c/shots*100}%;background:${col};"></div></div><div class="shot-pct">${c}(${pct}%)</div></div>`;});
+  document.getElementById('shot-total').textContent=`${shots} shots · ${entries.length} distinct outcomes`;
+}
+
+// ══ vQRAM ══
+const CCOLS=['#00d4ff','#7c3aed','#ff9d00','#d946ef','#00ff88'];
+const CCOLS_RGB=['0,212,255','124,58,237','255,157,0','217,70,239','0,255,136'];
+let VQ=[],VQ_NC=3,VQ_QPC=2;let wavePhase=0,waveAnimId=null;let xgLog=[];
+function initVQ(){
+  VQ_NC=parseInt(document.getElementById('vq-nc').value);
+  VQ_QPC=parseInt(document.getElementById('vq-qpc').value);
+  VQ=Array.from({length:VQ_NC},()=>{const d=1<<VQ_QPC;const sv=Array(d).fill(null).map(()=>[0,0]);sv[0]=[1,0];return{rho:outer(sv,d),sv:[...sv],n:VQ_QPC,ops:[]};});
+  ['vq-tc','xg-cc','xg-tc'].forEach(id=>{const el=document.getElementById(id);if(!el)return;
+    el.innerHTML=id==='vq-tc'?'<option value="all">All</option>':'';
+    for(let i=0;i<VQ_NC;i++)el.innerHTML+=`<option value="${i}">C${i}</option>`;});
+  ['vq-tq','xg-cq','xg-tq'].forEach(id=>{const el=document.getElementById(id);if(!el)return;el.innerHTML='';
+    for(let i=0;i<VQ_QPC;i++)el.innerHTML+=`<option value="${i}">Q${i}</option>`;});
+  const nR=Math.max(1,VQ_NC-1),nA=Math.max(1,Math.floor(VQ_NC/2)),nM=VQ_NC;
+  document.getElementById('vq-hq-badges').innerHTML=
+    `<span class="hqb hqr"><span class="hqd"></span>${nR} Router</span>
+     <span class="hqb hqa"><span class="hqd"></span>${nA} Accel</span>
+     <span class="hqb hqm"><span class="hqd"></span>${nM} Mem</span>`;
+  xgLog=[];document.getElementById('xgate-log').textContent='';
+  renderVQ();
+  if(document.getElementById('overlay-vqram').classList.contains('visible')){
+    if(!waveAnimId)animateWave();
+  }
+}
+function vqG(nm){const tc=document.getElementById('vq-tc').value;const tq=parseInt(document.getElementById('vq-tq').value);const U=GM[nm];
+  const apply=c=>{const q=Math.min(tq,c.n-1);const d=1<<c.n;const g=buildSG(U,q,c.n);c.rho=applyU(c.rho,g.mat,d);c.sv=mVec(g.mat,c.sv,d);c.ops.push(nm);};
+  if(tc==='all')VQ.forEach((c,i)=>{apply(c);hyperPropagate(VQ,i,.12);});
+  else{const ci=parseInt(tc);apply(VQ[ci]);hyperPropagate(VQ,ci,.18);}renderVQ();}
+function vqR(ax){const tc=document.getElementById('vq-tc').value;const tq=parseInt(document.getElementById('vq-tq').value);
+  const th=parseFloat(document.getElementById('vq-angle').value)/100;const U=ax==='RX'?rotX(th):ax==='RY'?rotY(th):rotZ(th);
+  const apply=c=>{const q=Math.min(tq,c.n-1);const d=1<<c.n;const g=buildSG(U,q,c.n);c.rho=applyU(c.rho,g.mat,d);c.sv=mVec(g.mat,c.sv,d);c.ops.push(`${ax}(${th.toFixed(2)})`);};
+  if(tc==='all')VQ.forEach((c,i)=>{apply(c);hyperPropagate(VQ,i,.12);});
+  else{const ci=parseInt(tc);apply(VQ[ci]);hyperPropagate(VQ,ci,.18);}renderVQ();}
+function vqCNOT(){if(VQ_QPC<2){alert('Need ≥2 Q/chunk');return;}
+  const tc=document.getElementById('vq-tc').value;
+  const apply=c=>{const d=1<<c.n;const g=buildCNOT(0,1,c.n);c.rho=applyU(c.rho,g.mat,d);c.sv=mVec(g.mat,c.sv,d);c.ops.push('CNOT(0→1)');};
+  if(tc==='all')VQ.forEach((c,i)=>{apply(c);hyperPropagate(VQ,i,.15);});
+  else{const ci=parseInt(tc);apply(VQ[ci]);hyperPropagate(VQ,ci,.2);}renderVQ();}
+function vqMeas(){VQ.forEach(c=>{const d=1<<c.n;const p=diagR(c.rho,d);let cum=0,out=d-1;const r=Math.random();
+    for(let i=0;i<d;i++){cum+=p[i];if(r<cum){out=i;break;}}
+    const nR=Array(d*d).fill(null).map(()=>[0,0]);nR[out*d+out]=[1,0];
+    c.rho=nR;c.sv=Array(d).fill(null).map(()=>[0,0]);c.sv[out]=[1,0];c.ops.push(`MEAS→${out.toString(2).padStart(c.n,'0')}`);});renderVQ();}
+function vqXG(type){
+  const ccI=parseInt(document.getElementById('xg-cc').value);const cqI=parseInt(document.getElementById('xg-cq').value);
+  const tcI=parseInt(document.getElementById('xg-tc').value);const tqI=parseInt(document.getElementById('xg-tq').value);
+  if(ccI===tcI){alert('Ctrl chunk ≠ Tgt chunk');return;}
+  const cA=VQ[ccI],cB=VQ[tcI];const qA=Math.min(cqI,cA.n-1),qB=Math.min(tqI,cB.n-1);
+  const res=crossChunkGate(cA.rho,cB.rho,qA,qB,cA.n,cB.n,type);
+  cA.rho=res.rhoA;cB.rho=res.rhoB;
+  cA.ops.push(`X-${type}→C${tcI}`);cB.ops.push(`X-${type}←C${ccI}`);
+  hyperPropagate(VQ,ccI,.1);hyperPropagate(VQ,tcI,.1);
+  const entry=`C${ccI}.Q${qA} ─[HQ ${type}]→ C${tcI}.Q${qB}`;
+  xgLog.unshift(entry);if(xgLog.length>5)xgLog.pop();
+  document.getElementById('xgate-log').innerHTML=xgLog.map(l=>`<div style="color:var(--cyan)">▸ ${l}</div>`).join('');renderVQ();}
+function renderVQ(){
+  const grid=document.getElementById('chunk-grid');
+  grid.style.gridTemplateColumns=`repeat(${Math.min(VQ_NC,5)},1fr)`;grid.innerHTML='';
+  const bvAll=[];
+  VQ.forEach((c,idx)=>{const d=1<<c.n;const probs=diagR(c.rho,d);const col=CCOLS[idx%5];const rgb=CCOLS_RGB[idx%5];
+    const bv=blochVec(ptrace1(c.rho,0,c.n));bvAll.push(bv);
+    const states=Array.from({length:d},(_,i)=>i.toString(2).padStart(c.n,'0'));
+    const panel=document.createElement('div');panel.className='chk';panel.style.cssText=`border-color:${col}44;--cr:${rgb};`;
+    const sz=32;
+    const cubeHTML=`<svg width="${sz}" height="${sz}" viewBox="0 0 ${sz} ${sz}" style="filter:drop-shadow(0 0 4px ${col});flex-shrink:0">
+      <defs><linearGradient id="cg${idx}" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="${col}" stop-opacity=".65"/><stop offset="100%" stop-color="${col}" stop-opacity=".1"/></linearGradient></defs>
+      <polygon points="${sz*.14},${sz*.33} ${sz*.54},${sz*.33} ${sz*.54},${sz*.83} ${sz*.14},${sz*.83}" fill="url(#cg${idx})" stroke="${col}" stroke-width="1" opacity=".85"/>
+      <polygon points="${sz*.14},${sz*.33} ${sz*.54},${sz*.33} ${sz*.78},${sz*.1} ${sz*.38},${sz*.1}" fill="${col}" fill-opacity=".22" stroke="${col}" stroke-width="1"/>
+      <polygon points="${sz*.54},${sz*.33} ${sz*.78},${sz*.1} ${sz*.78},${sz*.6} ${sz*.54},${sz*.83}" fill="${col}" fill-opacity=".1" stroke="${col}" stroke-width="1"/>
+      <circle cx="${sz*.46}" cy="${sz*.46}" r="2.5" fill="${col}" opacity=".9"/></svg>`;
+    panel.innerHTML=`<div class="chk-top">${cubeHTML}<div><div class="chk-name" style="color:${col}">C${idx}</div><div class="chk-q">${c.n}Q·d${d}</div></div></div>`;
+    const hw=document.createElement('div');hw.style.cssText='display:flex;align-items:flex-end;gap:2px;height:44px;margin-bottom:4px;';
+    const maxP=Math.max(...probs,.001);
+    probs.forEach((p,si)=>{const bar=document.createElement('div');
+      bar.style.cssText=`flex:1;min-width:4px;border-radius:2px 2px 0 0;height:${Math.max(2,Math.round(p/maxP*40))}px;background:${p>.01?col:'rgba(255,255,255,.05)'};`;
+      bar.title=`|${states[si]}⟩:${(p*100).toFixed(1)}%`;hw.appendChild(bar);});panel.appendChild(hw);
+    const bi=document.createElement('div');bi.style.cssText=`font-family:var(--font-mono);font-size:9px;color:${col};line-height:1.6;`;
+    bi.innerHTML=`x:${bv.x.toFixed(2)} y:${bv.y.toFixed(2)} z:${bv.z.toFixed(2)}<br><span style="color:var(--muted)">${c.ops.slice(-2).join(' ')||'—'}</span>`;
+    panel.appendChild(bi);grid.appendChild(panel);});
+  drawBloch('vq-bloch',300,bvAll,CCOLS);
+  const leg=document.getElementById('vq-bloch-legend');
+  leg.innerHTML=VQ.map((_,i)=>`<span style="font-family:var(--font-mono);font-size:10px;color:${CCOLS[i]};display:flex;align-items:center;gap:3px;"><span style="width:8px;height:8px;background:${CCOLS[i]};border-radius:50%;display:inline-block;"></span>C${i}</span>`).join('');
+  document.getElementById('vq-bloch-info').innerHTML=bvAll.map((bv,i)=>`C${i}:(${bv.x.toFixed(2)},${bv.y.toFixed(2)},${bv.z.toFixed(2)})`).join('<br>');
+  document.getElementById('vq-status').innerHTML=`Chunks: <span style="color:var(--cyan)">${VQ_NC}/5</span><br>Q/Chunk: <span style="color:var(--cyan)">${VQ_QPC}/5</span><br>Total VQ: <span style="color:var(--cyan)">${VQ_NC*VQ_QPC}</span><br>Hilbert/chunk: <span style="color:var(--cyan)">${1<<VQ_QPC}</span>`;
+  updateFloating(VQ[0].rho,VQ[0].sv,VQ[0].n);
+}
+function animateWave(){
+  const cv=document.getElementById('wave-canvas');if(!cv)return;
+  const ctx=cv.getContext('2d');const W=cv.offsetWidth||400;const H=110;
+  cv.width=W;cv.height=H;
+  ctx.fillStyle='rgba(7,11,24,.92)';ctx.fillRect(0,0,W,H);
+  if(VQ_NC<2){ctx.fillStyle='rgba(74,90,122,.5)';ctx.font="10px 'Space Mono'";ctx.fillText('Add ≥2 chunks',12,H/2);
+    waveAnimId=requestAnimationFrame(animateWave);return;}
+  const slotW=W/VQ_NC;const wc=[['#00d4ff','#7c3aed'],['#7c3aed','#ff9d00'],['#ff9d00','#d946ef'],['#d946ef','#00ff88']];
+  for(let i=0;i<VQ_NC-1;i++){
+    const x1=(i+.5)*slotW,x2=(i+1.5)*slotW,yB=H/2,c=wc[i%4];
+    for(let w=0;w<3;w++){
+      const amp=10-w*2.5,freq=.032+w*.009,ph=wavePhase+i*1.1+w*.65,alp=.55-w*.12;
+      const gr=ctx.createLinearGradient(x1,0,x2,0);const hex=Math.round(alp*255).toString(16).padStart(2,'0');
+      gr.addColorStop(0,c[0]+hex);gr.addColorStop(1,c[1]+hex);
+      ctx.strokeStyle=gr;ctx.lineWidth=1.8-w*.35;
+      if(w===0){ctx.shadowColor=c[0];ctx.shadowBlur=7;}else ctx.shadowBlur=0;
+      ctx.beginPath();for(let x=x1;x<=x2;x++){const y=yB+amp*Math.sin(freq*(x-x1)*Math.PI+ph);x===x1?ctx.moveTo(x,y):ctx.lineTo(x,y);}ctx.stroke();ctx.shadowBlur=0;}
+    [[x1,c[0]],[x2,c[1]]].forEach(([x,col])=>{ctx.strokeStyle=col;ctx.lineWidth=1.2;ctx.fillStyle=col+'22';
+      ctx.beginPath();ctx.arc(x,H/2,5,0,6.28);ctx.fill();ctx.stroke();ctx.shadowColor=col;ctx.shadowBlur=8;ctx.fillStyle=col;
+      ctx.beginPath();ctx.arc(x,H/2,2,0,6.28);ctx.fill();ctx.shadowBlur=0;});
+    ctx.fillStyle='rgba(74,90,122,.6)';ctx.font="9px 'Space Mono'";ctx.fillText(`HQ-${i}`,(x1+x2)/2-12,H-5);}
+  wavePhase+=.055;waveAnimId=requestAnimationFrame(animateWave);
+}
+
+// ══ DEMOS ══
+const DEMOS=[
+  {name:'Bell State',tag:'entanglement',desc:'Maximally entangled 2-qubit pair. |00⟩ and |11⟩ only.',
+   concept:'H puts Q0 in superposition, CNOT entangles Q1. Measuring one instantly determines the other — non-local correlations.',
+   ops:'H(Q0) → CNOT(0→1)',
+   run(){let sv=Array(4).fill(null).map(()=>[0,0]);sv[0]=[1,0];let rho=outer(sv,4);
+     rho=applyU(rho,buildSG(GM.H,0,2).mat,4);rho=applyU(rho,buildCNOT(0,1,2).mat,4);
+     sv=mVec(buildCNOT(0,1,2).mat,mVec(buildSG(GM.H,0,2).mat,sv,4),4);const p=diagR(rho,4);
+     return{rho,sv,n:2,msg:`|Φ+⟩=(|00⟩+|11⟩)/√2\nP(|00⟩)=${p[0].toFixed(3)}  P(|11⟩)=${p[3].toFixed(3)}\nP(|01⟩)=${p[1].toFixed(3)}  P(|10⟩)=${p[2].toFixed(3)}\n→ Measuring Q0=0 → Q1=0 guaranteed`};}},
+  {name:'GHZ State',tag:'entanglement',desc:'3-qubit: only |000⟩ and |111⟩.',
+   concept:'3-way entanglement. Any qubit measurement collapses all three simultaneously.',
+   ops:'H(Q0) → CNOT(0→1) → CNOT(1→2)',
+   run(){let sv=Array(8).fill(null).map(()=>[0,0]);sv[0]=[1,0];let rho=outer(sv,8);
+     rho=applyU(rho,buildSG(GM.H,0,3).mat,8);rho=applyU(rho,buildCNOT(0,1,3).mat,8);rho=applyU(rho,buildCNOT(1,2,3).mat,8);
+     sv=mVec(buildCNOT(1,2,3).mat,mVec(buildCNOT(0,1,3).mat,mVec(buildSG(GM.H,0,3).mat,sv,8),8),8);
+     const p=diagR(rho,8);return{rho,sv,n:3,msg:`(|000⟩+|111⟩)/√2\nP(|000⟩)=${p[0].toFixed(3)}  P(|111⟩)=${p[7].toFixed(3)}\n→ 3-qubit maximal entanglement`};}},
+  {name:'Deutsch Algorithm',tag:'algorithm',desc:'1 quantum query vs 2 classical.',
+   concept:'Phase kickback from ancilla in |−⟩ encodes oracle type in phase. Final H reveals it in 1 query.',
+   ops:'X(Q1) → H(Q0,Q1) → CNOT-oracle → H(Q0)',
+   run(){let sv=Array(4).fill(null).map(()=>[0,0]);sv[0]=[1,0];let rho=outer(sv,4);
+     rho=applyU(rho,buildSG(GM.X,1,2).mat,4);rho=applyU(rho,buildSG(GM.H,0,2).mat,4);
+     rho=applyU(rho,buildSG(GM.H,1,2).mat,4);rho=applyU(rho,buildCNOT(0,1,2).mat,4);rho=applyU(rho,buildSG(GM.H,0,2).mat,4);
+     const p=diagR(rho,4);const res=p[0]+p[1]>p[2]+p[3]?'CONSTANT':'BALANCED';
+     return{rho,sv:null,n:2,msg:`Balanced Oracle (CNOT)\nP(Q0=0)=${(p[0]+p[1]).toFixed(3)}  P(Q0=1)=${(p[2]+p[3]).toFixed(3)}\n→ Function is ${res}\n→ 1 quantum query (classical: 2)`};}},
+  {name:'Bernstein-Vazirani',tag:'algorithm',desc:'Recover hidden 3-bit string with 1 query.',
+   concept:'Finds n-bit hidden string in exactly 1 quantum query. Hidden string appears directly as measurement outcome.',
+   ops:'Prepare ancilla → H all → Oracle CNOTs → H inputs',
+   run(){const hs='101';const n=3;const dF=1<<(n+1);
+     let sv=Array(dF).fill(null).map(()=>[0,0]);sv[0]=[1,0];let rho=outer(sv,dF);
+     rho=applyU(rho,buildSG(GM.X,n,n+1).mat,dF);
+     for(let i=0;i<=n;i++)rho=applyU(rho,buildSG(GM.H,i,n+1).mat,dF);
+     for(let i=0;i<n;i++)if(hs[i]==='1')rho=applyU(rho,buildCNOT(i,n,n+1).mat,dF);
+     for(let i=0;i<n;i++)rho=applyU(rho,buildSG(GM.H,i,n+1).mat,dF);
+     const p=diagR(rho,dF);const top=p.indexOf(Math.max(...p)).toString(2).padStart(n+1,'0').slice(0,n);
+     return{rho,sv:null,n:n+1,msg:`Hidden string s="${hs}"\nMeasured: |${top}⟩ (${(Math.max(...p)*100).toFixed(0)}%)\n→ ${top===hs?'✓ RECOVERED!':'Processing'}\n→ Classical: ${n} queries · Quantum: 1`};}},
+  {name:'Quantum Teleportation',tag:'protocol',desc:'Transfer quantum state via entanglement + 2 cbits.',
+   concept:'Moves unknown qubit state using pre-shared Bell pair and 2 classical bits. Original destroyed. Not faster-than-light — classical bits needed.',
+   ops:'X(Q0) → Bell(Q1-Q2) → Bell meas → Corrections',
+   run(){let sv=Array(8).fill(null).map(()=>[0,0]);sv[0]=[1,0];let rho=outer(sv,8);
+     rho=applyU(rho,buildSG(GM.X,0,3).mat,8);rho=applyU(rho,buildSG(GM.H,1,3).mat,8);
+     rho=applyU(rho,buildCNOT(1,2,3).mat,8);rho=applyU(rho,buildCNOT(0,1,3).mat,8);
+     rho=applyU(rho,buildSG(GM.H,0,3).mat,8);rho=applyU(rho,buildSG(GM.Z,2,3).mat,8);
+     rho=applyU(rho,buildSG(GM.X,2,3).mat,8);const pur=purityV(ptrace1(rho,2,3),2);
+     return{rho,sv:null,n:3,msg:`Input: |1⟩ on Q0\nBell pair: Q1-Q2 · Corrections: X,Z on Q2\nQ2 purity=${pur.toFixed(4)}\n→ State teleported via entanglement`};}},
+  {name:'Superdense Coding',tag:'protocol',desc:'Send 2 classical bits via 1 qubit.',
+   concept:'Alice uses 1 qubit + pre-shared Bell pair to send 2 bits. Doubles classical capacity via entanglement.',
+   ops:'Bell pair → Alice: X+Z → Bob: CNOT+H',
+   run(){let sv=Array(4).fill(null).map(()=>[0,0]);sv[0]=[1,0];let rho=outer(sv,4);
+     rho=applyU(rho,buildSG(GM.H,0,2).mat,4);rho=applyU(rho,buildCNOT(0,1,2).mat,4);
+     rho=applyU(rho,buildSG(GM.X,0,2).mat,4);rho=applyU(rho,buildSG(GM.Z,0,2).mat,4);
+     rho=applyU(rho,buildCNOT(0,1,2).mat,4);rho=applyU(rho,buildSG(GM.H,0,2).mat,4);
+     const p=diagR(rho,4);const dec=p.indexOf(Math.max(...p)).toString(2).padStart(2,'0');
+     return{rho,sv:null,n:2,msg:`Message encoded: "11"\nDecoded: "${dec}"\n→ ${dec==='11'?'✓ Transmitted!':'Error'}`};}},
+  {name:'Phase Kickback',tag:'concept',desc:'Oracle phase kickback — engine of quantum algorithms.',
+   concept:'Target in |−⟩ causes phase to kick back onto control. Encodes oracle answers invisibly in phases.',
+   ops:'H(Q0) → X+H(Q1) → CNOT → H(Q0)',
+   run(){let sv=Array(4).fill(null).map(()=>[0,0]);sv[0]=[1,0];let rho=outer(sv,4);
+     rho=applyU(rho,buildSG(GM.H,0,2).mat,4);rho=applyU(rho,buildSG(GM.X,1,2).mat,4);
+     rho=applyU(rho,buildSG(GM.H,1,2).mat,4);rho=applyU(rho,buildCNOT(0,1,2).mat,4);rho=applyU(rho,buildSG(GM.H,0,2).mat,4);
+     const bv=blochVec(ptrace1(rho,0,2));
+     return{rho,sv:null,n:2,msg:`Q0 Bloch Z=${bv.z.toFixed(3)} (→-1 = |1⟩)\n→ Phase from |−⟩ kickback onto control`};}},
+  {name:'QFT 2-Qubit',tag:'algorithm',desc:'Quantum Fourier Transform.',
+   concept:'Transforms computational to phase basis. Exponentially faster than classical FFT. Core subroutine in Shor\'s algorithm.',
+   ops:'X(Q1)→|01⟩ → H(Q0) → CZ(0,1) → H(Q1)',
+   run(){let sv=Array(4).fill(null).map(()=>[0,0]);sv[1]=[1,0];let rho=outer(sv,4);
+     rho=applyU(rho,buildSG(GM.H,0,2).mat,4);rho=applyU(rho,buildCZ(0,1,2).mat,4);rho=applyU(rho,buildSG(GM.H,1,2).mat,4);
+     const p=diagR(rho,4);return{rho,sv:null,n:2,msg:`Input: |01⟩\n${p.map((v,i)=>`|${i.toString(2).padStart(2,'0')}⟩: ${(v*100).toFixed(1)}%`).join('\n')}\n→ Fourier basis state`};}},
+  {name:'HDQS Chunk Demo',tag:'HDQS ✦',desc:'SIA HDQS: chunks + hyper-qubit propagation.',
+   concept:'4 virtual qubits in 2 chunks. Router HQ propagates entanglement-influence without exponential tensor expansion — the HDQS scaling advantage.',
+   ops:'C0: H+CNOT → C1: H+RY(π/3) → HQ Router propagates',
+   run(){let sv4=Array(4).fill(null).map(()=>[0,0]);sv4[0]=[1,0];
+     let rC0=outer(sv4,4);let rC1=outer(sv4,4);
+     rC0=applyU(rC0,buildSG(GM.H,0,2).mat,4);rC0=applyU(rC0,buildCNOT(0,1,2).mat,4);
+     rC1=applyU(rC1,buildSG(GM.H,0,2).mat,4);rC1=applyU(rC1,buildSG(rotY(Math.PI/3),1,2).mat,4);
+     const bvC0=blochVec(ptrace1(rC0,0,2));const rotA=0.22*(Math.abs(bvC0.x)+Math.abs(bvC0.y)+Math.abs(bvC0.z));
+     rC1=applyU(rC1,buildSG(rotY(rotA),0,2).mat,4);
+     const p0=diagR(rC0,4),p1=diagR(rC1,4);
+     return{rho:rC0,sv:null,n:2,msg:`HDQS Architecture\nC0: H→CNOT\n  P(|00⟩)=${p0[0].toFixed(3)} P(|11⟩)=${p0[3].toFixed(3)}\nC1: H→RY(π/3) + HQ influence\n  P(|00⟩)=${p1[0].toFixed(3)} P(|10⟩)=${p1[2].toFixed(3)}\nHQ strength: ${rotA.toFixed(3)}`};}},
+];
+function buildDemoSelector(){
+  const sel=document.getElementById('demo-select');
+  sel.innerHTML='<option value="">— Select a demonstration —</option>';
+  DEMOS.forEach((d,i)=>{sel.innerHTML+=`<option value="${i}">[${d.tag}] ${d.name} — ${d.desc}</option>`;});
+}
+function runSelectedDemo(){
+  const idx=parseInt(document.getElementById('demo-select').value);
+  if(isNaN(idx)||idx<0||idx>=DEMOS.length)return;runDemo(idx);
+}
+function runDemo(idx){
+  const d=DEMOS[idx];const result=d.run();
+  const n=result.n,dd=1<<n;const probs=diagR(result.rho,dd);
+  const states=Array.from({length:dd},(_,i)=>i.toString(2).padStart(n,'0'));
+  const bv=blochVec(ptrace1(result.rho,0,n));
+  const panel=document.getElementById('demo-panel');
+  panel.innerHTML=`
+    <div class="card" style="margin-bottom:14px;">
+      <div class="ct">[${d.tag}] ${d.name}</div>
+      <div class="cbox" style="margin-bottom:10px;">${d.concept}</div>
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);">Circuit: ${d.ops}</div>
+    </div>
+    <div style="display:grid;grid-template-columns:200px 200px 1fr;gap:16px;align-items:start;">
+      <div class="card">
+        <div class="ct">BLOCH — Q0</div>
+        <canvas id="db-demo" width="180" height="180"></canvas>
+      </div>
+      <div class="card">
+        <div class="ct">Q-SPHERE</div>
+        <canvas id="dq-demo" width="180" height="180"></canvas>
+      </div>
+      <div class="col">
+        <div class="card">
+          <div class="ct">PROBABILITY HISTOGRAM</div>
+          <div id="dh-demo"></div>
+        </div>
+        <div class="card">
+          <div class="ct">PHASE WHEEL</div>
+          <canvas id="dpw-demo" width="160" height="160"></canvas>
+        </div>
+        <div class="card">
+          <div class="ct">RESULT</div>
+          <div id="dr-demo" class="rbox" style="font-size:11px;min-height:80px;"></div>
+        </div>
+      </div>
+    </div>`;
+  requestAnimationFrame(()=>{
+    renderHist(probs,states,'dh-demo','#7c3aed');
+    drawBloch('db-demo',180,[bv],['#00d4ff']);
+    if(n<=6)drawQSphere('dq-demo',result.sv,n,180);
+    drawPhaseWheel('dpw-demo',result.sv,n);
+    document.getElementById('dr-demo').textContent=result.msg;
+    updateFloating(result.rho,result.sv,n);
+  });
+}
+
+// ══ FLOATING PANEL DRAG ══
+let dragEl=null,dragOX=0,dragOY=0;
+function dragStart(e,id){
+  dragEl=document.getElementById(id);
+  dragOX=e.clientX-dragEl.offsetLeft;dragOY=e.clientY-dragEl.offsetTop;
+  document.addEventListener('mousemove',dragMove);document.addEventListener('mouseup',dragEnd);
+}
+function dragMove(e){if(dragEl){dragEl.style.left=Math.max(54,e.clientX-dragOX)+'px';dragEl.style.top=Math.max(0,e.clientY-dragOY)+'px';dragEl.style.right='auto';}}
+function dragEnd(){dragEl=null;document.removeEventListener('mousemove',dragMove);document.removeEventListener('mouseup',dragEnd);}
+
+function togglePanel(id){
+  const p=document.getElementById(id);const vis=p.classList.toggle('visible');
+  const dockMap={
+    'panel-bloch':'dock-bloch','panel-qsphere':'dock-qsphere','panel-phase':'dock-phase',
+    'panel-dm':'dock-dm','panel-sv':'dock-sv','panel-noise':'dock-noise'};
+  const db=document.getElementById(dockMap[id]);if(db)db.classList.toggle('active',vis);
+  // When opening, refresh with current state (circuit or fundamentals, whichever ran last)
+  if(vis){
+    const rho=lastRho||Q1rho;
+    const sv=lastSV!==undefined?lastSV:Q1sv;
+    const n=lastN||1;
+    updateFloating(rho,sv,n);
+  }
+}
+
+// ══ OVERLAY (Demos / vQRAM) ══
+function toggleOverlay(id){
+  const ov=document.getElementById(id);const vis=!ov.classList.contains('visible');
+  // close all overlays first
+  document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('visible'));
+  document.getElementById('dock-demos').classList.remove('active');
+  document.getElementById('dock-vqram').classList.remove('active');
+  if(vis){
+    ov.classList.add('visible');
+    if(id==='overlay-demos')document.getElementById('dock-demos').classList.add('active');
+    if(id==='overlay-vqram'){
+      document.getElementById('dock-vqram').classList.add('active');
+      if(!waveAnimId)animateWave();
+    }
+  } else {
+    if(waveAnimId){cancelAnimationFrame(waveAnimId);waveAnimId=null;}
+  }
+}
+
+// ══ PDF EXPORT ══
+function exportPDF(){
+  // Build circuit state snapshot
+  const n=cN,d=1<<n;
+  let sv=Array(d).fill(null).map(()=>[0,0]);sv[0]=[1,0];
+  const ops=cStep>=0?cOps.slice(0,cStep+1):cOps;
+  ops.forEach(op=>{
+    if(op.type==='meas')return;
+    let U;
+    if(op.type==='single')U=buildSG(GM[op.gate],op.target,n).mat;
+    else if(op.type==='rot'){const Gm=op.gate==='RX'?rotX(op.theta):op.gate==='RY'?rotY(op.theta):rotZ(op.theta);U=buildSG(Gm,op.target,n).mat;}
+    else if(op.gate==='CNOT')U=buildCNOT(op.control,op.target,n).mat;
+    else if(op.gate==='CZ')U=buildCZ(op.control,op.target,n).mat;
+    else if(op.gate==='SWAP')U=buildSWAP(op.control,op.target,n).mat;
+    else if(op.gate==='CCX')U=buildCCX(op.control,op.control2,op.target,n).mat;
+    if(U)sv=mVec(U,sv,d);
+  });
+  const probs=Array.from({length:d},(_,i)=>Cx.abs2(sv[i]));
+  const states=Array.from({length:d},(_,i)=>i.toString(2).padStart(n,'0'));
+  const rho1=n>=5?ptrace1SV(sv,0,n):ptrace1(outer(sv,d),0,n);
+  const bv=blochVec(rho1);
+  const topStates=probs.map((p,i)=>({p,s:states[i],a:sv[i]})).filter(x=>x.p>0.001).sort((a,b)=>b.p-a.p).slice(0,16);
+
+  // Build HTML report and print it
+  const ts=new Date().toLocaleString();
+  const gateList=cOps.map((op,i)=>{
+    let desc=op.gate;
+    if(op.type==='rot')desc+=`(θ=${op.theta.toFixed(4)}r)`;
+    if(op.control!==null&&op.control!==undefined)desc+=` ctrl=Q${op.control}`;
+    if(op.control2!==null&&op.control2!==undefined)desc+=` ctrl2=Q${op.control2}`;
+    return `<tr><td>${i+1}</td><td>${desc}</td><td>Q${op.target}</td></tr>`;
+  }).join('');
+
+  const stateRows=topStates.map(({p,s,a})=>{
+    const ph=(Cx.phase(a)*180/Math.PI).toFixed(1);
+    return `<tr><td>|${s}⟩</td><td>${a[0].toFixed(4)}${a[1]>=0?'+':''}${a[1].toFixed(4)}i</td><td>${ph}°</td><td>${(p*100).toFixed(3)}%</td></tr>`;
+  }).join('');
+
+  const allProbRows=probs.map((p,i)=>`<tr><td>|${states[i]}⟩</td><td>${(p*100).toFixed(4)}%</td></tr>`).join('');
+
+  const html=`<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>HDQS Circuit Report</title>
+<style>
+  body{font-family:'Segoe UI',Arial,sans-serif;font-size:12px;color:#111;margin:0;padding:0;}
+  .page{max-width:700px;margin:0 auto;padding:30px 40px;}
+  h1{font-size:20px;color:#003366;border-bottom:2px solid #003366;padding-bottom:8px;margin-bottom:4px;}
+  h2{font-size:14px;color:#003366;margin-top:20px;margin-bottom:6px;border-bottom:1px solid #aac;}
+  .meta{font-size:11px;color:#555;margin-bottom:16px;}
+  table{width:100%;border-collapse:collapse;font-size:11px;margin-bottom:12px;}
+  th{background:#003366;color:#fff;padding:5px 8px;text-align:left;}
+  td{padding:4px 8px;border-bottom:1px solid #dde;}
+  tr:nth-child(even) td{background:#f5f8ff;}
+  .summary-box{background:#eef4ff;border:1px solid #aac;border-radius:4px;padding:10px 14px;margin-bottom:16px;font-size:12px;line-height:1.8;}
+  .bloch-row{display:flex;gap:16px;align-items:center;}
+  .bloch-num{font-family:monospace;font-size:13px;color:#003366;}
+  .footer{font-size:10px;color:#888;text-align:center;margin-top:30px;border-top:1px solid #dde;padding-top:8px;}
+  @media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+</style></head><body>
+<div class="page">
+<h1>Quantum Circuit Report — HDQS Visualiser</h1>
+<div class="meta">Generated: ${ts} &nbsp;|&nbsp; Qubits: ${n} &nbsp;|&nbsp; Gates: ${cOps.length} &nbsp;|&nbsp; Hilbert dim: ${d}</div>
+
+<h2>1. Circuit Description</h2>
+<div class="summary-box">
+  <strong>Qubit count:</strong> ${n} &nbsp;&nbsp; <strong>Total gates:</strong> ${cOps.length} &nbsp;&nbsp; <strong>Hilbert space dimension:</strong> ${d}<br>
+  Initial state: |0…0⟩ (all qubits in ground state)
+</div>
+<table>
+  <thead><tr><th>#</th><th>Gate</th><th>Target</th></tr></thead>
+  <tbody>${gateList||'<tr><td colspan="3">No gates applied</td></tr>'}</tbody>
+</table>
+
+<h2>2. Quantum State — Top Amplitudes</h2>
+<table>
+  <thead><tr><th>State</th><th>Amplitude</th><th>Phase</th><th>Probability</th></tr></thead>
+  <tbody>${stateRows||'<tr><td colspan="4">No significant amplitudes</td></tr>'}</tbody>
+</table>
+
+<h2>3. Bloch Vector — Q0 (reduced state)</h2>
+<div class="summary-box bloch-row">
+  <span class="bloch-num">x = ${bv.x.toFixed(6)}</span>
+  <span class="bloch-num">y = ${bv.y.toFixed(6)}</span>
+  <span class="bloch-num">z = ${bv.z.toFixed(6)}</span>
+</div>
+<div class="summary-box">
+  Bloch vector magnitude: ${Math.sqrt(bv.x*bv.x+bv.y*bv.y+bv.z*bv.z).toFixed(6)}<br>
+  Q0 purity: ${(0.5*(1+bv.x*bv.x+bv.y*bv.y+bv.z*bv.z)).toFixed(6)}<br>
+  ${Math.sqrt(bv.x*bv.x+bv.y*bv.y+bv.z*bv.z)<0.99?'Q0 is in a <strong>mixed/entangled</strong> reduced state (purity < 1)':'Q0 is in a <strong>pure</strong> state (purity ≈ 1)'}
+</div>
+
+<h2>4. Full Probability Distribution</h2>
+<table>
+  <thead><tr><th>Basis State</th><th>Probability</th></tr></thead>
+  <tbody>${allProbRows}</tbody>
+</table>
+
+<div class="footer">HDQS Quantum Visualiser &nbsp;|&nbsp; SIA Software Innovations Private Limited &nbsp;|&nbsp; edu.siasoftwareinnovations.com</div>
+</div>
+</body></html>`;
+
+  const w=window.open('','_blank','width=800,height=900');
+  w.document.write(html);
+  w.document.close();
+  w.focus();
+  setTimeout(()=>w.print(),600);
+}
+
+// ══ NAVIGATION ══
+function showPage(name,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  btn.classList.add('active');
+  // Refresh all floating panels with the state belonging to the now-active tab
+  if(name==='fundamentals'){
+    // Switch to single-qubit fundamentals state
+    updateFloating(Q1rho,Q1sv,1);
+    // Also redraw inline fundamentals visuals in case they went stale
+    const bv=blochVec(Q1rho);
+    drawBloch('bloch-main',210,[bv],['#00d4ff']);
+    drawQSphere('qsph-main',Q1sv,1,210);
+    drawPhaseWheel('phase-q1',Q1sv,1);
+  } else if(name==='circuit'){
+    // Re-run circuit so circuit state is current in all panels
+    runCirc(false);
+  }
+}
+
+// ══ THEME ══
+function toggleTheme(){
+  const html=document.documentElement;
+  const isLight=html.getAttribute('data-theme')==='light';
+  html.setAttribute('data-theme',isLight?'dark':'light');
+  document.getElementById('theme-btn').textContent=isLight?'☀':'🌙';
+}
+
+// ══ INIT ══
+window.addEventListener('load',()=>{
+  updQ1();
+  initCirc();renderWires();runCirc(false);
+  initDragDrop();
+  initVQ();
+  buildDemoSelector();
+  updateNoiseTargetSelect();
+});
+</script>
+</body>
+</html>
