@@ -109,7 +109,27 @@
 }
 
 .companyGallery .galleryCardDuplicate {
-  display: none;
+  display: grid;
+}
+
+.companyGallery .workshopTrack {
+  animation-duration: 30s;
+}
+
+.companyGallery .galleryCard {
+  flex: 0 0 300px;
+  min-width: 0;
+  opacity: 1;
+  animation: none;
+  transform: none;
+}
+
+.companyGallery .galleryCard:hover {
+  transform: translateY(-6px);
+}
+
+.companyGallery .galleryCard img {
+  height: 200px;
 }
 
 .galleryGridThree {
@@ -126,6 +146,7 @@
 }
 
 .galleryCard {
+  --gallery-tilt: 0deg;
   margin: 0;
   background: rgba(9, 20, 39, 0.8);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -134,7 +155,7 @@
   display: grid;
   gap: 10px;
   padding: 12px;
-  transform: translateY(14px);
+  transform: translateY(14px) rotate(var(--gallery-tilt));
   opacity: 0;
   animation: galleryReveal 0.7s ease forwards;
 }
@@ -165,6 +186,22 @@
 
 .galleryCard:nth-child(4) {
   animation-delay: 0.24s;
+}
+
+.galleryCard:nth-child(4n + 1) {
+  --gallery-tilt: -1.8deg;
+}
+
+.galleryCard:nth-child(4n + 2) {
+  --gallery-tilt: 1.4deg;
+}
+
+.galleryCard:nth-child(4n + 3) {
+  --gallery-tilt: -1.2deg;
+}
+
+.galleryCard:nth-child(4n + 4) {
+  --gallery-tilt: 1.9deg;
 }
 
 .galleryCard img {
@@ -199,7 +236,7 @@
 
 .galleryCard:hover {
   border-color: rgba(120, 200, 255, 0.35);
-  transform: translateY(-6px);
+  transform: translateY(-6px) rotate(0deg);
 }
 
 .galleryCard:hover img {
@@ -294,11 +331,11 @@
 @keyframes galleryReveal {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(16px) rotate(var(--gallery-tilt));
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) rotate(var(--gallery-tilt));
   }
 }
 
@@ -324,10 +361,6 @@
 
   .workshopSlide img {
     transition: none;
-  }
-
-  .companyGallery .galleryGrid {
-    width: auto;
   }
 
   .companyGallery .galleryCardDuplicate {
@@ -384,27 +417,6 @@
     font-size: 30px;
   }
 
-  .companyGallery .galleryGrid {
-    display: flex;
-    gap: 14px;
-    width: auto;
-    overflow-x: auto;
-    padding-bottom: 6px;
-    scroll-snap-type: x proximity;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    overscroll-behavior-x: contain;
-    touch-action: pan-x;
-  }
-
-  .companyGallery .galleryGrid::-webkit-scrollbar {
-    display: none;
-  }
-
-  .companyGallery .galleryCardDuplicate {
-    display: grid;
-  }
-
   .galleryGridThree {
     grid-template-columns: 1fr;
     grid-template-areas: none;
@@ -434,15 +446,6 @@
     min-height: 220px;
   }
 
-  .companyGallery .galleryCard {
-    flex: 0 0 78vw;
-    min-width: 0;
-    scroll-snap-align: start;
-    transform: none;
-    opacity: 1;
-    animation: none;
-  }
-
   .workshopShowcase {
     padding: 24px 16px;
   }
@@ -456,7 +459,4 @@
     height: 180px;
   }
 
-  .galleryCard img {
-    height: 200px;
-  }
 }
