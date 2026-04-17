@@ -19,31 +19,251 @@
   --gCN:#00d4ff;--gCZ:#34d399;--gSW:#fbbf24;--gCCX:#f472b6;
   --gME:#00ff88;--gRS:#f43f5e;
 }
-/* LIGHT THEME: deep navy blue backgrounds, high-contrast text */
+
+/* ══ LIGHT THEME — premium SaaS / enterprise quantum dashboard ══ */
 [data-theme="light"]{
-  --bg:#0d1b2e;--bg2:#0f2040;--panel:#122547;--panel2:#163060;
-  --border:#1e3a6e;--border2:#2a5090;
-  --cyan:#38bdf8;--violet:#a78bfa;--gold:#fbbf24;
-  --magenta:#f0abfc;--green:#34d399;--red:#f87171;
-  --text:#e8f4ff;--muted:#7aadcc;--muted2:#3a6a9a;
-  --gH:#38bdf8;--gX:#f87171;--gY:#fb923c;--gZ:#34d399;
-  --gS:#a78bfa;--gT:#f0abfc;--gSdag:#c084fc;--gTdag:#e879f9;
-  --gRX:#f97316;--gRY:#22d3ee;--gRZ:#818cf8;
-  --gCN:#38bdf8;--gCZ:#6ee7b7;--gSW:#fcd34d;--gCCX:#f9a8d4;
-  --gME:#34d399;--gRS:#f87171;
+  --bg:#f6f8fb;--bg2:#eef2f7;--panel:#ffffff;--panel2:#f8fafc;
+  --border:#e5eaf1;--border2:#cfd8e3;
+  --cyan:#0b63b6;--violet:#6941c6;--gold:#9a6700;
+  --magenta:#a61e8c;--green:#137a48;--red:#b42318;
+  --text:#101828;--muted:#667085;--muted2:#dbe3ee;
+  --font-mono:'Space Mono',monospace;--font-body:'Inter','Exo 2',sans-serif;
+
+  --gH:#0b63b6;--gX:#b42318;--gY:#c2410c;--gZ:#137a48;
+  --gS:#6941c6;--gT:#a61e8c;--gSdag:#7c3aed;--gTdag:#c026d3;
+  --gRX:#c2410c;--gRY:#0f766e;--gRZ:#4338ca;
+  --gCN:#0b63b6;--gCZ:#059669;--gSW:#9a6700;--gCCX:#be185d;
+  --gME:#137a48;--gRS:#b42318;
+
+  --accent-fill:rgba(11,99,182,.06);
+  --accent-fill-2:rgba(11,99,182,.10);
+  --accent-ring:rgba(11,99,182,.16);
+  --success-fill:rgba(19,122,72,.06);
+  --warn-fill:rgba(154,103,0,.06);
+  --danger-fill:rgba(180,35,24,.06);
 }
-[data-theme="light"] body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
-  background:radial-gradient(ellipse at 20% 50%,rgba(56,189,248,.06) 0%,transparent 55%),
-             radial-gradient(ellipse at 80% 20%,rgba(167,139,250,.05) 0%,transparent 50%);}
-[data-theme="light"] .cbox{background:rgba(56,189,248,.07);border-color:rgba(56,189,248,.2);}
-[data-theme="light"] .float-panel{background:rgba(13,27,46,.97);box-shadow:0 8px 32px rgba(0,0,0,.6);}
-[data-theme="light"] .overlay{background:rgba(10,20,38,.98);}
-[data-theme="light"] .overlay-hdr{background:rgba(13,27,46,.98);}
-[data-theme="light"] header{background:rgba(13,27,46,.97);}
-[data-theme="light"] .sbar{background:rgba(13,27,46,.97);}
-[data-theme="light"] #dock{background:rgba(9,18,34,.99);border-right-color:#1e3a6e;}
-[data-theme="light"] select{background:var(--panel2);color:var(--text);border-color:var(--border);}
-[data-theme="light"] .btn{background:rgba(255,255,255,.03);color:var(--text);}
+
+[data-theme="light"] body{background:var(--bg);color:var(--text);}
+[data-theme="light"] body::before{display:none;}
+
+[data-theme="light"] header{
+  background:rgba(255,255,255,.92);
+  border-bottom-color:var(--border);
+  box-shadow:0 1px 2px rgba(16,24,40,.04),0 1px 1px rgba(16,24,40,.02);
+  backdrop-filter:blur(12px);
+}
+[data-theme="light"] .sbar{
+  background:rgba(255,255,255,.94);
+  border-top-color:var(--border);
+  box-shadow:0 -1px 2px rgba(16,24,40,.03);
+  backdrop-filter:blur(10px);
+}
+[data-theme="light"] #dock{
+  background:rgba(255,255,255,.94);
+  border-right-color:var(--border);
+  box-shadow:1px 0 2px rgba(16,24,40,.03);
+  backdrop-filter:blur(10px);
+}
+[data-theme="light"] .float-panel{
+  background:rgba(255,255,255,.98);
+  border-color:var(--border2);
+  box-shadow:0 10px 30px rgba(16,24,40,.10),0 2px 8px rgba(16,24,40,.06);
+  backdrop-filter:blur(12px);
+}
+[data-theme="light"] .overlay{
+  background:rgba(246,248,251,.96);
+  backdrop-filter:blur(6px);
+}
+[data-theme="light"] .overlay-hdr{
+  background:rgba(255,255,255,.94);
+  border-bottom-color:var(--border);
+  backdrop-filter:blur(10px);
+}
+[data-theme="light"] .card{
+  background:var(--panel);
+  border-color:var(--border);
+  box-shadow:0 1px 2px rgba(16,24,40,.04),0 8px 24px rgba(16,24,40,.04);
+}
+[data-theme="light"] .cbox{
+  background:linear-gradient(180deg,rgba(11,99,182,.045),rgba(11,99,182,.02));
+  border-color:rgba(11,99,182,.14);
+  color:var(--muted);
+}
+[data-theme="light"] .cbox .hl{color:var(--cyan);}
+
+[data-theme="light"] select{
+  background:#ffffff;color:var(--text);border-color:var(--border);
+  box-shadow:0 1px 2px rgba(16,24,40,.03);
+}
+[data-theme="light"] select:focus{
+  border-color:var(--cyan);
+  box-shadow:0 0 0 3px var(--accent-ring);
+}
+
+[data-theme="light"] .btn{
+  background:#ffffff;color:var(--text);border-color:var(--border);
+  box-shadow:0 1px 2px rgba(16,24,40,.03);
+}
+[data-theme="light"] .btn:hover{
+  border-color:var(--border2);color:var(--text);background:var(--panel2);
+}
+[data-theme="light"] .btn.pri{
+  border-color:var(--cyan);color:#ffffff;background:linear-gradient(180deg,#1674cd,#0b63b6);
+  box-shadow:0 1px 2px rgba(11,99,182,.20),0 8px 20px rgba(11,99,182,.18);
+}
+[data-theme="light"] .btn.pri:hover{
+  background:linear-gradient(180deg,#1168bb,#09579f);
+  border-color:#09579f;color:#ffffff;
+}
+[data-theme="light"] .btn.suc{
+  border-color:rgba(19,122,72,.22);color:var(--green);background:var(--success-fill);
+}
+[data-theme="light"] .btn.warn{
+  border-color:rgba(154,103,0,.22);color:var(--gold);background:var(--warn-fill);
+}
+[data-theme="light"] .btn.danger{
+  border-color:rgba(180,35,24,.22);color:var(--red);background:var(--danger-fill);
+}
+
+[data-theme="light"] .nav-tab.active{
+  color:var(--cyan);border-color:var(--cyan);background:var(--accent-fill);
+}
+[data-theme="light"] .nav-tab:hover{color:var(--text);background:rgba(16,24,40,.03);}
+
+[data-theme="light"] .dock-btn:hover{
+  color:var(--cyan);border-color:rgba(11,99,182,.26);background:var(--accent-fill);
+}
+[data-theme="light"] .dock-btn.active{
+  color:var(--cyan);border-color:var(--cyan);background:var(--accent-fill-2);
+}
+[data-theme="light"] .dock-btn::after{
+  background:#111827;border-color:#1f2937;color:#f9fafb;
+  box-shadow:0 8px 24px rgba(16,24,40,.16);
+}
+
+[data-theme="light"] .gb{background:#ffffff;box-shadow:0 1px 2px rgba(16,24,40,.04);}
+[data-theme="light"] .gb:hover{filter:none;transform:translateY(-1px);box-shadow:0 6px 16px rgba(16,24,40,.08);}
+
+[data-theme="light"] #circ-wires{
+  background:linear-gradient(180deg,#ffffff,#fbfcfd);
+  border-color:var(--border);
+  box-shadow:inset 0 1px 2px rgba(16,24,40,.03);
+}
+[data-theme="light"] .wire-line{background:#d7dee8;}
+[data-theme="light"] .wire-line.drag-over{
+  background:rgba(11,99,182,.08);
+  border:1px dashed rgba(11,99,182,.42);
+}
+[data-theme="light"] .gate-chip{
+  background:#ffffff;
+  box-shadow:0 1px 3px rgba(16,24,40,.08),0 4px 10px rgba(16,24,40,.05);
+}
+[data-theme="light"] .gate-chip:hover{filter:none;box-shadow:0 8px 18px rgba(16,24,40,.10);}
+[data-theme="light"] .gate-chip.step-active{box-shadow:0 0 0 3px rgba(11,99,182,.10),0 8px 18px rgba(16,24,40,.10);}
+
+[data-theme="light"] .rbox{
+  background:#fcfcfd;border-color:var(--border);color:var(--green);
+  box-shadow:inset 0 1px 2px rgba(16,24,40,.03);
+}
+[data-theme="light"] .hist-bar-track{background:var(--bg2);}
+[data-theme="light"] .shot-track{background:var(--bg2);}
+
+[data-theme="light"] .step-pill{
+  border-color:var(--border);color:var(--muted);background:#ffffff;
+}
+[data-theme="light"] .step-pill.done{
+  border-color:rgba(19,122,72,.24);color:var(--green);background:var(--success-fill);
+}
+[data-theme="light"] .step-pill.current{
+  border-color:var(--cyan);color:var(--cyan);background:var(--accent-fill);box-shadow:none;
+}
+
+[data-theme="light"] .theme-btn{
+  border-color:var(--border);color:var(--muted);background:#ffffff;
+}
+[data-theme="light"] .theme-btn:hover{
+  color:var(--cyan);border-color:var(--cyan);background:var(--accent-fill);
+}
+
+[data-theme="light"] .sec-hd{border-bottom-color:var(--border);}
+[data-theme="light"] .svt th{color:var(--muted);}
+[data-theme="light"] .svt td{border-bottom-color:var(--border);}
+[data-theme="light"] .svt tr:hover td{background:rgba(16,24,40,.025);}
+
+[data-theme="light"] .logo-orb{
+  background:radial-gradient(circle at 35% 30%,#a5d8ff,var(--cyan) 42%,var(--violet));
+  box-shadow:0 0 10px rgba(11,99,182,.18);
+  animation:none;
+}
+[data-theme="light"] .dock-logo{
+  box-shadow:0 0 8px rgba(11,99,182,.16);
+}
+
+[data-theme="light"] .angle-input{
+  background:#ffffff;color:var(--text);border-color:var(--border);
+  box-shadow:0 1px 2px rgba(16,24,40,.03);
+}
+[data-theme="light"] .angle-input:focus{
+  border-color:var(--cyan);
+  box-shadow:0 0 0 3px var(--accent-ring);
+}
+[data-theme="light"] #drag-ghost{
+  background:#ffffff;
+  box-shadow:0 12px 28px rgba(16,24,40,.14);
+}
+[data-theme="light"] .chk{
+  background:linear-gradient(180deg,#ffffff,#fbfcfd);
+  border-color:var(--border);
+  box-shadow:0 1px 2px rgba(16,24,40,.04),0 8px 24px rgba(16,24,40,.04);
+}
+[data-theme="light"] .chk::before{
+  background:linear-gradient(180deg,rgba(var(--cr),.05),transparent 58%);
+}
+[data-theme="light"] .float-hdr{
+  border-bottom:1px solid var(--border);padding-bottom:8px;margin-bottom:10px;
+}
+[data-theme="light"] .panel-qsel{
+  background:#ffffff;color:var(--text);border-color:var(--border);
+  box-shadow:0 1px 2px rgba(16,24,40,.03);
+}
+[data-theme="light"] .panel-qsel:focus{
+  border-color:var(--cyan);
+  box-shadow:0 0 0 3px var(--accent-ring);
+}
+
+[data-theme="light"] .overlay-close{
+  background:#ffffff;border-color:var(--border);color:var(--muted);
+}
+[data-theme="light"] .overlay-close:hover{
+  color:var(--red);border-color:rgba(180,35,24,.24);background:var(--danger-fill);
+}
+[data-theme="light"] .float-close{color:var(--muted);}
+[data-theme="light"] .float-close:hover{color:var(--red);}
+[data-theme="light"] .sia-tag{color:var(--muted);}
+
+[data-theme="light"] ::-webkit-scrollbar-track{background:var(--bg2);}
+[data-theme="light"] ::-webkit-scrollbar-thumb{background:#cbd5e1;}
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover{background:#b6c2d0;}
+
+[data-theme="light"] .hqr{
+  border-color:rgba(11,99,182,.22);color:var(--cyan);background:rgba(11,99,182,.05);
+}
+[data-theme="light"] .hqa{
+  border-color:rgba(19,122,72,.22);color:var(--green);background:var(--success-fill);
+}
+[data-theme="light"] .hqm{
+  border-color:rgba(154,103,0,.22);color:var(--gold);background:var(--warn-fill);
+}
+[data-theme="light"] .xgr{
+  background:linear-gradient(180deg,rgba(11,99,182,.035),rgba(11,99,182,.015));
+  border:1px solid rgba(11,99,182,.10);
+}
+[data-theme="light"] .tsep{background:var(--border);}
+[data-theme="light"] .dmc{border:1px solid var(--border);}
+[data-theme="light"] .wire-label{color:var(--text);}
+[data-theme="light"] .wire-end{color:var(--muted);}
+[data-theme="light"] .phase-swatch{border-color:rgba(16,24,40,.12);}
+
 *{margin:0;padding:0;box-sizing:border-box;}
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:15px;overflow-x:hidden;transition:background .3s,color .3s;}
 [data-theme="dark"] body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
@@ -52,10 +272,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 
 /* ─ HEADER ─ */
 header{display:flex;align-items:center;justify-content:space-between;
-  padding:10px 20px 10px 72px;/* left pad for dock */
+  padding:10px 20px 10px 72px;
   background:rgba(7,11,24,.97);border-bottom:1px solid var(--border);
   position:sticky;top:0;z-index:300;backdrop-filter:blur(14px);}
-/* light theme overrides now in :root block above */.logo{display:flex;align-items:center;gap:10px;}
+.logo{display:flex;align-items:center;gap:10px;}
 .logo-orb{width:22px;height:22px;border-radius:50%;
   background:radial-gradient(circle at 35% 30%,#a0e8ff,var(--cyan) 40%,var(--violet));
   box-shadow:0 0 12px var(--cyan);animation:op 3s ease-in-out infinite;}
@@ -76,9 +296,7 @@ header{display:flex;align-items:center;justify-content:space-between;
   display:flex;align-items:center;justify-content:center;transition:all .2s;}
 .theme-btn:hover{color:var(--cyan);border-color:var(--cyan);}
 
-/* ══════════════════════════════════════════════
-   VERTICAL DOCK — left edge, always visible
-══════════════════════════════════════════════ */
+/* ══ VERTICAL DOCK ══ */
 #dock{position:fixed;left:0;top:0;bottom:0;width:52px;z-index:400;
   background:rgba(5,8,20,.98);border-right:1px solid var(--border);
   display:flex;flex-direction:column;align-items:center;padding:8px 0 8px;
@@ -93,7 +311,6 @@ header{display:flex;align-items:center;justify-content:space-between;
   transition:all .2s;user-select:none;position:relative;flex-shrink:0;}
 .dock-btn:hover{color:var(--cyan);border-color:rgba(0,212,255,.4);background:rgba(0,212,255,.08);}
 .dock-btn.active{color:var(--cyan);border-color:var(--cyan);background:rgba(0,212,255,.12);}
-/* Tooltip on dock buttons */
 .dock-btn::after{content:attr(data-tip);position:absolute;left:46px;top:50%;transform:translateY(-50%);
   background:var(--panel);border:1px solid var(--border);border-radius:4px;
   font-family:var(--font-mono);font-size:10px;color:var(--text);
@@ -168,7 +385,6 @@ header{display:flex;align-items:center;justify-content:space-between;
   min-height:52px;border-radius:2px;}
 .wire-line.drag-over{background:rgba(0,212,255,.15);border:1px dashed var(--cyan);border-radius:4px;}
 .wire-end{font-family:var(--font-mono);font-size:10px;color:var(--muted);width:28px;text-align:right;flex-shrink:0;}
-/* Gate chips on wires */
 .gate-chip{font-family:var(--font-mono);font-size:12px;font-weight:700;
   height:36px;min-width:36px;padding:0 8px;border-radius:5px;
   border:2px solid;background:var(--panel);
@@ -178,7 +394,6 @@ header{display:flex;align-items:center;justify-content:space-between;
 .gate-chip:hover{filter:brightness(1.3);}
 .gate-chip.step-active{box-shadow:0 0 12px currentColor;}
 .gate-chip.ctrl-dot{font-size:18px;min-width:28px;padding:0 4px;}
-/* Step track */
 .step-track{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
 .step-pill{font-family:var(--font-mono);font-size:10px;
   padding:3px 8px;border-radius:10px;border:1px solid var(--border);color:var(--muted);}
@@ -200,17 +415,15 @@ select:focus{border-color:var(--cyan);}
 /* ─ CONCEPT BOX ─ */
 .cbox{background:rgba(0,212,255,.04);border:1px solid rgba(0,212,255,.12);
   border-radius:6px;padding:11px;margin-bottom:12px;font-size:13px;line-height:1.7;color:var(--muted);}
-
 .cbox strong{color:var(--text);}.cbox .hl{color:var(--cyan);}
 
-/* ─ HISTOGRAM — horizontal bars, all states, scrollable ─ */
+/* ─ HISTOGRAM ─ */
 .hist-wrap{max-height:280px;overflow-y:auto;overflow-x:hidden;}
 .hist-row{display:flex;align-items:center;gap:6px;padding:2px 0;border-bottom:1px solid rgba(255,255,255,.03);}
 .hist-lbl{font-family:var(--font-mono);font-size:9px;color:var(--cyan);width:88px;flex-shrink:0;text-align:right;white-space:nowrap;overflow:hidden;}
 .hist-bar-track{flex:1;height:14px;background:var(--panel2);border-radius:3px;overflow:hidden;}
 .hist-bar-fill{height:100%;border-radius:3px;transition:width .35s ease;}
 .hist-pct{font-family:var(--font-mono);font-size:9px;color:var(--muted);width:40px;text-align:right;flex-shrink:0;}
-/* Legacy vertical histogram kept for demos (small n) */
 .hw{display:flex;align-items:flex-end;gap:3px;height:68px;}
 .hb{border-radius:2px 2px 0 0;flex:1;min-width:5px;transition:height .35s ease;}
 .hlb{display:flex;gap:3px;margin-top:3px;}
@@ -232,7 +445,6 @@ select:focus{border-color:var(--cyan);}
 .dmc{width:28px;height:28px;border-radius:3px;
   display:flex;align-items:center;justify-content:center;
   font-family:var(--font-mono);font-size:8px;cursor:default;}
-.dm-note{font-family:var(--font-mono);font-size:10px;color:var(--muted);padding:6px 0;}
 
 /* ─ PHASE WHEEL ─ */
 .phase-amp-row{display:flex;align-items:center;gap:6px;margin-bottom:4px;}
@@ -272,14 +484,17 @@ select:focus{border-color:var(--cyan);}
 .shot-fill{height:100%;border-radius:3px;transition:width .1s ease;}
 .shot-pct{font-family:var(--font-mono);font-size:10px;color:var(--muted);width:56px;text-align:right;}
 
-/* ══════════════════════════════════════════════
-   FLOATING PANELS — draggable, closable
-══════════════════════════════════════════════ */
+/* ─ PANEL QUBIT SELECTOR ─ */
+.panel-qsel{font-family:var(--font-mono);font-size:10px;width:100%;margin-bottom:8px;
+  background:var(--panel2);color:var(--text);border:1px solid var(--border);
+  border-radius:4px;padding:4px 6px;cursor:pointer;outline:none;}
+.panel-qsel:focus{border-color:var(--cyan);}
+
+/* ══ FLOATING PANELS ══ */
 .float-panel{position:fixed;z-index:500;background:rgba(8,12,28,.97);
   border:1px solid var(--border2);border-radius:10px;padding:12px;
   backdrop-filter:blur(18px);box-shadow:0 10px 40px rgba(0,0,0,.6);
   display:none;min-width:200px;}
-
 .float-panel.visible{display:block;}
 .float-hdr{display:flex;align-items:center;justify-content:space-between;
   margin-bottom:10px;cursor:move;user-select:none;}
@@ -287,9 +502,7 @@ select:focus{border-color:var(--cyan);}
 .float-close{background:none;border:none;color:var(--muted);cursor:pointer;font-size:14px;line-height:1;padding:2px;}
 .float-close:hover{color:var(--red);}
 
-/* ══════════════════════════════════════════════
-   FULL-SCREEN OVERLAY — Demos & vQRAM
-══════════════════════════════════════════════ */
+/* ══ FULL-SCREEN OVERLAY ══ */
 .overlay{position:fixed;inset:0;left:52px;z-index:600;
   background:rgba(3,5,15,.97);backdrop-filter:blur(4px);
   display:none;flex-direction:column;overflow:hidden;}
@@ -303,16 +516,10 @@ select:focus{border-color:var(--cyan);}
   font-family:var(--font-mono);transition:all .2s;}
 .overlay-close:hover{color:var(--red);border-color:var(--red);}
 .overlay-body{flex:1;overflow-y:auto;padding:20px;}
-
-/* Demo layout inside overlay */
 .demo-select-row{display:flex;gap:10px;align-items:center;margin-bottom:18px;flex-wrap:wrap;}
 .demo-selector{flex:1;min-width:220px;font-size:12px;padding:8px 10px;}
 #demo-panel{animation:fi .25s ease both;}
-
-/* vQRAM inside overlay — 2 col layout */
 .vqram-layout{display:grid;grid-template-columns:340px 1fr;gap:20px;}
-
-/* ─ NOISE PANEL ─ */
 #panel-noise{min-width:240px;}
 
 /* ─ SCROLLBAR ─ */
@@ -329,9 +536,7 @@ select:focus{border-color:var(--cyan);}
   background:var(--panel2);color:var(--text);border:1px solid var(--border);
   border-radius:4px;padding:4px 6px;outline:none;text-align:center;}
 .angle-input:focus{border-color:var(--cyan);}
-/* Selected gate chip for angle editing */
 .gate-chip.selected{outline:2px solid var(--gold);outline-offset:1px;box-shadow:0 0 10px rgba(251,191,36,.4);}
-
 
 #drag-ghost{position:fixed;pointer-events:none;z-index:9999;
   font-family:var(--font-mono);font-size:13px;font-weight:700;
@@ -341,60 +546,66 @@ select:focus{border-color:var(--cyan);}
 </head>
 <body>
 
-<!-- DRAG GHOST -->
 <div id="drag-ghost"></div>
 
-<!-- ══════════════════════════════════════════
-     VERTICAL DOCK
-══════════════════════════════════════════ -->
+<!-- ══ VERTICAL DOCK ══ -->
 <div id="dock">
   <div class="dock-logo"></div>
   <div class="dock-sep"></div>
-  <!-- Visualisation panels -->
   <button class="dock-btn" id="dock-bloch" onclick="togglePanel('panel-bloch')" data-tip="Bloch Sphere">⊙</button>
   <button class="dock-btn" id="dock-qsphere" onclick="togglePanel('panel-qsphere')" data-tip="Q-Sphere">◎</button>
   <button class="dock-btn" id="dock-phase" onclick="togglePanel('panel-phase')" data-tip="Phase Wheel">⟳</button>
   <button class="dock-btn" id="dock-dm" onclick="togglePanel('panel-dm')" data-tip="Density Matrix">▦</button>
   <button class="dock-btn" id="dock-sv" onclick="togglePanel('panel-sv')" data-tip="State Vector">≡</button>
   <div class="dock-sep"></div>
-  <!-- Noise -->
   <button class="dock-btn" id="dock-noise" onclick="togglePanel('panel-noise')" data-tip="Noise Channels">≋</button>
   <div class="dock-sep"></div>
-  <!-- Full-screen overlays -->
   <button class="dock-btn" id="dock-demos" onclick="toggleOverlay('overlay-demos')" data-tip="Demos">▷</button>
   <button class="dock-btn" id="dock-vqram" onclick="toggleOverlay('overlay-vqram')" data-tip="vQRAM / Chunks">⬡</button>
 </div>
 
-<!-- ══════════════════════════════════════════
-     FLOATING PANELS
-══════════════════════════════════════════ -->
+<!-- ══ FLOATING PANELS ══ -->
+
+<!-- BLOCH SPHERE PANEL -->
 <div class="float-panel" id="panel-bloch" style="left:70px;top:80px;">
   <div class="float-hdr" onmousedown="dragStart(event,'panel-bloch')">
     <span class="float-title">// BLOCH SPHERE</span>
     <button class="float-close" onclick="togglePanel('panel-bloch')">✕</button>
   </div>
+  <select class="panel-qsel" id="fp-bloch-qsel" onchange="refreshFloatingPanels()">
+    <option value="global">Global (All Qubits)</option>
+  </select>
   <canvas id="fp-bloch" width="200" height="200"></canvas>
   <div id="fp-bloch-info" style="font-family:var(--font-mono);font-size:10px;color:var(--muted);text-align:center;line-height:1.9;margin-top:6px;"></div>
 </div>
 
+<!-- Q-SPHERE PANEL -->
 <div class="float-panel" id="panel-qsphere" style="left:70px;top:320px;">
   <div class="float-hdr" onmousedown="dragStart(event,'panel-qsphere')">
     <span class="float-title">// Q-SPHERE</span>
     <button class="float-close" onclick="togglePanel('panel-qsphere')">✕</button>
   </div>
+    <select class="panel-qsel" id="fp-qsphere-qsel" onchange="refreshFloatingPanels()">
+    <option value="global">Global (Full State)</option>
+  </select>
   <canvas id="fp-qsphere" width="200" height="200"></canvas>
   <div id="fp-qsphere-info" style="font-family:var(--font-mono);font-size:10px;color:var(--muted);text-align:center;margin-top:6px;"></div>
 </div>
 
+<!-- PHASE WHEEL PANEL -->
 <div class="float-panel" id="panel-phase" style="left:280px;top:80px;">
   <div class="float-hdr" onmousedown="dragStart(event,'panel-phase')">
     <span class="float-title">// PHASE WHEEL</span>
     <button class="float-close" onclick="togglePanel('panel-phase')">✕</button>
   </div>
+  <select class="panel-qsel" id="fp-phase-qsel" onchange="refreshFloatingPanels()">
+    <option value="global">Global (Full State)</option>
+  </select>
   <canvas id="fp-phase" width="180" height="180"></canvas>
   <div id="fp-phase-info" style="font-family:var(--font-mono);font-size:10px;color:var(--muted);margin-top:6px;line-height:1.8;"></div>
 </div>
 
+<!-- DENSITY MATRIX PANEL -->
 <div class="float-panel" id="panel-dm" style="left:280px;top:320px;min-width:220px;">
   <div class="float-hdr" onmousedown="dragStart(event,'panel-dm')">
     <span class="float-title">// DENSITY MATRIX |ρ|</span>
@@ -403,6 +614,7 @@ select:focus{border-color:var(--cyan);}
   <div id="fp-dm" style="display:flex;justify-content:center;padding:4px 0;overflow-x:auto;"></div>
 </div>
 
+<!-- STATE VECTOR PANEL -->
 <div class="float-panel" id="panel-sv" style="left:70px;top:550px;min-width:290px;">
   <div class="float-hdr" onmousedown="dragStart(event,'panel-sv')">
     <span class="float-title">// STATE VECTOR</span>
@@ -414,6 +626,7 @@ select:focus{border-color:var(--cyan);}
   </div>
 </div>
 
+<!-- NOISE PANEL -->
 <div class="float-panel" id="panel-noise" style="left:70px;top:160px;min-width:270px;">
   <div class="float-hdr" onmousedown="dragStart(event,'panel-noise')">
     <span class="float-title">// NOISE CHANNELS</span>
@@ -440,9 +653,7 @@ select:focus{border-color:var(--cyan);}
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     DEMOS OVERLAY
-══════════════════════════════════════════ -->
+<!-- ══ DEMOS OVERLAY ══ -->
 <div class="overlay" id="overlay-demos">
   <div class="overlay-hdr">
     <span class="overlay-title">⬡ PRESET DEMONSTRATIONS</span>
@@ -463,9 +674,7 @@ select:focus{border-color:var(--cyan);}
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     vQRAM OVERLAY
-══════════════════════════════════════════ -->
+<!-- ══ vQRAM OVERLAY ══ -->
 <div class="overlay" id="overlay-vqram">
   <div class="overlay-hdr">
     <span class="overlay-title">⬡ HDQS vQRAM / CHUNK ARCHITECTURE</span>
@@ -476,7 +685,6 @@ select:focus{border-color:var(--cyan);}
       HDQS decomposes large qubit spaces into <strong>chunk cubes</strong> (max 5Q/5 chunks). <strong>Hyper-qubits</strong> (Router/Accel/Mem) propagate entanglement-influence as wave corridors. Cross-chunk gates run via HQ tunnelling without exponential tensor expansion.
     </div>
     <div class="vqram-layout">
-      <!-- Left: controls -->
       <div class="col">
         <div class="card">
           <div class="ct">// HYPER-SYSTEM CONFIG</div>
@@ -495,7 +703,6 @@ select:focus{border-color:var(--cyan);}
             </div>
           </div>
           <div id="vq-hq-badges" style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px;"></div>
-
           <div class="ct">// WITHIN-CHUNK OPS</div>
           <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:6px;">
             <span style="font-size:11px;color:var(--muted);">Chunk:</span>
@@ -521,7 +728,6 @@ select:focus{border-color:var(--cyan);}
               oninput="document.getElementById('vq-angle-d').textContent=(this.value/100).toFixed(2)+'r'">
             <span class="cv" id="vq-angle-d">1.57r</span>
           </div>
-
           <div class="ct" style="margin-top:10px;">// CROSS-CHUNK VIA HQ</div>
           <div class="xgr" style="font-size:11px;">
             <span style="color:var(--muted);">C:</span>
@@ -536,13 +742,10 @@ select:focus{border-color:var(--cyan);}
             <button class="btn warn" style="font-size:10px;padding:4px 10px;" onclick="vqXG('CZ')">CZ</button>
           </div>
           <div id="xgate-log" style="font-family:var(--font-mono);font-size:10px;color:var(--muted);line-height:1.8;"></div>
-
           <div class="ct" style="margin-top:10px;">// SYSTEM STATUS</div>
           <div id="vq-status" style="font-family:var(--font-mono);font-size:11px;color:var(--muted);line-height:2;"></div>
         </div>
       </div>
-
-      <!-- Right: visualisation -->
       <div class="col">
         <div class="card" style="display:flex;flex-direction:column;align-items:center;gap:8px;">
           <div class="ct" style="align-self:flex-start;margin-bottom:0;">// GLOBAL BLOCH SPHERE</div>
@@ -566,9 +769,7 @@ select:focus{border-color:var(--cyan);}
   </div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     HEADER
-══════════════════════════════════════════ -->
+<!-- ══ HEADER ══ -->
 <header>
   <div class="logo">
     <div class="logo-orb"></div>
@@ -584,9 +785,7 @@ select:focus{border-color:var(--cyan);}
   </div>
 </header>
 
-<!-- ══════════════════════════════════════════
-     MAIN BODY
-══════════════════════════════════════════ -->
+<!-- ══ MAIN BODY ══ -->
 <div class="app-body">
 
 <!-- ═══════ PAGE 1: FUNDAMENTALS ═══════ -->
@@ -695,7 +894,6 @@ select:focus{border-color:var(--cyan);}
 <!-- ═══════ PAGE 2: CIRCUIT LAB ═══════ -->
 <div class="page" id="page-circuit">
 
-  <!-- GATE PALETTE — drag-source -->
   <div class="card fi" style="margin-bottom:14px;">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
       <div class="ct" style="margin-bottom:0;">// GATE PALETTE — drag gates onto qubit wires</div>
@@ -717,7 +915,6 @@ select:focus{border-color:var(--cyan);}
       </div>
     </div>
 
-    <!-- θ for rotation gates + selected gate editor -->
     <div style="display:flex;gap:12px;align-items:center;margin-bottom:8px;flex-wrap:wrap;">
       <span style="font-size:11px;color:var(--muted);">Rotation θ:</span>
       <input type="range" class="slider" id="circ-angle" min="0" max="628" value="157" style="width:140px;"
@@ -731,7 +928,6 @@ select:focus{border-color:var(--cyan);}
       <button class="btn warn" style="font-size:10px;padding:3px 10px;margin-left:10px;" onclick="updateSelectedGateAngle()">Update θ</button>
       <button class="btn" style="font-size:10px;padding:3px 10px;" onclick="deselectGate()">Deselect</button>
     </div>
-    <!-- ctrl/ctrl2 selects for multi-qubit gates -->
     <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:10px;">
       <span style="font-size:11px;color:var(--muted);">Control Q:</span>
       <select id="circ-cq"><option value="">None</option></select>
@@ -739,7 +935,6 @@ select:focus{border-color:var(--cyan);}
       <select id="circ-cq2"><option value="">None</option></select>
     </div>
 
-    <!-- All gate buttons as drag sources -->
     <div class="tb">
       <button class="gb gH" draggable="true" data-gate="H" title="H — Hadamard: superposition">H</button>
       <button class="gb gX" draggable="true" data-gate="X" title="X — Pauli-X: bit flip">X</button>
@@ -763,14 +958,12 @@ select:focus{border-color:var(--cyan);}
     </div>
   </div>
 
-  <!-- CIRCUIT DIAGRAM -->
   <div class="card fi" style="margin-bottom:14px;">
     <div class="ct">// CIRCUIT DIAGRAM — drop gates here, click chips to remove</div>
     <div id="step-track" class="step-track" style="display:none;"></div>
     <div id="circ-wires"></div>
   </div>
 
-  <!-- OUTPUT: Histogram + Bloch side by side -->
   <div style="display:grid;grid-template-columns:1fr 210px;gap:14px;margin-bottom:14px;">
     <div class="card fi">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
@@ -787,7 +980,6 @@ select:focus{border-color:var(--cyan);}
     </div>
   </div>
 
-  <!-- Shot simulator -->
   <div class="card fi">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
       <div class="ct" style="margin-bottom:0;">// SHOT SIMULATOR</div>
@@ -805,7 +997,6 @@ select:focus{border-color:var(--cyan);}
   </div>
 
 </div><!-- end circuit page -->
-
 </div><!-- end .app-body -->
 
 <div class="sbar">
@@ -817,11 +1008,10 @@ select:focus{border-color:var(--cyan);}
   <div style="margin-left:auto;">SIA SOFTWARE INNOVATIONS PRIVATE LIMITED</div>
 </div>
 
-<!-- ══════════════════════════════════════════
-     JAVASCRIPT ENGINE
-══════════════════════════════════════════ -->
+<!-- ══ JAVASCRIPT ENGINE ══ -->
 <script>
 'use strict';
+
 // ─ COMPLEX MATH ─
 const Cx={
   add:(a,b)=>[a[0]+b[0],a[1]+b[1]],
@@ -952,23 +1142,41 @@ function drawBloch(id,sz,vectors,colors){
   const ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
   ctx.clearRect(0,0,W,H);
   const cx=W/2,cy=H/2,r=sz*0.43;
+
+  // Fill background for light theme readability
+  const isDark=document.documentElement.getAttribute('data-theme')!=='light';
+  if(!isDark){ctx.fillStyle='rgba(240,245,255,0.5)';ctx.beginPath();ctx.arc(cx,cy,r,0,6.28);ctx.fill();}
+
   const g=ctx.createRadialGradient(cx,cy,r*.1,cx,cy,r);
-  g.addColorStop(0,'rgba(0,212,255,0.05)');g.addColorStop(1,'transparent');
+  if(isDark){g.addColorStop(0,'rgba(0,212,255,0.05)');g.addColorStop(1,'transparent');}
+  else{g.addColorStop(0,'rgba(0,119,204,0.07)');g.addColorStop(1,'transparent');}
   ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,r,0,6.28);ctx.fill();
-  ctx.strokeStyle='rgba(0,212,255,0.22)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,r,0,6.28);ctx.stroke();
+
+  const sphereColor=isDark?'rgba(0,212,255,0.22)':'rgba(0,100,180,0.35)';
+  ctx.strokeStyle=sphereColor;ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,r,0,6.28);ctx.stroke();
+
   for(let z=-2;z<=2;z++){if(!z)continue;const zn=z/3;const rr=r*Math.sqrt(1-zn*zn);const yy=cy-r*zn*.72;
-    ctx.strokeStyle='rgba(0,212,255,0.07)';ctx.lineWidth=.5;ctx.beginPath();ctx.ellipse(cx,yy,rr,rr*.33,0,0,6.28);ctx.stroke();}
-  ctx.strokeStyle='rgba(0,212,255,0.14)';ctx.lineWidth=.8;
+    ctx.strokeStyle=isDark?'rgba(0,212,255,0.07)':'rgba(0,100,180,0.12)';ctx.lineWidth=.5;
+    ctx.beginPath();ctx.ellipse(cx,yy,rr,rr*.33,0,0,6.28);ctx.stroke();}
+  ctx.strokeStyle=isDark?'rgba(0,212,255,0.14)':'rgba(0,100,180,0.2)';ctx.lineWidth=.8;
   ctx.beginPath();ctx.ellipse(cx,cy,r,r*.33,0,0,6.28);ctx.stroke();
   ctx.beginPath();ctx.ellipse(cx,cy,r*.48,r,0,0,6.28);ctx.stroke();
+
   function proj(x,y,z){return[cx+r*(x-y*.42),cy-r*(z*.82+y*.27)];}
   function ax(x,y,z,lbl,col,dash=true){const[px,py]=proj(x,y,z);
     ctx.save();ctx.strokeStyle=col;ctx.lineWidth=.7;if(dash)ctx.setLineDash([3,3]);
     ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(px,py);ctx.stroke();ctx.setLineDash([]);
     ctx.fillStyle=col;ctx.font="9px 'Space Mono'";ctx.fillText(lbl,px+2,py+3);ctx.restore();}
-  ax(1.1,0,0,'|+⟩','rgba(0,212,255,.3)');ax(-1.1,0,0,'|-⟩','rgba(0,212,255,.18)');
-  ax(0,0,1.1,'|0⟩','rgba(255,255,255,.38)',false);ax(0,0,-1.1,'|1⟩','rgba(255,255,255,.22)');
-  ax(0,1.1,0,'|i⟩','rgba(124,58,237,.28)');
+
+  const axC=isDark?'rgba(0,212,255,.3)':'rgba(0,100,180,.55)';
+  const axCd=isDark?'rgba(0,212,255,.18)':'rgba(0,100,180,.3)';
+  const axW=isDark?'rgba(255,255,255,.38)':'rgba(10,30,80,.65)';
+  const axWd=isDark?'rgba(255,255,255,.22)':'rgba(10,30,80,.4)';
+  const axV=isDark?'rgba(124,58,237,.28)':'rgba(100,50,200,.4)';
+  ax(1.1,0,0,'|+⟩',axC);ax(-1.1,0,0,'|-⟩',axCd);
+  ax(0,0,1.1,'|0⟩',axW,false);ax(0,0,-1.1,'|1⟩',axWd);
+  ax(0,1.1,0,'|i⟩',axV);
+
   vectors.forEach((bv,i)=>{
     const col=colors[i]||'#00d4ff';const[px,py]=proj(bv.x,bv.y,bv.z);
     const ang=Math.atan2(py-cy,px-cx);const hs=8;
@@ -980,7 +1188,8 @@ function drawBloch(id,sz,vectors,colors){
     ctx.lineTo(px-hs*Math.cos(ang+.38),py-hs*Math.sin(ang+.38));
     ctx.closePath();ctx.fill();ctx.shadowBlur=0;
   });
-  ctx.fillStyle='rgba(255,255,255,.3)';ctx.beginPath();ctx.arc(cx,cy,2.5,0,6.28);ctx.fill();
+  ctx.fillStyle=isDark?'rgba(255,255,255,.3)':'rgba(10,30,80,.5)';
+  ctx.beginPath();ctx.arc(cx,cy,2.5,0,6.28);ctx.fill();
 }
 
 function phaseToHue(ph){return((ph/(2*Math.PI))*360+360)%360;}
@@ -991,13 +1200,22 @@ function drawQSphere(id,sv,n,sz){
   const ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
   ctx.clearRect(0,0,W,H);
   const cx=W/2,cy=H/2,r=sz*0.41;
+  const isDark=document.documentElement.getAttribute('data-theme')!=='light';
+
+  if(!isDark){ctx.fillStyle='rgba(240,245,255,0.5)';ctx.beginPath();ctx.arc(cx,cy,r,0,6.28);ctx.fill();}
+
   const g=ctx.createRadialGradient(cx,cy,r*.1,cx,cy,r);
-  g.addColorStop(0,'rgba(124,58,237,0.07)');g.addColorStop(1,'transparent');
+  if(isDark){g.addColorStop(0,'rgba(124,58,237,0.07)');g.addColorStop(1,'transparent');}
+  else{g.addColorStop(0,'rgba(100,50,200,0.09)');g.addColorStop(1,'transparent');}
   ctx.fillStyle=g;ctx.beginPath();ctx.arc(cx,cy,r,0,6.28);ctx.fill();
-  ctx.strokeStyle='rgba(124,58,237,0.3)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,r,0,6.28);ctx.stroke();
-  ctx.strokeStyle='rgba(124,58,237,0.12)';ctx.lineWidth=.7;
+
+  const ringCol=isDark?'rgba(124,58,237,0.3)':'rgba(100,50,200,0.45)';
+  const ringCol2=isDark?'rgba(124,58,237,0.12)':'rgba(100,50,200,0.2)';
+  ctx.strokeStyle=ringCol;ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,r,0,6.28);ctx.stroke();
+  ctx.strokeStyle=ringCol2;ctx.lineWidth=.7;
   ctx.beginPath();ctx.ellipse(cx,cy,r,r*.3,0,0,6.28);ctx.stroke();
   ctx.beginPath();ctx.ellipse(cx,cy,r*.45,r,0,0,6.28);ctx.stroke();
+
   function proj(th,ph){const x=Math.sin(th)*Math.cos(ph);const y=Math.sin(th)*Math.sin(ph);const z=Math.cos(th);
     return[cx+r*(x-y*.35),cy-r*(z*.8+y*.25)];}
   const d=1<<n;
@@ -1013,7 +1231,7 @@ function drawQSphere(id,sv,n,sz){
         const phi2=levels[k+1].length===1?0:(2*Math.PI*jj/levels[k+1].length);
         const[px2,py2]=proj((k+1)*Math.PI/n,phi2);
         const prob2=sv?Cx.abs2(sv[sj]):0;if(prob2<0.001)return;
-        ctx.strokeStyle='rgba(124,58,237,0.1)';ctx.lineWidth=.5;
+        ctx.strokeStyle=isDark?'rgba(124,58,237,0.1)':'rgba(100,50,200,0.15)';ctx.lineWidth=.5;
         ctx.beginPath();ctx.moveTo(px,py);ctx.lineTo(px2,py2);ctx.stroke();});});}
   const MAX_DOT_R=r*0.085,MIN_DOT_R=3;
   let qsInfo='';
@@ -1025,12 +1243,13 @@ function drawQSphere(id,sv,n,sz){
       const ampV=sv?sv[si]:[0,0];const prob=Cx.abs2(ampV);if(prob<0.0005)return;
       const hue=phaseToHue(Cx.phase(ampV));
       const dotR=Math.min(MAX_DOT_R,Math.max(MIN_DOT_R,Math.sqrt(prob)*r*0.52));
-      ctx.shadowColor=hslStr(hue,90,60,1);ctx.shadowBlur=dotR*2;
-      ctx.fillStyle=hslStr(hue,85,55,Math.min(1,prob*4+0.4));
+      ctx.shadowColor=hslStr(hue,90,isDark?60:45,1);ctx.shadowBlur=dotR*2;
+      ctx.fillStyle=hslStr(hue,isDark?85:80,isDark?55:42,Math.min(1,prob*4+0.4));
       ctx.beginPath();ctx.arc(px,py,dotR,0,6.28);ctx.fill();ctx.shadowBlur=0;
       const lbl=si.toString(2).padStart(n,'0');
-      if(prob>0.01){ctx.fillStyle='rgba(200,220,255,0.7)';ctx.font="8px 'Space Mono'";
-        ctx.fillText(`|${lbl}⟩`,px+dotR+2,py+3);}
+      if(prob>0.01){
+        ctx.fillStyle=isDark?'rgba(200,220,255,0.7)':'rgba(10,20,60,0.8)';
+        ctx.font="8px 'Space Mono'";ctx.fillText(`|${lbl}⟩`,px+dotR+2,py+3);}
       if(prob>0.02)qsInfo+=`|${lbl}⟩:${(prob*100).toFixed(0)}% `;});}
   return qsInfo;
 }
@@ -1040,22 +1259,35 @@ function drawPhaseWheel(id,sv,n){
   const ctx=cv.getContext('2d'),W=cv.width,H=cv.height;
   ctx.clearRect(0,0,W,H);
   const cx=W/2,cy=H/2,r=Math.min(W,H)*0.4;
+  const isDark=document.documentElement.getAttribute('data-theme')!=='light';
+
   for(let deg=0;deg<360;deg++){
     const a1=deg*Math.PI/180,a2=(deg+1)*Math.PI/180;
-    ctx.strokeStyle=`hsla(${deg},80%,55%,0.4)`;ctx.lineWidth=r*.35;
+    ctx.strokeStyle=isDark?`hsla(${deg},80%,55%,0.4)`:`hsla(${deg},85%,42%,0.55)`;
+    ctx.lineWidth=r*.35;
     ctx.beginPath();ctx.arc(cx,cy,r*.82,a1,a2);ctx.stroke();}
-  ctx.strokeStyle='rgba(124,58,237,0.3)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,r,0,6.28);ctx.stroke();
-  ctx.fillStyle='rgba(10,15,30,.8)';ctx.beginPath();ctx.arc(cx,cy,r*.55,0,6.28);ctx.fill();
-  ctx.fillStyle='rgba(124,58,237,0.2)';ctx.beginPath();ctx.arc(cx,cy,r*.55,0,6.28);ctx.fill();
+  ctx.strokeStyle=isDark?'rgba(124,58,237,0.3)':'rgba(100,50,200,0.45)';
+  ctx.lineWidth=1;ctx.beginPath();ctx.arc(cx,cy,r,0,6.28);ctx.stroke();
+  ctx.fillStyle=isDark?'rgba(10,15,30,.8)':'rgba(240,245,255,.88)';
+  ctx.beginPath();ctx.arc(cx,cy,r*.55,0,6.28);ctx.fill();
+  ctx.fillStyle=isDark?'rgba(124,58,237,0.2)':'rgba(100,50,200,0.1)';
+  ctx.beginPath();ctx.arc(cx,cy,r*.55,0,6.28);ctx.fill();
+
+  const lblCol=isDark?'rgba(180,200,255,0.5)':'rgba(10,20,80,0.7)';
   [['0',1,0],['π/2',0,-1],['π',-1,0],['3π/2',0,1]].forEach(([l,x,y])=>{
-    ctx.fillStyle='rgba(180,200,255,0.5)';ctx.font="8px 'Space Mono'";
+    ctx.fillStyle=lblCol;ctx.font="8px 'Space Mono'";
     ctx.fillText(l,cx+x*(r+8)-4,cy+y*(r+8)+3);});
-  if(!sv){ctx.fillStyle='rgba(100,120,180,0.4)';ctx.font="10px 'Space Mono'";ctx.fillText('no state',cx-28,cy+4);return;}
-  const d=1<<n;const colors=['#00d4ff','#7c3aed','#ff9d00','#d946ef','#00ff88','#f43f5e','#fb923c','#22d3ee'];
+  if(!sv){
+    ctx.fillStyle=isDark?'rgba(100,120,180,0.4)':'rgba(10,30,100,0.5)';
+    ctx.font="10px 'Space Mono'";ctx.fillText('no state',cx-28,cy+4);return;}
+  const d=1<<n;
+  const colors=isDark
+    ?['#00d4ff','#7c3aed','#ff9d00','#d946ef','#00ff88','#f43f5e','#fb923c','#22d3ee']
+    :['#0077cc','#6d28d9','#b45309','#a21caf','#047857','#b91c1c','#c2410c','#0e7490'];
   let info='';
   for(let i=0;i<Math.min(d,8);i++){const a=sv[i];const mag=Cx.abs(a);if(mag<0.02)continue;
     const ph=Cx.phase(a);const col=colors[i%8];
-    const px=cx+Math.cos(ph)*r*.72*mag*1.4;const py=cy-Math.sin(ph)*r*.72*mag*1.4;
+        const px=cx+Math.cos(ph)*r*.72*mag*1.4;const py=cy-Math.sin(ph)*r*.72*mag*1.4;
     ctx.strokeStyle=col;ctx.lineWidth=2;ctx.shadowColor=col;ctx.shadowBlur=8;
     ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(px,py);ctx.stroke();
     ctx.fillStyle=col;ctx.beginPath();ctx.arc(px,py,3,0,6.28);ctx.fill();ctx.shadowBlur=0;
@@ -1063,48 +1295,34 @@ function drawPhaseWheel(id,sv,n){
   return info.trim();
 }
 
-// DM — full 2D matrix grid up to n=5 (d=32). For n>5 hide the dock button entirely.
+// ─ DM renderer — removed label/legend ─
 function renderDM(rho,n,el){
   const d=1<<n;
   if(!el)return;
-  if(n>5){
-    el.innerHTML=`<div class="dm-note">n=${n}: d=${d} — too large for DM display</div>`;
-    return;
-  }
-  const note=`<div class="dm-note" style="margin-top:4px;font-size:9px;">n=${n} · ρ (${d}×${d}) · cyan=diagonal · violet=off-diagonal</div>`;
+  if(n>5){el.innerHTML=`<div style="font-family:var(--font-mono);font-size:10px;color:var(--muted);padding:6px 0;">n=${n}: d=${d} — too large for DM display</div>`;return;}
   if(n>2){
-    const cellSz=n<=3?24:n<=4?18:13;
-    const fSz=Math.max(6,cellSz-16);
+    const cellSz=n<=3?24:n<=4?18:13;const fSz=Math.max(6,cellSz-16);
     let h=`<div style="overflow-x:auto;"><div class="dmg">`;
-    for(let i=0;i<d;i++){
-      h+='<div class="dmr">';
+    for(let i=0;i<d;i++){h+='<div class="dmr">';
       for(let j=0;j<d;j++){
         if(!rho){h+=`<div class="dmc" style="width:${cellSz}px;height:${cellSz}px;font-size:${fSz}px;">·</div>`;continue;}
-        const v=Cx.abs(rho[i*d+j]);
-        const re=rho[i*d+j][0],im=rho[i*d+j][1];
-        const a=Math.min(1,v);
+        const v=Cx.abs(rho[i*d+j]);const re=rho[i*d+j][0],im=rho[i*d+j][1];const a=Math.min(1,v);
         const bg=i===j?`rgba(0,212,255,${(a*.85).toFixed(2)})`:`rgba(124,58,237,${(a*.6).toFixed(2)})`;
         const tip=`ρ[${i},${j}]=${re.toFixed(3)}${im>=0?'+':''}${im.toFixed(3)}i`;
-        h+=`<div class="dmc" style="width:${cellSz}px;height:${cellSz}px;font-size:${fSz}px;background:${bg};color:${a>.45?'#000':'rgba(180,210,255,.7)'};border:1px solid ${i===j?'rgba(0,212,255,.35)':'transparent'};" title="${tip}">${v.toFixed(1)}</div>`;
-      }
-      h+='</div>';
-    }
-    el.innerHTML=h+'</div></div>'+note;
-    return;
-  }
-  // Full 2D grid n<=2
+        h+=`<div class="dmc" style="width:${cellSz}px;height:${cellSz}px;font-size:${fSz}px;background:${bg};color:${a>.45?'#000':'rgba(180,210,255,.7)'};border:1px solid ${i===j?'rgba(0,212,255,.35)':'transparent'};" title="${tip}">${v.toFixed(1)}</div>`;}
+      h+='</div>';}
+    el.innerHTML=h+'</div></div>';return;}
   let h='<div style="overflow-x:auto;"><div class="dmg">';
   for(let i=0;i<d;i++){h+='<div class="dmr">';
     for(let j=0;j<d;j++){
       if(!rho){h+=`<div class="dmc">·</div>`;continue;}
       const v=Cx.abs(rho[i*d+j]);const re=rho[i*d+j][0],im=rho[i*d+j][1];const a=Math.min(1,v);
       const bg=i===j?`rgba(0,212,255,${(a*.85).toFixed(2)})`:`rgba(124,58,237,${(a*.65).toFixed(2)})`;
-      h+=`<div class="dmc" style="background:${bg};color:${a>.45?'#000':'rgba(180,210,255,.7)'};border:1px solid ${i===j?'rgba(0,212,255,.4)':'transparent'};" title="ρ[${i},${j}]=${re.toFixed(3)}${im>=0?'+':''}${im.toFixed(3)}i">${v.toFixed(2)}</div>`;
-    }h+='</div>';}
-  el.innerHTML=h+'</div></div>'+note;
+      h+=`<div class="dmc" style="background:${bg};color:${a>.45?'#000':'rgba(180,210,255,.7)'};border:1px solid ${i===j?'rgba(0,212,255,.4)':'transparent'};" title="ρ[${i},${j}]=${re.toFixed(3)}${im>=0?'+':''}${im.toFixed(3)}i">${v.toFixed(2)}</div>`;}
+    h+='</div>';}
+  el.innerHTML=h+'</div></div>';
 }
 
-// renderHistH — horizontal scrollable bars, shows ALL states
 function renderHistH(probs,states,wid,color){
   const w=document.getElementById(wid);if(!w)return;
   if(!probs.length){w.innerHTML='';return;}
@@ -1112,56 +1330,143 @@ function renderHistH(probs,states,wid,color){
   const COLORS=['#00d4ff','#7c3aed','#ff9d00','#d946ef','#00ff88','#f43f5e','#fb923c','#22d3ee','#a78bfa','#34d399','#fbbf24','#f9a8d4'];
   let h='';
   probs.forEach((p,i)=>{
-    const pct=(p*100).toFixed(1);
-    const barW=Math.max(p>.0001?1:0,Math.round(p/maxP*100));
+    const pct=(p*100).toFixed(1);const barW=Math.max(p>.0001?1:0,Math.round(p/maxP*100));
     const col=color||(COLORS[i%COLORS.length]);
-    if(p<0.0001&&barW===0)return; // skip truly zero
-    h+=`<div class="hist-row"><div class="hist-lbl">|${states[i]}⟩</div><div class="hist-bar-track"><div class="hist-bar-fill" style="width:${barW}%;background:${col};"></div></div><div class="hist-pct">${pct}%</div></div>`;
-  });
+    if(p<0.0001&&barW===0)return;
+    h+=`<div class="hist-row"><div class="hist-lbl">|${states[i]}⟩</div><div class="hist-bar-track"><div class="hist-bar-fill" style="width:${barW}%;background:${col};"></div></div><div class="hist-pct">${pct}%</div></div>`;});
   w.innerHTML=h||'<div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);padding:8px;">All probabilities ~0</div>';
 }
-// renderHist — vertical bars for demos/small n
 function renderHist(probs,states,wid,color){
   const w=document.getElementById(wid);if(!w)return;
   let b='<div class="hw">',l='<div class="hlb">';
-  probs.forEach((p,s)=>{
-    const h=Math.max(2,Math.round(p*64));
+  probs.forEach((p,s)=>{const h=Math.max(2,Math.round(p*64));
     b+=`<div class="hb" style="height:${h}px;background:${p>.01?color:'rgba(255,255,255,.06)'};" title="${states[s]}:${(p*100).toFixed(1)}%"></div>`;
     l+=`<div class="hll">${states[s]}</div>`;});
   w.innerHTML=b+'</div>'+l+'</div>';
 }
 
-// Global last-known state — always reflects whatever ran last (circuit or fundamentals)
+// ─ Global last-known state ─
 let lastRho=null,lastSV=null,lastN=1;
 function setLastState(rho,sv,n){lastRho=rho;lastSV=sv;lastN=n;}
 
-// Update floating panels
+// ─ Panel qubit selector helpers ─
+function buildPanelQSelects(n){
+  ['fp-bloch-qsel','fp-qsphere-qsel','fp-phase-qsel'].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    const cur=el.value;
+    el.innerHTML='<option value="global">Global (All Qubits)</option>';
+    for(let i=0;i<n;i++)el.innerHTML+=`<option value="${i}">Q${i}</option>`;
+    // restore selection if still valid
+    if(cur==='global'||parseInt(cur)<n)el.value=cur;
+    else el.value='global';
+  });
+}
+
+// ─ Get single-qubit SV/rho for a given qubit index from full state ─
+function getSingleQubitState(rho,sv,n,qIdx){
+  if(qIdx==='global'||qIdx===null||qIdx===undefined){
+    return{rho,sv,n};
+  }
+  const q=parseInt(qIdx);
+  const rho1=n>=5?(sv?ptrace1SV(sv,q,n):null):ptrace1(rho,q,n);
+  // build a single-qubit sv approximation from rho1 diagonal for display only
+  const p0=rho1?Math.max(0,rho1[0][0]):1;
+  const sv1=sv?[[Math.sqrt(p0),0],[Math.sqrt(Math.max(0,1-p0)),0]]:null;
+  return{rho:rho1,sv:sv1,n:1};
+}
+
+// ─ Refresh all floating panels using their own qubit selector + last state ─
+function refreshFloatingPanels(){
+  const rho=lastRho||Q1rho;
+  const sv=lastSV!==undefined?lastSV:Q1sv;
+  const n=lastN||1;
+  _doUpdateFloating(rho,sv,n);
+}
+
 function updateFloating(rho,sv,n){
   setLastState(rho,sv,n);
+  buildPanelQSelects(n);
+  _doUpdateFloating(rho,sv,n);
+}
+
+function _doUpdateFloating(rho,sv,n){
   const d=1<<n;
-  const rho1=n>=5?(sv?ptrace1SV(sv,0,n):null):ptrace1(rho,0,n);
-  const bv=rho1?blochVec(rho1):{x:0,y:0,z:1};
-  drawBloch('fp-bloch',200,[bv],['#00d4ff']);
+  const isDark=document.documentElement.getAttribute('data-theme')!=='light';
+  const QCOLS_FP=['#00d4ff','#7c3aed','#ff9d00','#d946ef','#00ff88','#22d3ee','#fb923c','#f43f5e','#a78bfa','#34d399'];
+  const QCOLS_FP_LIGHT=['#0077cc','#6d28d9','#b45309','#a21caf','#047857','#0e7490','#c2410c','#b91c1c','#7c3aed','#059669'];
+  const qcols=isDark?QCOLS_FP:QCOLS_FP_LIGHT;
+
+  // ── BLOCH SPHERE PANEL ──
+  const blochSel=document.getElementById('fp-bloch-qsel');
+  const blochQ=blochSel?blochSel.value:'global';
   const fi=document.getElementById('fp-bloch-info');
-  if(fi)fi.textContent=`(${bv.x.toFixed(3)}, ${bv.y.toFixed(3)}, ${bv.z.toFixed(3)})`;
-  if(n<=8){const qi=drawQSphere('fp-qsphere',sv,n,200);
-    const fq=document.getElementById('fp-qsphere-info');if(fq)fq.textContent=qi||'';}
-  drawPhaseWheel('fp-phase',sv,n);
-  // DM — proper matrix
+  if(blochQ==='global'){
+    const maxQ=Math.min(n,5);
+    const bvAll=[],colAll=[];
+    for(let q=0;q<maxQ;q++){
+      const rho1q=n>=5?ptrace1SV(sv,q,n):ptrace1(rho,q,n);
+      bvAll.push(blochVec(rho1q));colAll.push(qcols[q%10]);}
+    drawBloch('fp-bloch',200,bvAll,colAll);
+    if(fi)fi.innerHTML=bvAll.map((bv,q)=>`<span style="color:${qcols[q%10]};">Q${q}:(${bv.x.toFixed(2)},${bv.y.toFixed(2)},${bv.z.toFixed(2)})</span>`).join('<br>');
+  } else {
+    const q=parseInt(blochQ);
+    const rho1=n>=5?(sv?ptrace1SV(sv,q,n):null):ptrace1(rho,q,n);
+    const bv=rho1?blochVec(rho1):{x:0,y:0,z:1};
+    drawBloch('fp-bloch',200,[bv],[qcols[q%10]]);
+    if(fi)fi.innerHTML=`<span style="color:${qcols[q%10]};">Q${q}: (${bv.x.toFixed(3)}, ${bv.y.toFixed(3)}, ${bv.z.toFixed(3)})</span>`;
+  }
+
+  // ── Q-SPHERE PANEL ──
+  const qsSel=document.getElementById('fp-qsphere-qsel');
+  const qsQ=qsSel?qsSel.value:'global';
+  const fq=document.getElementById('fp-qsphere-info');
+  if(qsQ==='global'){
+    if(n<=8){const qi=drawQSphere('fp-qsphere',sv,n,200);if(fq)fq.textContent=qi||'';}
+    else{if(fq)fq.textContent='n>8: too large for Q-sphere';}
+  } else {
+    const q=parseInt(qsQ);
+    // Show single-qubit Q-sphere for selected qubit
+    const rho1=n>=5?(sv?ptrace1SV(sv,q,n):null):ptrace1(rho,q,n);
+    const p0=rho1?Math.max(0,rho1[0][0]):1;
+    const sv1=[[Math.sqrt(p0),0],[Math.sqrt(Math.max(0,1-p0)),0]];
+    const qi=drawQSphere('fp-qsphere',sv1,1,200);
+    if(fq)fq.textContent=`Q${q}: `+(qi||'');
+  }
+
+  // ── PHASE WHEEL PANEL ──
+  const phSel=document.getElementById('fp-phase-qsel');
+  const phQ=phSel?phSel.value:'global';
+  const phInfo=document.getElementById('fp-phase-info');
+  if(phQ==='global'){
+    const pi=drawPhaseWheel('fp-phase',sv,n);
+    if(phInfo)phInfo.textContent=pi||'';
+  } else {
+    const q=parseInt(phQ);
+    const rho1=n>=5?(sv?ptrace1SV(sv,q,n):null):ptrace1(rho,q,n);
+    const p0=rho1?Math.max(0,rho1[0][0]):1;
+    const sv1=[[Math.sqrt(p0),0],[Math.sqrt(Math.max(0,1-p0)),0]];
+    const pi=drawPhaseWheel('fp-phase',sv1,1);
+    if(phInfo)phInfo.textContent=`Q${q}: `+(pi||'');
+  }
+
+  // ── DENSITY MATRIX PANEL ──
   const dm_el=document.getElementById('fp-dm');
   if(dm_el)renderDM(rho,n,dm_el);
-  // SV table
+
+  // ── STATE VECTOR PANEL ──
   updateSVTable('fp-sv-body',sv,n,d);
-  // Hide DM dock button for n>5 (DM too large to be useful)
+
+  // Hide DM dock button for n>5
   const dmBtn=document.getElementById('dock-dm');
   if(dmBtn){dmBtn.style.display=n>5?'none':'flex';}
-  // If DM panel open and n>5, close it
   if(n>5){const dp=document.getElementById('panel-dm');if(dp&&dp.classList.contains('visible')){dp.classList.remove('visible');if(dmBtn)dmBtn.classList.remove('active');}}
+
   document.getElementById('sb-q').textContent=n;
   let st='|ψ⟩';
   if(sv){const p0=Cx.abs2(sv[0]);if(p0>0.999)st='|0…0⟩';else if(p0<0.001&&Cx.abs2(sv[d-1])>0.999)st='|1…1⟩';}
   document.getElementById('sb-st').textContent=st;
 }
+
 function updateSVTable(tbodyId,sv,n,d){
   const svb=document.getElementById(tbodyId);if(!svb)return;
   svb.innerHTML='';
@@ -1174,7 +1479,7 @@ function updateSVTable(tbodyId,sv,n,d){
     svb.innerHTML+=`<tr><td class="tds">|${i.toString(2).padStart(n,'0')}⟩</td><td class="tda">${a[0].toFixed(3)}${a[1]>=0?'+':''}${a[1].toFixed(3)}i</td><td class="tda">${ph.toFixed(0)}°</td><td class="tdp">${(pr*100).toFixed(1)}%</td></tr>`;});
 }
 
-// ══ PAGE 1 ── FUNDAMENTALS ══
+// ══ PAGE 1 — FUNDAMENTALS ══
 let Q1rho=[[1,0],[0,0],[0,0],[0,0]];let Q1sv=[[1,0],[0,0]];let totalG=0;
 function angDisp(v,id){const r=v/100;let l=r.toFixed(2)+'r';
   if(Math.abs(r-Math.PI/4)<.03)l='π/4';else if(Math.abs(r-Math.PI/2)<.03)l='π/2';
@@ -1189,12 +1494,11 @@ function q1Measure(){const p0=Math.max(0,Math.min(1,Q1rho[0][0]));const out=Math
   else{Q1rho=[[0,0],[0,0],[0,0],[1,0]];Q1sv=[[0,0],[1,0]];}
   totalG++;updQ1();}
 function q1Reset(){Q1rho=[[1,0],[0,0],[0,0],[0,0]];Q1sv=[[1,0],[0,0]];updQ1();}
-function q1Noise(type){applyNoise(type);}// legacy alias
+
 function applyNoise(type){
   const p=parseFloat(document.getElementById('noise-p').value)/100;
   const target=document.getElementById('noise-target').value;
   if(target==='q1'){
-    // Apply to fundamentals single qubit
     const sp=Math.sqrt(Math.max(0,p)),sm=Math.sqrt(Math.max(0,1-p));
     const r=Q1rho;
     const applyK=Ks=>renorm(Ks.reduce((acc,K)=>mAdd(acc,applyU(r,K,2)),Array(4).fill(null).map(()=>[0,0])),2);
@@ -1202,33 +1506,28 @@ function applyNoise(type){
     else if(type==='pf')Q1rho=applyK([mSc(eye(2),sm),mSc(GM.Z,sp)]);
     else if(type==='dp'){const s=Math.max(0,p/4);
       Q1rho=applyK([mSc(eye(2),Math.sqrt(Math.max(0,1-3*s))),mSc(GM.X,Math.sqrt(s)),mSc(GM.Y,Math.sqrt(s)),mSc(GM.Z,Math.sqrt(s))]);}
-    else if(type==='ad'){const K0=[[1,0],[0,0],[0,0],[sm,0]];const K1=[[0,0],[sp,0],[0,0],[0,0]];
-      Q1rho=applyK([K0,K1]);}
+    else if(type==='ad'){const K0=[[1,0],[0,0],[0,0],[sm,0]];const K1=[[0,0],[sp,0],[0,0],[0,0]];Q1rho=applyK([K0,K1]);}
     Q1sv=null;totalG++;updQ1();
   } else {
-    // Apply noise to circuit qubit
     const qIdx=target==='all'?-1:parseInt(target.replace('q',''));
     applyNoiseToCircuit(type,p,qIdx);
   }
 }
+
 function applyNoiseToCircuit(type,p,qIdx){
-  // Run circuit to get current state then apply noise channel(s)
   const n=cN,d=1<<n;
   let sv=Array(d).fill(null).map(()=>[0,0]);sv[0]=[1,0];
   let rho=outer(sv,d);
   const ops=cStep>=0?cOps.slice(0,cStep+1):cOps;
   ops.forEach(op=>{
-    if(op.type==='meas')return;
-    let U;
+    if(op.type==='meas')return;let U;
     if(op.type==='single')U=buildSG(GM[op.gate],op.target,n).mat;
     else if(op.type==='rot'){const Gm=op.gate==='RX'?rotX(op.theta):op.gate==='RY'?rotY(op.theta):rotZ(op.theta);U=buildSG(Gm,op.target,n).mat;}
     else if(op.gate==='CNOT')U=buildCNOT(op.control,op.target,n).mat;
     else if(op.gate==='CZ')U=buildCZ(op.control,op.target,n).mat;
     else if(op.gate==='SWAP')U=buildSWAP(op.control,op.target,n).mat;
     else if(op.gate==='CCX')U=buildCCX(op.control,op.control2,op.target,n).mat;
-    if(U){sv=mVec(U,sv,d);rho=applyU(rho,U,d);}
-  });
-  // Apply single-qubit noise channel on target qubit(s) via Kraus operators
+    if(U){sv=mVec(U,sv,d);rho=applyU(rho,U,d);}});
   const sp=Math.sqrt(Math.max(0,p)),sm=Math.sqrt(Math.max(0,1-p));
   function noiseKraus(t){
     let Ks=[];
@@ -1236,19 +1535,13 @@ function applyNoiseToCircuit(type,p,qIdx){
     else if(type==='pf')Ks=[mSc(eye(2),sm),mSc(GM.Z,sp)];
     else if(type==='dp'){const s=Math.max(0,p/4);Ks=[mSc(eye(2),Math.sqrt(Math.max(0,1-3*s))),mSc(GM.X,Math.sqrt(s)),mSc(GM.Y,Math.sqrt(s)),mSc(GM.Z,Math.sqrt(s))];}
     else if(type==='ad'){Ks=[[[1,0],[0,0],[0,0],[sm,0]],[[0,0],[sp,0],[0,0],[0,0]]];}
-    // Kraus sum: ρ' = Σ_k K_k ρ K_k†
     const newRho=Array(d*d).fill(null).map(()=>[0,0]);
-    Ks.forEach(K=>{
-      const KN=buildSG(K,t,n).mat;
-      const term=mMul(mMul(KN,rho,d),dag(KN,d),d);
-      for(let i=0;i<d*d;i++)newRho[i]=Cx.add(newRho[i],term[i]);
-    });
-    rho=renorm(newRho,d);
-  }
+    Ks.forEach(K=>{const KN=buildSG(K,t,n).mat;const term=mMul(mMul(KN,rho,d),dag(KN,d),d);
+      for(let i=0;i<d*d;i++)newRho[i]=Cx.add(newRho[i],term[i]);});
+    rho=renorm(newRho,d);}
   const targets=qIdx<0?Array.from({length:n},(_,i)=>i):[qIdx];
   targets.forEach(t=>noiseKraus(t));
-  // Rebuild SV from diagonal (approximate — noise destroys coherence)
-  sv=null; // mixed state after noise
+  sv=null;
   const probs=diagR(rho,d);
   const states=Array.from({length:d},(_,i)=>i.toString(2).padStart(n,'0'));
   renderHistH(probs,states,'circ-hist','#00d4ff');
@@ -1258,11 +1551,13 @@ function applyNoiseToCircuit(type,p,qIdx){
   document.getElementById('bc-info').textContent=`(${bv.x.toFixed(3)}, ${bv.y.toFixed(3)}, ${bv.z.toFixed(3)})`;
   updateFloating(rho,sv,n);
 }
+
 function updateNoiseTargetSelect(){
   const sel=document.getElementById('noise-target');if(!sel)return;
   sel.innerHTML='<option value="q1">Fundamentals Q</option><option value="all">Circuit — All Qubits</option>';
   for(let i=0;i<cN;i++)sel.innerHTML+=`<option value="q${i}">Circuit — Q${i}</option>`;
 }
+
 function updQ1(){
   const p0=Math.max(0,Math.min(1,Q1rho[0][0])),p1=1-p0;
   document.getElementById('qh0').style.height=Math.max(2,Math.round(p0*56))+'px';
@@ -1277,28 +1572,26 @@ function updQ1(){
   document.getElementById('sv-q1').innerHTML=['|0⟩','|1⟩'].map((s,i)=>{
     const a=amps[i];const pr=Cx.abs2(a);
     return`<tr><td class="tds">${s}</td><td class="tda">${a[0].toFixed(3)}${a[1]>=0?'+':''}${a[1].toFixed(3)}i</td><td class="tdp">${(pr*100).toFixed(1)}%</td></tr>`;}).join('');
-  if(Q1sv){
-    document.getElementById('q1-phase-info').innerHTML=Q1sv.map((a,i)=>{
-      const ph=(Cx.phase(a)*180/Math.PI).toFixed(0);const pr=Cx.abs2(a);if(pr<0.001)return'';
-      const hue=phaseToHue(Cx.phase(a));
-      return`<div class="phase-amp-row"><div class="phase-swatch" style="background:hsl(${hue},80%,55%)"></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--muted);">|${i}⟩</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text);"> ${ph}° (${(pr*100).toFixed(0)}%)</span></div>`;
-    }).join('');}
+  if(Q1sv){document.getElementById('q1-phase-info').innerHTML=Q1sv.map((a,i)=>{
+    const ph=(Cx.phase(a)*180/Math.PI).toFixed(0);const pr=Cx.abs2(a);if(pr<0.001)return'';
+    const hue=phaseToHue(Cx.phase(a));
+    return`<div class="phase-amp-row"><div class="phase-swatch" style="background:hsl(${hue},80%,55%)"></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--muted);">|${i}⟩</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text);"> ${ph}° (${(pr*100).toFixed(0)}%)</span></div>`;}).join('');}
   drawBloch('bloch-main',210,[bv],['#00d4ff']);
   drawQSphere('qsph-main',Q1sv,1,210);
   drawPhaseWheel('phase-q1',Q1sv,1);
   updateFloating(Q1rho,Q1sv,1);
   document.getElementById('sb-g').textContent=totalG;
 }
+
 function demoS(){q1Reset();q1Gate('H');const p=Q1rho[0][0];document.getElementById('res-s').textContent=`H|0⟩=(|0⟩+|1⟩)/√2\nP(0)=${p.toFixed(3)} P(1)=${(1-p).toFixed(3)}\n→ Bloch +X axis`;}
 function demoC(){q1Reset();q1Gate('H');const b=Q1rho[0][0];q1Measure();const r=Q1rho[0][0]>0.9?0:1;document.getElementById('res-c').textContent=`|+⟩: P(0)=${b.toFixed(3)} P(1)=${(1-b).toFixed(3)}\nMeasured: |${r}⟩ → Collapsed.`;}
 function demoI(){q1Reset();q1Gate('H');q1Gate('Z');q1Gate('H');document.getElementById('res-i').textContent=`H→Z→H|0⟩=|1⟩\nP(1)=${Q1rho[3][0].toFixed(3)} — destructive interference`;}
 
-// ══ PAGE 2 ── CIRCUIT LAB with DRAG-AND-DROP ══
+// ══ PAGE 2 — CIRCUIT LAB ══
 let cOps=[],cN=2,cStep=-1;
-let dragGate=null; // gate name being dragged
-let selectedGateIdx=-1; // index of gate selected for angle editing
+let dragGate=null;
+let selectedGateIdx=-1;
 
-// ─ ANGLE SYNC: slider ↔ number input ─
 function syncAngleFromSlider(){
   const v=parseFloat(document.getElementById('circ-angle').value)/100;
   document.getElementById('circ-angle-num').value=v.toFixed(2);
@@ -1313,18 +1606,15 @@ function syncAngleFromNum(){
 }
 function getCircAngle(){return parseFloat(document.getElementById('circ-angle').value)/100;}
 
-// ─ SELECTED GATE EDITING ─
 function selectGate(idx){
-  selectedGateIdx=idx;
-  const op=cOps[idx];
+  selectedGateIdx=idx;const op=cOps[idx];
   const lbl=op.type==='rot'?`${op.gate}(${op.theta.toFixed(3)}r) on Q${op.target}`:`${op.gate} on Q${op.target} (not a rotation gate)`;
   document.getElementById('selected-gate-info').textContent=lbl;
   document.getElementById('selected-gate-row').style.display='block';
   if(op.type==='rot'){
     document.getElementById('circ-angle').value=Math.round(op.theta*100);
     document.getElementById('circ-angle-num').value=op.theta.toFixed(3);
-    document.getElementById('circ-angle-d').textContent=op.theta.toFixed(2)+'r';
-  }
+    document.getElementById('circ-angle-d').textContent=op.theta.toFixed(2)+'r';}
   renderWires();
 }
 function deselectGate(){
@@ -1342,15 +1632,11 @@ function updateSelectedGateAngle(){
   renderWires();runCirc(false);
 }
 
-function initCirc(){
-  cN=parseInt(document.getElementById('circ-nq').value);
-  rebuildQSelects();
-}
+function initCirc(){cN=parseInt(document.getElementById('circ-nq').value);rebuildQSelects();}
 function rebuildQSelects(){
   const cq=document.getElementById('circ-cq');const cq2=document.getElementById('circ-cq2');
   cq.innerHTML='<option value="">None</option>';cq2.innerHTML='<option value="">None</option>';
-  for(let i=0;i<cN;i++){cq.innerHTML+=`<option value="${i}">Q${i}</option>`;cq2.innerHTML+=`<option value="${i}">Q${i}</option>`;}
-}
+  for(let i=0;i<cN;i++){cq.innerHTML+=`<option value="${i}">Q${i}</option>`;cq2.innerHTML+=`<option value="${i}">Q${i}</option>`;}}
 function circChangeQubits(){
   const newN=parseInt(document.getElementById('circ-nq').value);
   cOps=cOps.filter(op=>{
@@ -1358,74 +1644,48 @@ function circChangeQubits(){
     if(op.control!==null&&op.control!==undefined&&op.control>=newN)return false;
     if(op.control2!==null&&op.control2!==undefined&&op.control2>=newN)return false;
     return true;});
-  cN=newN;rebuildQSelects();cStep=-1;renderWires();runCirc(false);updateNoiseTargetSelect();
-}
+  cN=newN;rebuildQSelects();cStep=-1;renderWires();runCirc(false);updateNoiseTargetSelect();}
 
-// ─ DRAG-AND-DROP ─
 function initDragDrop(){
-  // Drag start on gate palette buttons
   document.querySelectorAll('[data-gate]').forEach(btn=>{
     btn.addEventListener('dragstart',e=>{
-      dragGate=btn.getAttribute('data-gate');
-      btn.classList.add('dragging-src');
-      // ghost
+      dragGate=btn.getAttribute('data-gate');btn.classList.add('dragging-src');
       const ghost=document.getElementById('drag-ghost');
       ghost.textContent=dragGate;ghost.style.color=getComputedStyle(btn).color;
-      ghost.style.borderColor=getComputedStyle(btn).color;
-      ghost.style.display='block';
+      ghost.style.borderColor=getComputedStyle(btn).color;ghost.style.display='block';
       e.dataTransfer.effectAllowed='copy';
-      e.dataTransfer.setDragImage(document.createElement('div'),0,0);
-    });
-    btn.addEventListener('dragend',e=>{
-      btn.classList.remove('dragging-src');
-      document.getElementById('drag-ghost').style.display='none';
-      dragGate=null;
-    });
-  });
+      e.dataTransfer.setDragImage(document.createElement('div'),0,0);});
+    btn.addEventListener('dragend',e=>{btn.classList.remove('dragging-src');
+      document.getElementById('drag-ghost').style.display='none';dragGate=null;});});
   document.addEventListener('dragover',e=>{
     const ghost=document.getElementById('drag-ghost');
-    if(ghost.style.display!=='none'){ghost.style.left=(e.clientX+12)+'px';ghost.style.top=(e.clientY-16)+'px';}
-  });
-}
+    if(ghost.style.display!=='none'){ghost.style.left=(e.clientX+12)+'px';ghost.style.top=(e.clientY-16)+'px';}});}
 
 function setupWireDropZones(){
   document.querySelectorAll('.wire-line').forEach(line=>{
     line.addEventListener('dragenter',e=>{e.preventDefault();line.classList.add('drag-over');});
     line.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='copy';});
     line.addEventListener('dragleave',e=>{line.classList.remove('drag-over');});
-    line.addEventListener('drop',e=>{
-      e.preventDefault();line.classList.remove('drag-over');
-      if(!dragGate)return;
-      const q=parseInt(line.getAttribute('data-q'));
-      addGateToQ(dragGate,q);
-    });
-  });
-}
+    line.addEventListener('drop',e=>{e.preventDefault();line.classList.remove('drag-over');
+      if(!dragGate)return;const q=parseInt(line.getAttribute('data-q'));addGateToQ(dragGate,q);});});}
 
 function addGateToQ(gateName,targetQ){
-  const cv=document.getElementById('circ-cq').value;
-  const cv2=document.getElementById('circ-cq2').value;
-  const c=cv===''?null:parseInt(cv);
-  const c2=cv2===''?null:parseInt(cv2);
+  const cv=document.getElementById('circ-cq').value;const cv2=document.getElementById('circ-cq2').value;
+  const c=cv===''?null:parseInt(cv);const c2=cv2===''?null:parseInt(cv2);
   const theta=getCircAngle();
   const isRot=['RX','RY','RZ'].includes(gateName);
-  const isTwo=['CNOT','CZ','SWAP'].includes(gateName);
-  const isThree=gateName==='CCX';
-  if((isTwo)&&c===null){alert(`${gateName} needs a control qubit. Set "Control Q" above.`);return;}
+  const isTwo=['CNOT','CZ','SWAP'].includes(gateName);const isThree=gateName==='CCX';
+  if(isTwo&&c===null){alert(`${gateName} needs a control qubit. Set "Control Q" above.`);return;}
   if(isThree&&(c===null||c2===null)){alert('CCX needs Control Q and Ctrl2 Q set above.');return;}
   if(c!==null&&c===targetQ){alert('Control qubit must differ from target.');return;}
   if(isThree&&(c===targetQ||c2===targetQ||c===c2)){alert('CCX: ctrl, ctrl2, target must all differ.');return;}
   const type=isThree?'three':isTwo?'two':gateName==='MEAS'?'meas':isRot?'rot':'single';
   cOps.push({type,gate:gateName,target:targetQ,control:c,control2:c2,theta:isRot?theta:null});
-  cStep=-1;renderWires();runCirc(false);
-}
+  cStep=-1;renderWires();runCirc(false);}
 
 function clearCirc(){cOps=[];cStep=-1;document.getElementById('step-track').style.display='none';renderWires();runCirc(false);}
 function circUndo(){if(cOps.length){cOps.pop();cStep=-1;renderWires();runCirc(false);}}
-function runFull(){
-  cStep=-1;document.getElementById('step-track').style.display='none';
-  renderWires();runCirc(true);
-}
+function runFull(){cStep=-1;document.getElementById('step-track').style.display='none';renderWires();runCirc(true);}
 function circStep(){
   if(!cOps.length){alert('Add gates first');return;}
   if(cStep<cOps.length-1)cStep++;else cStep=0;
@@ -1434,10 +1694,8 @@ function circStep(){
   st.innerHTML=cOps.map((op,i)=>{
     const lbl=op.type==='meas'?'M':op.type==='rot'?`${op.gate}(${op.theta.toFixed(1)})`:op.gate;
     const cls=i<cStep?'done':i===cStep?'current':'';
-    return`<div class="step-pill ${cls}">${lbl} Q${op.target}</div>`;}).join('');
-}
+    return`<div class="step-pill ${cls}">${lbl} Q${op.target}</div>`;}).join('');}
 
-// Gate colour map (for chips on wires)
 const GATE_COLORS={H:'var(--gH)',X:'var(--gX)',Y:'var(--gY)',Z:'var(--gZ)',S:'var(--gS)',T:'var(--gT)',SDAG:'var(--gSdag)',TDAG:'var(--gTdag)',RX:'var(--gRX)',RY:'var(--gRY)',RZ:'var(--gRZ)',CNOT:'var(--gCN)',CZ:'var(--gCZ)',SWAP:'var(--gSW)',CCX:'var(--gCCX)',MEAS:'var(--gME)'};
 const QUBIT_COLS=['#00d4ff','#7c3aed','#ff9d00','#d946ef','#00ff88','#22d3ee','#fb923c','#f43f5e','#a78bfa','#34d399'];
 
@@ -1447,19 +1705,13 @@ function renderWires(){
   for(let q=0;q<cN;q++){
     const qcol=QUBIT_COLS[q%10];
     const row=document.createElement('div');row.className='wire-row';
-    const lbl=document.createElement('div');
-    lbl.className='wire-label';lbl.style.color=qcol;lbl.textContent=`Q${q}`;
-    // Drop zone line
-    const line=document.createElement('div');line.className='wire-line';
-    line.setAttribute('data-q',q);
-    // Horizontal wire line behind chips
+    const lbl=document.createElement('div');lbl.className='wire-label';lbl.style.color=qcol;lbl.textContent=`Q${q}`;
+    const line=document.createElement('div');line.className='wire-line';line.setAttribute('data-q',q);
     const wireLine=document.createElement('div');
     wireLine.style.cssText=`position:absolute;top:50%;left:0;right:0;height:2px;background:${qcol}33;pointer-events:none;`;
     line.appendChild(wireLine);
-    // Gate chips
     ops.forEach((op,idx)=>{
-      const involved=op.target===q||op.control===q||op.control2===q;
-      if(!involved)return;
+      const involved=op.target===q||op.control===q||op.control2===q;if(!involved)return;
       const gc=document.createElement('div');gc.className='gate-chip';
       const gcol=GATE_COLORS[op.gate]||qcol;
       gc.style.borderColor=gcol;gc.style.color=gcol;
@@ -1472,23 +1724,41 @@ function renderWires(){
         else if(op.gate==='SWAP')gc.textContent='×';
         else if(op.gate==='CCX')gc.textContent='⊕';
         else gc.textContent=op.gate;
-      } else if(op.control2===q){
-        gc.classList.add('ctrl-dot');gc.textContent='●₂';gc.style.color=gcol;
-      } else {
-        gc.classList.add('ctrl-dot');gc.textContent='●';gc.style.color=gcol;
-      }
-      gc.title=op.type==='rot'?`${op.gate}(${op.theta.toFixed(2)}) — click to remove, dblclick to edit angle`:`${op.gate} — click to remove`;
+      } else if(op.control2===q){gc.classList.add('ctrl-dot');gc.textContent='●₂';gc.style.color=gcol;}
+      else{gc.classList.add('ctrl-dot');gc.textContent='●';gc.style.color=gcol;}
+      gc.title=op.type==='rot'?`${op.gate}(${op.theta.toFixed(2)}) — click to remove · hold to edit angle`:`${op.gate} — click to remove`;
       if(selectedGateIdx===idx)gc.classList.add('selected');
-      gc.onclick=(()=>{const ii=idx;return()=>{cOps.splice(ii,1);if(selectedGateIdx===ii)deselectGate();else{selectedGateIdx=-1;document.getElementById('selected-gate-row').style.display='none';}cStep=-1;renderWires();runCirc(false);}})();
-      if(op.type==='rot'){gc.ondblclick=(e=>{e.stopPropagation();selectGate(idx);});}
-      line.appendChild(gc);
-    });
+      // Long-press (hold) to edit, click to remove
+        let holdTimer=null;
+        gc.addEventListener('mousedown',(e=>{
+        if(op.type==='rot'){
+            holdTimer=setTimeout(()=>{
+            holdTimer=null;
+            selectGate(idx);
+            },500);// 500ms hold
+        }
+        }));
+        gc.addEventListener('mouseup',(()=>{
+        const ii=idx;
+        return()=>{
+            if(holdTimer!==null){
+            clearTimeout(holdTimer);holdTimer=null;
+            // was a short click — remove gate
+            cOps.splice(ii,1);
+            if(selectedGateIdx===ii)deselectGate();
+            else{selectedGateIdx=-1;document.getElementById('selected-gate-row').style.display='none';}
+            cStep=-1;renderWires();runCirc(false);
+            }
+            // if holdTimer is null here, hold already fired (edit mode) — do nothing on release
+        };
+        })());
+        gc.addEventListener('mouseleave',()=>{
+        if(holdTimer!==null){clearTimeout(holdTimer);holdTimer=null;}
+        });
+      line.appendChild(gc);});
     const end=document.createElement('div');end.className='wire-end';end.textContent='[M]';
-    row.appendChild(lbl);row.appendChild(line);row.appendChild(end);
-    el.appendChild(row);
-  }
-  setupWireDropZones();
-}
+    row.appendChild(lbl);row.appendChild(line);row.appendChild(end);el.appendChild(row);}
+  setupWireDropZones();}
 
 function runCirc(flash=false){
   const n=cN,d=1<<n;
@@ -1496,50 +1766,33 @@ function runCirc(flash=false){
   let rho=n<5?outer(sv,d):null;
   const ops=cStep>=0?cOps.slice(0,cStep+1):cOps;
   ops.forEach(op=>{
-    if(op.type==='meas')return;
-    let U;
+    if(op.type==='meas')return;let U;
     if(op.type==='single')U=buildSG(GM[op.gate],op.target,n).mat;
     else if(op.type==='rot'){const Gm=op.gate==='RX'?rotX(op.theta):op.gate==='RY'?rotY(op.theta):rotZ(op.theta);U=buildSG(Gm,op.target,n).mat;}
     else if(op.gate==='CNOT')U=buildCNOT(op.control,op.target,n).mat;
     else if(op.gate==='CZ')U=buildCZ(op.control,op.target,n).mat;
     else if(op.gate==='SWAP')U=buildSWAP(op.control,op.target,n).mat;
     else if(op.gate==='CCX')U=buildCCX(op.control,op.control2,op.target,n).mat;
-    if(U){sv=mVec(U,sv,d);if(rho)rho=applyU(rho,U,d);}
-  });
+    if(U){sv=mVec(U,sv,d);if(rho)rho=applyU(rho,U,d);}});
   const probs=Array.from({length:d},(_,i)=>Cx.abs2(sv[i]));
   const states=Array.from({length:d},(_,i)=>i.toString(2).padStart(n,'0'));
   renderHistH(probs,states,'circ-hist','#00d4ff');
   const hn=document.getElementById('circ-hist-note');if(hn)hn.textContent=`${d} states · n=${n}`;
-
-  // Global Bloch: compute reduced Bloch vector for each qubit
   const fullRho=rho||outer(sv,d);
   const bvAll=[],colAll=[];
-  const QCOLS=['#00d4ff','#7c3aed','#ff9d00','#d946ef','#00ff88','#22d3ee','#fb923c','#f43f5e','#a78bfa','#34d399'];
-  const maxBlochQ=Math.min(n,5); // show up to 5 qubit vectors for readability
+  const maxBlochQ=Math.min(n,5);
   for(let q=0;q<maxBlochQ;q++){
     const rho1q=n>=5?ptrace1SV(sv,q,n):ptrace1(fullRho,q,n);
-    bvAll.push(blochVec(rho1q));
-    colAll.push(QCOLS[q%10]);
-  }
+    bvAll.push(blochVec(rho1q));colAll.push(QUBIT_COLS[q%10]);}
   drawBloch('bloch-circ',185,bvAll,colAll);
-
-  // Legend
   const legendEl=document.getElementById('bloch-circ-legend');
-  if(legendEl){
-    legendEl.innerHTML=bvAll.map((_,q)=>`<span style="font-family:var(--font-mono);font-size:9px;color:${QCOLS[q%10]};display:flex;align-items:center;gap:2px;"><span style="width:7px;height:7px;background:${QCOLS[q%10]};border-radius:50%;display:inline-block;"></span>Q${q}</span>`).join('');
-    if(n>5)legendEl.innerHTML+='<span style="font-family:var(--font-mono);font-size:9px;color:var(--muted);">(Q0–Q4 shown)</span>';
-  }
-  // Info: xyz for Q0
-  const bv0=bvAll[0]||{x:0,y:0,z:1};
+  if(legendEl){legendEl.innerHTML=bvAll.map((_,q)=>`<span style="font-family:var(--font-mono);font-size:9px;color:${QUBIT_COLS[q%10]};display:flex;align-items:center;gap:2px;"><span style="width:7px;height:7px;background:${QUBIT_COLS[q%10]};border-radius:50%;display:inline-block;"></span>Q${q}</span>`).join('');
+    if(n>5)legendEl.innerHTML+='<span style="font-family:var(--font-mono);font-size:9px;color:var(--muted);">(Q0–Q4 shown)</span>';}
   const infoEl=document.getElementById('bc-info');
-  if(infoEl){
-    infoEl.innerHTML=bvAll.map((bv,q)=>`<span style="color:${QCOLS[q%10]};">Q${q}:(${bv.x.toFixed(2)},${bv.y.toFixed(2)},${bv.z.toFixed(2)})</span>`).join('<br>');
-  }
-
+  if(infoEl)infoEl.innerHTML=bvAll.map((bv,q)=>`<span style="color:${QUBIT_COLS[q%10]};">Q${q}:(${bv.x.toFixed(2)},${bv.y.toFixed(2)},${bv.z.toFixed(2)})</span>`).join('<br>');
   updateFloating(fullRho,sv,n);
   if(flash){const rb=document.getElementById('run-btn');rb.classList.remove('btn-flash');void rb.offsetWidth;rb.classList.add('btn-flash');setTimeout(()=>rb.classList.remove('btn-flash'),400);}
-  document.getElementById('sb-g').textContent=ops.length;
-}
+  document.getElementById('sb-g').textContent=ops.length;}
 
 function runShots(){
   const shots=parseInt(document.getElementById('shot-count').value);
@@ -1563,13 +1816,13 @@ function runShots(){
   entries.slice(0,16).forEach(({c,i})=>{const pct=(c/shots*100).toFixed(1);const col=COLS[i%8];
     const lbl=i.toString(2).padStart(n,'0');
     barsEl.innerHTML+=`<div class="shot-row"><div class="shot-label">|${lbl}⟩</div><div class="shot-track"><div class="shot-fill" style="width:${c/shots*100}%;background:${col};"></div></div><div class="shot-pct">${c}(${pct}%)</div></div>`;});
-  document.getElementById('shot-total').textContent=`${shots} shots · ${entries.length} distinct outcomes`;
-}
+  document.getElementById('shot-total').textContent=`${shots} shots · ${entries.length} distinct outcomes`;}
 
 // ══ vQRAM ══
 const CCOLS=['#00d4ff','#7c3aed','#ff9d00','#d946ef','#00ff88'];
 const CCOLS_RGB=['0,212,255','124,58,237','255,157,0','217,70,239','0,255,136'];
 let VQ=[],VQ_NC=3,VQ_QPC=2;let wavePhase=0,waveAnimId=null;let xgLog=[];
+
 function initVQ(){
   VQ_NC=parseInt(document.getElementById('vq-nc').value);
   VQ_QPC=parseInt(document.getElementById('vq-qpc').value);
@@ -1586,10 +1839,8 @@ function initVQ(){
      <span class="hqb hqm"><span class="hqd"></span>${nM} Mem</span>`;
   xgLog=[];document.getElementById('xgate-log').textContent='';
   renderVQ();
-  if(document.getElementById('overlay-vqram').classList.contains('visible')){
-    if(!waveAnimId)animateWave();
-  }
-}
+  if(document.getElementById('overlay-vqram').classList.contains('visible')){if(!waveAnimId)animateWave();}}
+
 function vqG(nm){const tc=document.getElementById('vq-tc').value;const tq=parseInt(document.getElementById('vq-tq').value);const U=GM[nm];
   const apply=c=>{const q=Math.min(tq,c.n-1);const d=1<<c.n;const g=buildSG(U,q,c.n);c.rho=applyU(c.rho,g.mat,d);c.sv=mVec(g.mat,c.sv,d);c.ops.push(nm);};
   if(tc==='all')VQ.forEach((c,i)=>{apply(c);hyperPropagate(VQ,i,.12);});
@@ -1620,6 +1871,7 @@ function vqXG(type){
   const entry=`C${ccI}.Q${qA} ─[HQ ${type}]→ C${tcI}.Q${qB}`;
   xgLog.unshift(entry);if(xgLog.length>5)xgLog.pop();
   document.getElementById('xgate-log').innerHTML=xgLog.map(l=>`<div style="color:var(--cyan)">▸ ${l}</div>`).join('');renderVQ();}
+
 function renderVQ(){
   const grid=document.getElementById('chunk-grid');
   grid.style.gridTemplateColumns=`repeat(${Math.min(VQ_NC,5)},1fr)`;grid.innerHTML='';
@@ -1649,8 +1901,8 @@ function renderVQ(){
   leg.innerHTML=VQ.map((_,i)=>`<span style="font-family:var(--font-mono);font-size:10px;color:${CCOLS[i]};display:flex;align-items:center;gap:3px;"><span style="width:8px;height:8px;background:${CCOLS[i]};border-radius:50%;display:inline-block;"></span>C${i}</span>`).join('');
   document.getElementById('vq-bloch-info').innerHTML=bvAll.map((bv,i)=>`C${i}:(${bv.x.toFixed(2)},${bv.y.toFixed(2)},${bv.z.toFixed(2)})`).join('<br>');
   document.getElementById('vq-status').innerHTML=`Chunks: <span style="color:var(--cyan)">${VQ_NC}/5</span><br>Q/Chunk: <span style="color:var(--cyan)">${VQ_QPC}/5</span><br>Total VQ: <span style="color:var(--cyan)">${VQ_NC*VQ_QPC}</span><br>Hilbert/chunk: <span style="color:var(--cyan)">${1<<VQ_QPC}</span>`;
-  updateFloating(VQ[0].rho,VQ[0].sv,VQ[0].n);
-}
+  updateFloating(VQ[0].rho,VQ[0].sv,VQ[0].n);}
+
 function animateWave(){
   const cv=document.getElementById('wave-canvas');if(!cv)return;
   const ctx=cv.getContext('2d');const W=cv.offsetWidth||400;const H=110;
@@ -1658,7 +1910,7 @@ function animateWave(){
   ctx.fillStyle='rgba(7,11,24,.92)';ctx.fillRect(0,0,W,H);
   if(VQ_NC<2){ctx.fillStyle='rgba(74,90,122,.5)';ctx.font="10px 'Space Mono'";ctx.fillText('Add ≥2 chunks',12,H/2);
     waveAnimId=requestAnimationFrame(animateWave);return;}
-  const slotW=W/VQ_NC;const wc=[['#00d4ff','#7c3aed'],['#7c3aed','#ff9d00'],['#ff9d00','#d946ef'],['#d946ef','#00ff88']];
+    const slotW=W/VQ_NC;const wc=[['#00d4ff','#7c3aed'],['#7c3aed','#ff9d00'],['#ff9d00','#d946ef'],['#d946ef','#00ff88']];
   for(let i=0;i<VQ_NC-1;i++){
     const x1=(i+.5)*slotW,x2=(i+1.5)*slotW,yB=H/2,c=wc[i%4];
     for(let w=0;w<3;w++){
@@ -1754,15 +2006,16 @@ const DEMOS=[
      const p0=diagR(rC0,4),p1=diagR(rC1,4);
      return{rho:rC0,sv:null,n:2,msg:`HDQS Architecture\nC0: H→CNOT\n  P(|00⟩)=${p0[0].toFixed(3)} P(|11⟩)=${p0[3].toFixed(3)}\nC1: H→RY(π/3) + HQ influence\n  P(|00⟩)=${p1[0].toFixed(3)} P(|10⟩)=${p1[2].toFixed(3)}\nHQ strength: ${rotA.toFixed(3)}`};}},
 ];
+
 function buildDemoSelector(){
   const sel=document.getElementById('demo-select');
   sel.innerHTML='<option value="">— Select a demonstration —</option>';
-  DEMOS.forEach((d,i)=>{sel.innerHTML+=`<option value="${i}">[${d.tag}] ${d.name} — ${d.desc}</option>`;});
-}
+  DEMOS.forEach((d,i)=>{sel.innerHTML+=`<option value="${i}">[${d.tag}] ${d.name} — ${d.desc}</option>`;});}
+
 function runSelectedDemo(){
   const idx=parseInt(document.getElementById('demo-select').value);
-  if(isNaN(idx)||idx<0||idx>=DEMOS.length)return;runDemo(idx);
-}
+  if(isNaN(idx)||idx<0||idx>=DEMOS.length)return;runDemo(idx);}
+
 function runDemo(idx){
   const d=DEMOS[idx];const result=d.run();
   const n=result.n,dd=1<<n;const probs=diagR(result.rho,dd);
@@ -1805,17 +2058,14 @@ function runDemo(idx){
     if(n<=6)drawQSphere('dq-demo',result.sv,n,180);
     drawPhaseWheel('dpw-demo',result.sv,n);
     document.getElementById('dr-demo').textContent=result.msg;
-    updateFloating(result.rho,result.sv,n);
-  });
-}
+    updateFloating(result.rho,result.sv,n);});}
 
 // ══ FLOATING PANEL DRAG ══
 let dragEl=null,dragOX=0,dragOY=0;
 function dragStart(e,id){
   dragEl=document.getElementById(id);
   dragOX=e.clientX-dragEl.offsetLeft;dragOY=e.clientY-dragEl.offsetTop;
-  document.addEventListener('mousemove',dragMove);document.addEventListener('mouseup',dragEnd);
-}
+  document.addEventListener('mousemove',dragMove);document.addEventListener('mouseup',dragEnd);}
 function dragMove(e){if(dragEl){dragEl.style.left=Math.max(54,e.clientX-dragOX)+'px';dragEl.style.top=Math.max(0,e.clientY-dragOY)+'px';dragEl.style.right='auto';}}
 function dragEnd(){dragEl=null;document.removeEventListener('mousemove',dragMove);document.removeEventListener('mouseup',dragEnd);}
 
@@ -1825,74 +2075,54 @@ function togglePanel(id){
     'panel-bloch':'dock-bloch','panel-qsphere':'dock-qsphere','panel-phase':'dock-phase',
     'panel-dm':'dock-dm','panel-sv':'dock-sv','panel-noise':'dock-noise'};
   const db=document.getElementById(dockMap[id]);if(db)db.classList.toggle('active',vis);
-  // When opening, refresh with current state (circuit or fundamentals, whichever ran last)
   if(vis){
     const rho=lastRho||Q1rho;
     const sv=lastSV!==undefined?lastSV:Q1sv;
     const n=lastN||1;
-    updateFloating(rho,sv,n);
-  }
-}
+    updateFloating(rho,sv,n);}}
 
-// ══ OVERLAY (Demos / vQRAM) ══
+// ══ OVERLAY ══
 function toggleOverlay(id){
   const ov=document.getElementById(id);const vis=!ov.classList.contains('visible');
-  // close all overlays first
   document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('visible'));
   document.getElementById('dock-demos').classList.remove('active');
   document.getElementById('dock-vqram').classList.remove('active');
   if(vis){
     ov.classList.add('visible');
     if(id==='overlay-demos')document.getElementById('dock-demos').classList.add('active');
-    if(id==='overlay-vqram'){
-      document.getElementById('dock-vqram').classList.add('active');
-      if(!waveAnimId)animateWave();
-    }
-  } else {
-    if(waveAnimId){cancelAnimationFrame(waveAnimId);waveAnimId=null;}
-  }
-}
+    if(id==='overlay-vqram'){document.getElementById('dock-vqram').classList.add('active');if(!waveAnimId)animateWave();}
+  } else {if(waveAnimId){cancelAnimationFrame(waveAnimId);waveAnimId=null;}}}
 
 // ══ PDF EXPORT ══
 function exportPDF(){
-  // Build circuit state snapshot
   const n=cN,d=1<<n;
   let sv=Array(d).fill(null).map(()=>[0,0]);sv[0]=[1,0];
   const ops=cStep>=0?cOps.slice(0,cStep+1):cOps;
   ops.forEach(op=>{
-    if(op.type==='meas')return;
-    let U;
+    if(op.type==='meas')return;let U;
     if(op.type==='single')U=buildSG(GM[op.gate],op.target,n).mat;
     else if(op.type==='rot'){const Gm=op.gate==='RX'?rotX(op.theta):op.gate==='RY'?rotY(op.theta):rotZ(op.theta);U=buildSG(Gm,op.target,n).mat;}
     else if(op.gate==='CNOT')U=buildCNOT(op.control,op.target,n).mat;
     else if(op.gate==='CZ')U=buildCZ(op.control,op.target,n).mat;
     else if(op.gate==='SWAP')U=buildSWAP(op.control,op.target,n).mat;
     else if(op.gate==='CCX')U=buildCCX(op.control,op.control2,op.target,n).mat;
-    if(U)sv=mVec(U,sv,d);
-  });
+    if(U)sv=mVec(U,sv,d);});
   const probs=Array.from({length:d},(_,i)=>Cx.abs2(sv[i]));
   const states=Array.from({length:d},(_,i)=>i.toString(2).padStart(n,'0'));
   const rho1=n>=5?ptrace1SV(sv,0,n):ptrace1(outer(sv,d),0,n);
   const bv=blochVec(rho1);
   const topStates=probs.map((p,i)=>({p,s:states[i],a:sv[i]})).filter(x=>x.p>0.001).sort((a,b)=>b.p-a.p).slice(0,16);
-
-  // Build HTML report and print it
   const ts=new Date().toLocaleString();
   const gateList=cOps.map((op,i)=>{
     let desc=op.gate;
     if(op.type==='rot')desc+=`(θ=${op.theta.toFixed(4)}r)`;
     if(op.control!==null&&op.control!==undefined)desc+=` ctrl=Q${op.control}`;
     if(op.control2!==null&&op.control2!==undefined)desc+=` ctrl2=Q${op.control2}`;
-    return `<tr><td>${i+1}</td><td>${desc}</td><td>Q${op.target}</td></tr>`;
-  }).join('');
-
+    return `<tr><td>${i+1}</td><td>${desc}</td><td>Q${op.target}</td></tr>`;}).join('');
   const stateRows=topStates.map(({p,s,a})=>{
     const ph=(Cx.phase(a)*180/Math.PI).toFixed(1);
-    return `<tr><td>|${s}⟩</td><td>${a[0].toFixed(4)}${a[1]>=0?'+':''}${a[1].toFixed(4)}i</td><td>${ph}°</td><td>${(p*100).toFixed(3)}%</td></tr>`;
-  }).join('');
-
+    return `<tr><td>|${s}⟩</td><td>${a[0].toFixed(4)}${a[1]>=0?'+':''}${a[1].toFixed(4)}i</td><td>${ph}°</td><td>${(p*100).toFixed(3)}%</td></tr>`;}).join('');
   const allProbRows=probs.map((p,i)=>`<tr><td>|${states[i]}⟩</td><td>${(p*100).toFixed(4)}%</td></tr>`).join('');
-
   const html=`<!DOCTYPE html><html><head><meta charset="UTF-8">
 <title>HDQS Circuit Report</title>
 <style>
@@ -1914,7 +2144,6 @@ function exportPDF(){
 <div class="page">
 <h1>Quantum Circuit Report — HDQS Visualiser v5.0</h1>
 <div class="meta">Generated: ${ts} &nbsp;|&nbsp; Qubits: ${n} &nbsp;|&nbsp; Gates: ${cOps.length} &nbsp;|&nbsp; Hilbert dim: ${d}</div>
-
 <h2>1. Circuit Description</h2>
 <div class="summary-box">
   <strong>Qubit count:</strong> ${n} &nbsp;&nbsp; <strong>Total gates:</strong> ${cOps.length} &nbsp;&nbsp; <strong>Hilbert space dimension:</strong> ${d}<br>
@@ -1924,13 +2153,11 @@ function exportPDF(){
   <thead><tr><th>#</th><th>Gate</th><th>Target</th></tr></thead>
   <tbody>${gateList||'<tr><td colspan="3">No gates applied</td></tr>'}</tbody>
 </table>
-
 <h2>2. Quantum State — Top Amplitudes</h2>
 <table>
   <thead><tr><th>State</th><th>Amplitude</th><th>Phase</th><th>Probability</th></tr></thead>
   <tbody>${stateRows||'<tr><td colspan="4">No significant amplitudes</td></tr>'}</tbody>
 </table>
-
 <h2>3. Bloch Vector — Q0 (reduced state)</h2>
 <div class="summary-box bloch-row">
   <span class="bloch-num">x = ${bv.x.toFixed(6)}</span>
@@ -1942,23 +2169,15 @@ function exportPDF(){
   Q0 purity: ${(0.5*(1+bv.x*bv.x+bv.y*bv.y+bv.z*bv.z)).toFixed(6)}<br>
   ${Math.sqrt(bv.x*bv.x+bv.y*bv.y+bv.z*bv.z)<0.99?'Q0 is in a <strong>mixed/entangled</strong> reduced state (purity < 1)':'Q0 is in a <strong>pure</strong> state (purity ≈ 1)'}
 </div>
-
 <h2>4. Full Probability Distribution</h2>
 <table>
   <thead><tr><th>Basis State</th><th>Probability</th></tr></thead>
   <tbody>${allProbRows}</tbody>
 </table>
-
 <div class="footer">HDQS Quantum Visualiser v5.0 &nbsp;|&nbsp; SIA Software Innovations Private Limited &nbsp;|&nbsp; edu.siasoftwareinnovations.com</div>
-</div>
-</body></html>`;
-
+</div></body></html>`;
   const w=window.open('','_blank','width=800,height=900');
-  w.document.write(html);
-  w.document.close();
-  w.focus();
-  setTimeout(()=>w.print(),600);
-}
+  w.document.write(html);w.document.close();w.focus();setTimeout(()=>w.print(),600);}
 
 // ══ NAVIGATION ══
 function showPage(name,btn){
@@ -1966,18 +2185,34 @@ function showPage(name,btn){
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   btn.classList.add('active');
-  // Refresh all floating panels with the state belonging to the now-active tab
   if(name==='fundamentals'){
-    // Switch to single-qubit fundamentals state
+    // Switch floating panels to fundamentals single-qubit state
     updateFloating(Q1rho,Q1sv,1);
-    // Also redraw inline fundamentals visuals in case they went stale
     const bv=blochVec(Q1rho);
     drawBloch('bloch-main',210,[bv],['#00d4ff']);
     drawQSphere('qsph-main',Q1sv,1,210);
     drawPhaseWheel('phase-q1',Q1sv,1);
   } else if(name==='circuit'){
-    // Re-run circuit so circuit state is current in all panels
-    runCirc(false);
+    // Re-run circuit — this updates histogram, bloch-circ, AND all floating panels
+    // Use requestAnimationFrame to ensure the page is visible before drawing
+    requestAnimationFrame(()=>{
+      runCirc(false);
+      // Force redraw of floating panels with circuit state
+      const n=cN,d=1<<n;
+      let sv=Array(d).fill(null).map(()=>[0,0]);sv[0]=[1,0];
+      const ops=cStep>=0?cOps.slice(0,cStep+1):cOps;
+      ops.forEach(op=>{
+        if(op.type==='meas')return;let U;
+        if(op.type==='single')U=buildSG(GM[op.gate],op.target,n).mat;
+        else if(op.type==='rot'){const Gm=op.gate==='RX'?rotX(op.theta):op.gate==='RY'?rotY(op.theta):rotZ(op.theta);U=buildSG(Gm,op.target,n).mat;}
+        else if(op.gate==='CNOT')U=buildCNOT(op.control,op.target,n).mat;
+        else if(op.gate==='CZ')U=buildCZ(op.control,op.target,n).mat;
+        else if(op.gate==='SWAP')U=buildSWAP(op.control,op.target,n).mat;
+        else if(op.gate==='CCX')U=buildCCX(op.control,op.control2,op.target,n).mat;
+        if(U)sv=mVec(U,sv,d);});
+      const fullRho=outer(sv,d);
+      updateFloating(fullRho,sv,n);
+    });
   }
 }
 
@@ -1987,6 +2222,22 @@ function toggleTheme(){
   const isLight=html.getAttribute('data-theme')==='light';
   html.setAttribute('data-theme',isLight?'dark':'light');
   document.getElementById('theme-btn').textContent=isLight?'☀':'🌙';
+  // Redraw all canvases with new theme colors
+  requestAnimationFrame(()=>{
+    const rho=lastRho||Q1rho;
+    const sv=lastSV!==undefined?lastSV:Q1sv;
+    const n=lastN||1;
+    // Redraw inline fundamentals visuals
+    const bv=blochVec(Q1rho);
+    drawBloch('bloch-main',210,[bv],['#00d4ff']);
+    drawQSphere('qsph-main',Q1sv,1,210);
+    drawPhaseWheel('phase-q1',Q1sv,1);
+    // Redraw all floating panels
+    _doUpdateFloating(rho,sv,n);
+    // Redraw circuit bloch if on circuit page
+    const activeCirc=document.getElementById('page-circuit').classList.contains('active');
+    if(activeCirc)runCirc(false);
+  });
 }
 
 // ══ INIT ══
