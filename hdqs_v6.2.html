@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>HDQS Quantum Visualiser v5.0 — SIA Software Innovations</title>
+<title>HDQS Quantum Visualiser — SIA Software Innovations</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 :root,[data-theme="dark"]{
@@ -59,10 +59,22 @@
   backdrop-filter:blur(10px);
 }
 [data-theme="light"] #dock{
-  background:rgba(255,255,255,.94);
-  border-right-color:var(--border);
-  box-shadow:1px 0 2px rgba(16,24,40,.03);
-  backdrop-filter:blur(10px);
+  background:#0c1a2e;
+  border-right-color:#1e3a5f;
+  box-shadow:2px 0 8px rgba(0,0,0,.18);
+}
+[data-theme="light"] .dock-btn{color:#94a3b8;}
+[data-theme="light"] .dock-btn:hover{
+  color:#38bdf8;border-color:rgba(56,189,248,.4);background:rgba(56,189,248,.12);
+}
+[data-theme="light"] .dock-btn.active{
+  color:#38bdf8;border-color:#38bdf8;background:rgba(56,189,248,.18);
+}
+[data-theme="light"] .dock-sep{background:#1e3a5f;}
+[data-theme="light"] .dock-logo{box-shadow:0 0 10px rgba(56,189,248,.3);}
+[data-theme="light"] .dock-btn::after{
+  background:#111827;border-color:#1f2937;color:#f9fafb;
+  box-shadow:0 8px 24px rgba(16,24,40,.16);
 }
 [data-theme="light"] .float-panel{
   background:rgba(255,255,255,.98);
@@ -130,16 +142,6 @@
 }
 [data-theme="light"] .nav-tab:hover{color:var(--text);background:rgba(16,24,40,.03);}
 
-[data-theme="light"] .dock-btn:hover{
-  color:var(--cyan);border-color:rgba(11,99,182,.26);background:var(--accent-fill);
-}
-[data-theme="light"] .dock-btn.active{
-  color:var(--cyan);border-color:var(--cyan);background:var(--accent-fill-2);
-}
-[data-theme="light"] .dock-btn::after{
-  background:#111827;border-color:#1f2937;color:#f9fafb;
-  box-shadow:0 8px 24px rgba(16,24,40,.16);
-}
 
 [data-theme="light"] .gb{background:#ffffff;box-shadow:0 1px 2px rgba(16,24,40,.04);}
 [data-theme="light"] .gb:hover{filter:none;transform:translateY(-1px);box-shadow:0 6px 16px rgba(16,24,40,.08);}
@@ -194,9 +196,6 @@
   background:radial-gradient(circle at 35% 30%,#a5d8ff,var(--cyan) 42%,var(--violet));
   box-shadow:0 0 10px rgba(11,99,182,.18);
   animation:none;
-}
-[data-theme="light"] .dock-logo{
-  box-shadow:0 0 8px rgba(11,99,182,.16);
 }
 
 [data-theme="light"] .angle-input{
@@ -378,7 +377,7 @@ header{display:flex;align-items:center;justify-content:space-between;
 
 /* ─ CIRCUIT WIRES ─ */
 #circ-wires{background:var(--bg2);border:1px solid var(--border);border-radius:8px;
-  padding:16px 12px;min-height:100px;overflow-x:auto;}
+  padding:16px 12px;min-height:100px;overflow-x:auto;overflow-y:auto;max-height:560px;}
 .wire-row{display:flex;align-items:center;height:52px;margin-bottom:4px;position:relative;}
 .wire-label{font-family:var(--font-mono);font-size:12px;width:32px;flex-shrink:0;font-weight:700;}
 .wire-line{flex:1;height:2px;background:var(--border);position:relative;display:flex;align-items:center;
@@ -439,7 +438,25 @@ select:focus{border-color:var(--cyan);}
   padding:11px;font-family:var(--font-mono);font-size:11px;
   line-height:1.9;color:var(--green);min-height:44px;white-space:pre-wrap;}
 
-/* ─ DENSITY MATRIX ─ */
+/* ── PHASE EVENT PANEL ── */
+.phase-event{border-radius:6px;padding:10px 12px;margin-top:10px;
+  font-family:var(--font-mono);font-size:11px;line-height:1.8;
+  border:1px solid rgba(217,70,239,.25);background:rgba(217,70,239,.06);}
+.phase-event-title{font-size:10px;letter-spacing:.1em;color:var(--magenta);margin-bottom:5px;text-transform:uppercase;}
+.phase-tag{display:inline-block;padding:1px 7px;border-radius:10px;font-size:10px;margin-right:4px;margin-bottom:3px;}
+.phase-tag.global{background:rgba(74,90,122,.3);color:var(--muted);}
+.phase-tag.relative{background:rgba(217,70,239,.18);color:var(--magenta);}
+.phase-tag.none{background:rgba(0,255,136,.12);color:var(--green);}
+.phase-tag.warn{background:rgba(255,157,0,.15);color:var(--gold);}
+@keyframes phase-flash{
+  0%{box-shadow:0 0 0 0 rgba(217,70,239,.0);}
+  30%{box-shadow:0 0 0 6px rgba(217,70,239,.45);}
+  100%{box-shadow:0 0 0 0 rgba(217,70,239,.0);}
+}
+.phase-event.flashing{animation:phase-flash .55s ease;}
+.rel-phase-bar{height:4px;border-radius:2px;background:var(--panel2);margin:4px 0;overflow:hidden;}
+.rel-phase-fill{height:100%;border-radius:2px;background:var(--magenta);transition:width .4s ease;}
+
 .dmg{display:inline-flex;flex-direction:column;gap:3px;}
 .dmr{display:flex;gap:3px;}
 .dmc{width:28px;height:28px;border-radius:3px;
@@ -853,7 +870,7 @@ select:focus{border-color:var(--cyan);}
             <tr><th>State</th><th>Amp</th><th>Prob</th></tr>
             <tbody id="sv-q1"></tbody>
           </table>
-          <div id="q1-phase-info" style="margin-top:6px;"></div>
+          <div id="q1-phase-info"></div>
         </div>
       </div>
     </div>
@@ -862,9 +879,12 @@ select:focus{border-color:var(--cyan);}
     <div class="card fi">
       <div class="ct">// PHASE WHEEL</div>
       <canvas id="phase-q1" width="215" height="215" style="display:block;margin:0 auto 12px;"></canvas>
-      <div class="cbox" style="font-size:11px;padding:8px;margin-bottom:0;">
-        Use dock panel <strong>≋</strong> for noise channels · <strong>⊙</strong> for Bloch · <strong>▦</strong> for density matrix
+      <div id="phase-event-panel" class="phase-event">
+        <div class="phase-event-title">// PHASE STATUS</div>
+        <div id="phase-event-body" style="color:var(--muted);">Apply a gate to see phase analysis.</div>
       </div>
+      <div class="cbox" style="font-size:11px;padding:8px;margin-top:10px;margin-bottom:0;">
+        Use dock panel <strong>≋</strong> for noise · <strong>⊙</strong> Bloch · <strong>▦</strong> DM</div>
     </div>
   </div>
 
@@ -959,7 +979,7 @@ select:focus{border-color:var(--cyan);}
   </div>
 
   <div class="card fi" style="margin-bottom:14px;">
-    <div class="ct">// CIRCUIT DIAGRAM — drop gates here, click chips to remove</div>
+    <div class="ct">// CIRCUIT DIAGRAM — drop gates onto wires · click chip to remove · dblclick rotation to edit θ</div>
     <div id="step-track" class="step-track" style="display:none;"></div>
     <div id="circ-wires"></div>
   </div>
@@ -1438,15 +1458,15 @@ function _doUpdateFloating(rho,sv,n){
   const phQ=phSel?phSel.value:'global';
   const phInfo=document.getElementById('fp-phase-info');
   if(phQ==='global'){
-    const pi=drawPhaseWheel('fp-phase',sv,n);
-    if(phInfo)phInfo.textContent=pi||'';
+    drawPhaseWheel('fp-phase',sv,n);
+    if(phInfo)phInfo.textContent='';
   } else {
     const q=parseInt(phQ);
     const rho1=n>=5?(sv?ptrace1SV(sv,q,n):null):ptrace1(rho,q,n);
     const p0=rho1?Math.max(0,rho1[0][0]):1;
     const sv1=[[Math.sqrt(p0),0],[Math.sqrt(Math.max(0,1-p0)),0]];
-    const pi=drawPhaseWheel('fp-phase',sv1,1);
-    if(phInfo)phInfo.textContent=`Q${q}: `+(pi||'');
+    drawPhaseWheel('fp-phase',sv1,1);
+    if(phInfo)phInfo.textContent='';
   }
 
   // ── DENSITY MATRIX PANEL ──
@@ -1481,19 +1501,22 @@ function updateSVTable(tbodyId,sv,n,d){
 
 // ══ PAGE 1 — FUNDAMENTALS ══
 let Q1rho=[[1,0],[0,0],[0,0],[0,0]];let Q1sv=[[1,0],[0,0]];let totalG=0;
+let prevQ1sv=null; // state vector BEFORE last gate — for phase event comparison
+let lastPhaseInfo=null; // cached result from computePhaseEvent
 function angDisp(v,id){const r=v/100;let l=r.toFixed(2)+'r';
   if(Math.abs(r-Math.PI/4)<.03)l='π/4';else if(Math.abs(r-Math.PI/2)<.03)l='π/2';
   else if(Math.abs(r-Math.PI)<.03)l='π';else if(Math.abs(r-3*Math.PI/4)<.03)l='3π/4';
   document.getElementById(id).textContent=l;}
-function q1Gate(nm){const U=GM[nm];Q1rho=applyU(Q1rho,U,2);Q1sv=mVec(U,Q1sv,2);totalG++;updQ1();}
-function q1Rot(ax){const t=parseFloat(document.getElementById('q1-angle').value)/100;
+function q1Gate(nm){prevQ1sv=Q1sv?Q1sv.map(a=>[a[0],a[1]]):null;const U=GM[nm];Q1rho=applyU(Q1rho,U,2);Q1sv=mVec(U,Q1sv,2);totalG++;updQ1();}
+function q1Rot(ax){prevQ1sv=Q1sv?Q1sv.map(a=>[a[0],a[1]]):null;
+  const t=parseFloat(document.getElementById('q1-angle').value)/100;
   const U=ax==='RX'?rotX(t):ax==='RY'?rotY(t):rotZ(t);
   Q1rho=applyU(Q1rho,U,2);Q1sv=mVec(U,Q1sv,2);totalG++;updQ1();}
-function q1Measure(){const p0=Math.max(0,Math.min(1,Q1rho[0][0]));const out=Math.random()<p0?0:1;
+function q1Measure(){prevQ1sv=Q1sv?Q1sv.map(a=>[a[0],a[1]]):null;const p0=Math.max(0,Math.min(1,Q1rho[0][0]));const out=Math.random()<p0?0:1;
   if(out===0){Q1rho=[[1,0],[0,0],[0,0],[0,0]];Q1sv=[[1,0],[0,0]];}
   else{Q1rho=[[0,0],[0,0],[0,0],[1,0]];Q1sv=[[0,0],[1,0]];}
   totalG++;updQ1();}
-function q1Reset(){Q1rho=[[1,0],[0,0],[0,0],[0,0]];Q1sv=[[1,0],[0,0]];updQ1();}
+function q1Reset(){prevQ1sv=null;Q1rho=[[1,0],[0,0],[0,0],[0,0]];Q1sv=[[1,0],[0,0]];updQ1();}
 
 function applyNoise(type){
   const p=parseFloat(document.getElementById('noise-p').value)/100;
@@ -1558,6 +1581,146 @@ function updateNoiseTargetSelect(){
   for(let i=0;i<cN;i++)sel.innerHTML+=`<option value="q${i}">Circuit — Q${i}</option>`;
 }
 
+// ── PHASE EVENT ANALYSIS ──────────────────────────────────────────
+// Computes pedagogically meaningful phase information from the state.
+// prevSV is the state before the gate; currSV is after.
+function computePhaseEvent(prevSV, currSV){
+  if(!currSV) return null;
+  const a0=currSV[0], a1=currSV[1];
+  const p0=Cx.abs2(a0), p1=Cx.abs2(a1);
+  const ph0=Cx.phase(a0)*180/Math.PI;
+  const ph1=Cx.phase(a1)*180/Math.PI;
+
+  // Relative phase Δφ = φ(|1⟩) − φ(|0⟩), only meaningful when both amplitudes > threshold
+  const hasRelPhase = p0>0.02 && p1>0.02;
+  const relPhase = hasRelPhase ? ((ph1-ph0+540)%360-180) : null; // in [-180,180]
+
+  // Global phase: only one amplitude significant — phase is global (unobservable alone)
+  const isGlobal = !hasRelPhase;
+
+  // Detect phase change from previous state
+  let event='none', eventDetail='';
+  if(prevSV){
+    const pp0=Cx.abs2(prevSV[0]), pp1=Cx.abs2(prevSV[1]);
+    const pph0=Cx.phase(prevSV[0])*180/Math.PI;
+    const pph1=Cx.phase(prevSV[1])*180/Math.PI;
+    const prevRel = (pp0>0.02&&pp1>0.02) ? ((pph1-pph0+540)%360-180) : null;
+
+    // Did relative phase change?
+    if(hasRelPhase && prevRel!==null){
+      const delta=relPhase-prevRel;
+      const absDelta=Math.abs(((delta+540)%360)-180);
+      if(absDelta>5){
+        event='relative';
+        if(Math.abs(absDelta-180)<10) eventDetail=`Relative phase FLIPPED by π (180°) — state became physically distinct. Interference pattern now reversed.`;
+        else if(Math.abs(absDelta-90)<10) eventDetail=`Relative phase rotated by π/2 (${delta.toFixed(0)}°). Interference pattern shifted.`;
+        else eventDetail=`Relative phase shifted by ${delta.toFixed(0)}°. Observable via interference.`;
+      }
+    }
+    // Amplitude-only change (basis flip) — check if phases changed globally
+    if(event==='none'){
+      const ampChanged = Math.abs(p0-pp0)>0.01;
+      const phChanged0 = Math.abs(((ph0-pph0+540)%360)-180)>5;
+      const phChanged1 = Math.abs(((ph1-pph1+540)%360)-180)>5;
+      if(!ampChanged && (phChanged0||phChanged1)){
+        event='global';
+        eventDetail=`Global phase changed — amplitudes unchanged, ${phChanged0?'|0⟩':''}${phChanged0&&phChanged1?', ':''}${phChanged1?'|1⟩':''} phase shifted. Not physically observable by measurement alone.`;
+      }
+    }
+  }
+
+  // Observability note
+  let observeNote='';
+  if(isGlobal && p0>0.99) observeNote='State is |0⟩ — no relative phase (single amplitude).';
+  else if(isGlobal && p1>0.99) observeNote='State is |1⟩ — no relative phase (single amplitude).';
+  else if(hasRelPhase){
+    const rp=Math.round(relPhase);
+    if(Math.abs(rp)===180||Math.abs(rp+180)<2) observeNote=`Δφ = π — |+⟩/|-⟩ states. Apply H to see interference.`;
+    else if(Math.abs(rp)<2) observeNote=`Δφ = 0 — |+⟩ state. Phases aligned.`;
+    else if(Math.abs(rp-90)<3||Math.abs(rp+90)<3) observeNote=`Δφ = ${rp>0?'+':''}${rp}° — circular polarisation-like state.`;
+    else observeNote=`Δφ = ${rp>0?'+':''}${rp}° between |0⟩ and |1⟩.`;
+  }
+
+  return {event, eventDetail, isGlobal, hasRelPhase, relPhase, observeNote,
+    ph0:ph0.toFixed(1), ph1:ph1.toFixed(1), p0, p1};
+}
+
+// Render the phase event panel (with flash animation on relative phase change)
+function renderPhaseEvent(info, lastInfo){
+  const panel=document.getElementById('phase-event-panel');
+  const body=document.getElementById('phase-event-body');
+  if(!panel||!body)return;
+  if(!info){body.innerHTML='<span style="color:var(--muted)">Apply a gate to see phase analysis.</span>';return;}
+
+  const {event,eventDetail,isGlobal,hasRelPhase,relPhase,observeNote,ph0,ph1,p0,p1}=info;
+
+  let html='';
+
+  // Amplitude table with full complex number
+  html+=`<table style="width:100%;border-collapse:collapse;margin-bottom:8px;">
+    <tr><th style="font-size:9px;color:var(--muted);font-weight:400;text-align:left;padding:1px 4px;">State</th>
+        <th style="font-size:9px;color:var(--muted);font-weight:400;text-align:left;padding:1px 4px;">Amplitude</th>
+        <th style="font-size:9px;color:var(--muted);font-weight:400;text-align:left;padding:1px 4px;">Phase</th></tr>`;
+  if(Q1sv){
+    Q1sv.forEach((a,i)=>{
+      const pr=Cx.abs2(a);if(pr<0.0001)return;
+      const hue=phaseToHue(Cx.phase(a));
+      const reStr=a[0].toFixed(4); const imStr=(a[1]>=0?'+':'')+a[1].toFixed(4)+'i';
+      const phStr=(Cx.phase(a)*180/Math.PI).toFixed(1)+'°';
+      html+=`<tr>
+        <td style="font-family:var(--font-mono);font-size:10px;color:var(--cyan);padding:2px 4px;">|${i}⟩</td>
+        <td style="font-family:var(--font-mono);font-size:10px;color:var(--text);padding:2px 4px;">${reStr}${imStr}</td>
+        <td style="padding:2px 4px;"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:hsl(${hue},80%,55%);margin-right:4px;vertical-align:middle;"></span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text);">${phStr}</span></td>
+      </tr>`;
+    });
+  }
+  html+='</table>';
+
+  // Relative phase bar + value
+  if(hasRelPhase && relPhase!==null){
+    const barPct=((relPhase+180)/360*100).toFixed(1);
+    html+=`<div style="margin-bottom:6px;">
+      <div style="font-size:9px;color:var(--magenta);margin-bottom:2px;">Relative phase Δφ = |1⟩ − |0⟩</div>
+      <div class="rel-phase-bar"><div class="rel-phase-fill" style="width:${barPct}%;"></div></div>
+      <div style="font-family:var(--font-mono);font-size:11px;color:var(--magenta);font-weight:700;">${(relPhase>=0?'+':'')}${relPhase.toFixed(1)}°</div>
+    </div>`;
+  }
+
+  // Phase type badge
+  if(isGlobal){
+    html+=`<span class="phase-tag global">GLOBAL PHASE</span>`;
+    html+=`<div style="font-size:10px;color:var(--muted);margin-top:4px;">Single non-zero amplitude — phase unobservable by measurement. Physically equivalent to phase=0.</div>`;
+  } else {
+    html+=`<span class="phase-tag relative">RELATIVE PHASE</span>`;
+    html+=`<div style="font-size:10px;color:var(--text);margin-top:4px;">${observeNote}</div>`;
+  }
+
+  // Event notification — show what just changed
+  if(event==='relative'){
+    html+=`<div style="margin-top:8px;padding:7px 10px;background:rgba(217,70,239,.12);border:1px solid rgba(217,70,239,.35);border-radius:5px;font-size:10px;color:var(--magenta);">⚡ ${eventDetail}</div>`;
+  } else if(event==='global'){
+    html+=`<div style="margin-top:8px;padding:7px 10px;background:rgba(74,90,122,.18);border:1px solid rgba(74,90,122,.4);border-radius:5px;font-size:10px;color:var(--muted);">ℹ ${eventDetail}</div>`;
+  }
+
+  // Teaching note: when to use H to reveal phase
+  if(isGlobal && p1>0.5){
+    html+=`<div style="margin-top:6px;font-size:10px;color:var(--gold);">💡 Tip: Apply H to enter superposition — relative phase becomes physically meaningful and visible via interference.</div>`;
+  }
+  if(hasRelPhase && Math.abs(relPhase-(-180))<15){
+    html+=`<div style="margin-top:6px;font-size:10px;color:var(--gold);">💡 Tip: This is the |-⟩ state. Apply H to collapse to |1⟩ via destructive interference — that's Z's hidden power.</div>`;
+  }
+
+  body.innerHTML=html;
+
+  // Flash panel if relative phase event
+  if(event==='relative'){
+    panel.classList.remove('flashing');
+    void panel.offsetWidth; // force reflow
+    panel.classList.add('flashing');
+    setTimeout(()=>panel.classList.remove('flashing'),600);
+  }
+}
+
 function updQ1(){
   const p0=Math.max(0,Math.min(1,Q1rho[0][0])),p1=1-p0;
   document.getElementById('qh0').style.height=Math.max(2,Math.round(p0*56))+'px';
@@ -1572,13 +1735,13 @@ function updQ1(){
   document.getElementById('sv-q1').innerHTML=['|0⟩','|1⟩'].map((s,i)=>{
     const a=amps[i];const pr=Cx.abs2(a);
     return`<tr><td class="tds">${s}</td><td class="tda">${a[0].toFixed(3)}${a[1]>=0?'+':''}${a[1].toFixed(3)}i</td><td class="tdp">${(pr*100).toFixed(1)}%</td></tr>`;}).join('');
-  if(Q1sv){document.getElementById('q1-phase-info').innerHTML=Q1sv.map((a,i)=>{
-    const ph=(Cx.phase(a)*180/Math.PI).toFixed(0);const pr=Cx.abs2(a);if(pr<0.001)return'';
-    const hue=phaseToHue(Cx.phase(a));
-    return`<div class="phase-amp-row"><div class="phase-swatch" style="background:hsl(${hue},80%,55%)"></div><span style="font-family:var(--font-mono);font-size:10px;color:var(--muted);">|${i}⟩</span><span style="font-family:var(--font-mono);font-size:10px;color:var(--text);"> ${ph}° (${(pr*100).toFixed(0)}%)</span></div>`;}).join('');}
   drawBloch('bloch-main',210,[bv],['#00d4ff']);
   drawQSphere('qsph-main',Q1sv,1,210);
   drawPhaseWheel('phase-q1',Q1sv,1);
+  // Phase event analysis
+  const phInfo=computePhaseEvent(prevQ1sv, Q1sv);
+  renderPhaseEvent(phInfo, lastPhaseInfo);
+  lastPhaseInfo=phInfo;
   updateFloating(Q1rho,Q1sv,1);
   document.getElementById('sb-g').textContent=totalG;
 }
@@ -1590,6 +1753,7 @@ function demoI(){q1Reset();q1Gate('H');q1Gate('Z');q1Gate('H');document.getEleme
 // ══ PAGE 2 — CIRCUIT LAB ══
 let cOps=[],cN=2,cStep=-1;
 let dragGate=null;
+let dragChipIdx=-1; // index in cOps of a chip being dragged between wires
 let selectedGateIdx=-1;
 
 function syncAngleFromSlider(){
@@ -1664,10 +1828,35 @@ function initDragDrop(){
 function setupWireDropZones(){
   document.querySelectorAll('.wire-line').forEach(line=>{
     line.addEventListener('dragenter',e=>{e.preventDefault();line.classList.add('drag-over');});
-    line.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='copy';});
+    line.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect=dragChipIdx>=0?'move':'copy';});
     line.addEventListener('dragleave',e=>{line.classList.remove('drag-over');});
-    line.addEventListener('drop',e=>{e.preventDefault();line.classList.remove('drag-over');
-      if(!dragGate)return;const q=parseInt(line.getAttribute('data-q'));addGateToQ(dragGate,q);});});}
+    line.addEventListener('drop',e=>{
+      e.preventDefault();line.classList.remove('drag-over');
+      const targetQ=parseInt(line.getAttribute('data-q'));
+      if(dragChipIdx>=0){
+        // Move existing gate chip to a different qubit wire
+        const op=cOps[dragChipIdx];
+        if(op){
+          // Validate: for 2-qubit gates the new target can't equal the control
+          if((op.control!==null&&op.control!==undefined)&&op.control===targetQ){
+            alert('Target qubit cannot be the same as the control qubit.');
+            dragChipIdx=-1;return;
+          }
+          if((op.control2!==null&&op.control2!==undefined)&&op.control2===targetQ){
+            alert('Target qubit cannot be the same as ctrl2 qubit.');
+            dragChipIdx=-1;return;
+          }
+          op.target=targetQ;
+          cStep=-1;renderWires();runCirc(false);
+        }
+        dragChipIdx=-1;
+      } else if(dragGate){
+        // Drop new gate from palette
+        addGateToQ(dragGate,targetQ);
+      }
+    });
+  });
+}
 
 function addGateToQ(gateName,targetQ){
   const cv=document.getElementById('circ-cq').value;const cv2=document.getElementById('circ-cq2').value;
@@ -1726,35 +1915,63 @@ function renderWires(){
         else gc.textContent=op.gate;
       } else if(op.control2===q){gc.classList.add('ctrl-dot');gc.textContent='●₂';gc.style.color=gcol;}
       else{gc.classList.add('ctrl-dot');gc.textContent='●';gc.style.color=gcol;}
-      gc.title=op.type==='rot'?`${op.gate}(${op.theta.toFixed(2)}) — click to remove · hold to edit angle`:`${op.gate} — click to remove`;
+      gc.title=op.type==='rot'
+        ?`${op.gate}(${op.theta.toFixed(2)}) — dblclick to delete · click to edit angle · drag to move`
+        :`${op.gate} — dblclick to delete · drag to move`;
       if(selectedGateIdx===idx)gc.classList.add('selected');
-      // Long-press (hold) to edit, click to remove
-        let holdTimer=null;
-        gc.addEventListener('mousedown',(e=>{
-        if(op.type==='rot'){
-            holdTimer=setTimeout(()=>{
-            holdTimer=null;
-            selectGate(idx);
-            },500);// 500ms hold
-        }
-        }));
-        gc.addEventListener('mouseup',(()=>{
+
+      // ── CLICK / DBLCLICK LOGIC ──────────────────────────────
+      // dblclick = DELETE (suppress the click that fires before it)
+      // click    = open angle editor (rotation gates) — does nothing for non-rotation
+      let clickTimer=null;
+      gc.addEventListener('click',(()=>{
         const ii=idx;
-        return()=>{
-            if(holdTimer!==null){
-            clearTimeout(holdTimer);holdTimer=null;
-            // was a short click — remove gate
-            cOps.splice(ii,1);
-            if(selectedGateIdx===ii)deselectGate();
-            else{selectedGateIdx=-1;document.getElementById('selected-gate-row').style.display='none';}
-            cStep=-1;renderWires();runCirc(false);
-            }
-            // if holdTimer is null here, hold already fired (edit mode) — do nothing on release
+        return e=>{
+          e.stopPropagation();
+          // Defer action by 220ms — if dblclick fires first it cancels this
+          clickTimer=setTimeout(()=>{
+            clickTimer=null;
+            // Only open editor for rotation gates; ignore click on non-rotation
+            if(op.type==='rot') selectGate(ii);
+          },220);
         };
+      })());
+      gc.addEventListener('dblclick',(()=>{
+        const ii=idx;
+        return e=>{
+          e.stopPropagation();
+          // Cancel the pending single-click action
+          if(clickTimer!==null){clearTimeout(clickTimer);clickTimer=null;}
+          // DELETE the gate
+          cOps.splice(ii,1);
+          if(selectedGateIdx===ii)deselectGate();
+          else if(selectedGateIdx>ii)selectedGateIdx--;
+          cStep=-1;renderWires();runCirc(false);
+        };
+      })());
+
+      // ── CHIP DRAG-TO-MOVE ────────────────────────────────────
+      // Only target chips are movable (control dots follow their target)
+      if(op.target===q){
+        gc.setAttribute('draggable','true');
+        gc.addEventListener('dragstart',(()=>{
+          const ii=idx;
+          return e=>{
+            e.stopPropagation();
+            dragChipIdx=ii;
+            dragGate=null; // not a palette drag
+            const ghost=document.getElementById('drag-ghost');
+            ghost.textContent=gc.textContent;
+            ghost.style.color=gcol;ghost.style.borderColor=gcol;ghost.style.display='block';
+            e.dataTransfer.effectAllowed='move';
+            e.dataTransfer.setDragImage(document.createElement('div'),0,0);
+          };
         })());
-        gc.addEventListener('mouseleave',()=>{
-        if(holdTimer!==null){clearTimeout(holdTimer);holdTimer=null;}
+        gc.addEventListener('dragend',()=>{
+          dragChipIdx=-1;
+          document.getElementById('drag-ghost').style.display='none';
         });
+      }
       line.appendChild(gc);});
     const end=document.createElement('div');end.className='wire-end';end.textContent='[M]';
     row.appendChild(lbl);row.appendChild(line);row.appendChild(end);el.appendChild(row);}
