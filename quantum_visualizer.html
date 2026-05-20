@@ -71,7 +71,7 @@
   color:#38bdf8;border-color:#38bdf8;background:rgba(56,189,248,.18);
 }
 [data-theme="light"] .dock-sep{background:#1e3a5f;}
-[data-theme="light"] .dock-logo{box-shadow:0 0 10px rgba(56,189,248,.3);}
+[data-theme="light"] .dock-logo{box-shadow:none;}
 [data-theme="light"] .dock-btn::after{
   background:#111827;border-color:#1f2937;color:#f9fafb;
   box-shadow:0 8px 24px rgba(16,24,40,.16);
@@ -193,8 +193,8 @@
 [data-theme="light"] .svt tr:hover td{background:rgba(16,24,40,.025);}
 
 [data-theme="light"] .logo-orb{
-  background:none;
-  box-shadow:0 0 10px rgba(11,99,182,.18);
+  background:url('assets/logo.png') center/contain no-repeat;
+  box-shadow:none;
   animation:none;
 }
 
@@ -275,12 +275,8 @@ header{display:flex;align-items:center;justify-content:space-between;
   background:rgba(7,11,24,.97);border-bottom:1px solid var(--border);
   position:sticky;top:0;z-index:300;backdrop-filter:blur(14px);}
 .logo{display:flex;align-items:center;gap:10px;}
-.logo-orb{width:22px;height:22px;border-radius:50%;
-  background:none;box-shadow:0 0 12px var(--cyan);animation:op 3s ease-in-out infinite;
-  position:relative;overflow:visible;}
-.logo-orb::before,.dock-logo::before{content:'';position:absolute;inset:0;
-  background:url('assets/logo-transparent.png') center/cover no-repeat;border-radius:inherit;
-  pointer-events:none;}
+.logo-orb{width:30px;height:30px;border-radius:0;
+  background:url('assets/logo.png') center/contain no-repeat;box-shadow:none;animation:none;}
 @keyframes op{0%,100%{box-shadow:0 0 10px var(--cyan),0 0 20px rgba(0,212,255,.25);}
   50%{box-shadow:0 0 18px var(--cyan),0 0 40px rgba(0,212,255,.4);}}
 .logo-text{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;}
@@ -304,9 +300,8 @@ header{display:flex;align-items:center;justify-content:space-between;
   background:rgba(5,8,20,.98);border-right:1px solid var(--border);
   display:flex;flex-direction:column;align-items:center;padding:8px 0 8px;
   gap:3px;overflow:visible;}
-.dock-logo{width:28px;height:28px;border-radius:50%;
-  background:none;box-shadow:0 0 10px var(--cyan);margin-bottom:6px;flex-shrink:0;
-  position:relative;overflow:visible;}
+.dock-logo{width:36px;height:36px;border-radius:0;
+  background:url('assets/logo.png') center/contain no-repeat;box-shadow:none;margin-bottom:6px;flex-shrink:0;}
 .dock-sep{width:30px;height:1px;background:var(--border);margin:2px 0;flex-shrink:0;}
 .dock-btn{width:36px;height:36px;border-radius:7px;border:1px solid transparent;
   background:transparent;color:var(--muted);cursor:pointer;
