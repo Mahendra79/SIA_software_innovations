@@ -193,7 +193,7 @@
 [data-theme="light"] .svt tr:hover td{background:rgba(16,24,40,.025);}
 
 [data-theme="light"] .logo-orb{
-  background:radial-gradient(circle at 35% 30%,#a5d8ff,var(--cyan) 42%,var(--violet));
+  background:none;
   box-shadow:0 0 10px rgba(11,99,182,.18);
   animation:none;
 }
@@ -276,10 +276,11 @@ header{display:flex;align-items:center;justify-content:space-between;
   position:sticky;top:0;z-index:300;backdrop-filter:blur(14px);}
 .logo{display:flex;align-items:center;gap:10px;}
 .logo-orb{width:22px;height:22px;border-radius:50%;
-  background:url('assets/logo.png') center/cover no-repeat;
-  box-shadow:0 0 12px var(--cyan);animation:op 3s ease-in-out infinite;}
-
-
+  background:none;box-shadow:0 0 12px var(--cyan);animation:op 3s ease-in-out infinite;
+  position:relative;overflow:visible;}
+.logo-orb::before,.dock-logo::before{content:'';position:absolute;inset:0;
+  background:url('assets/logo-transparent.png') center/cover no-repeat;border-radius:inherit;
+  pointer-events:none;}
 @keyframes op{0%,100%{box-shadow:0 0 10px var(--cyan),0 0 20px rgba(0,212,255,.25);}
   50%{box-shadow:0 0 18px var(--cyan),0 0 40px rgba(0,212,255,.4);}}
 .logo-text{font-family:var(--font-mono);font-size:13px;letter-spacing:.08em;}
@@ -296,17 +297,16 @@ header{display:flex;align-items:center;justify-content:space-between;
   background:transparent;color:var(--muted);cursor:pointer;font-size:15px;
   display:flex;align-items:center;justify-content:center;transition:all .2s;}
 .theme-btn:hover{color:var(--cyan);border-color:var(--cyan);}
+.theme-btn{display:none;}
 
 /* ══ VERTICAL DOCK ══ */
 #dock{position:fixed;left:0;top:0;bottom:0;width:52px;z-index:400;
   background:rgba(5,8,20,.98);border-right:1px solid var(--border);
   display:flex;flex-direction:column;align-items:center;padding:8px 0 8px;
-  gap:3px;overflow:hidden;}
+  gap:3px;overflow:visible;}
 .dock-logo{width:28px;height:28px;border-radius:50%;
-  background:url('assets/logo.png') center/cover no-repeat;
-  box-shadow:0 0 10px var(--cyan);margin-bottom:6px;flex-shrink:0;}
-
-
+  background:none;box-shadow:0 0 10px var(--cyan);margin-bottom:6px;flex-shrink:0;
+  position:relative;overflow:visible;}
 .dock-sep{width:30px;height:1px;background:var(--border);margin:2px 0;flex-shrink:0;}
 .dock-btn{width:36px;height:36px;border-radius:7px;border:1px solid transparent;
   background:transparent;color:var(--muted);cursor:pointer;
@@ -326,6 +326,7 @@ header{display:flex;align-items:center;justify-content:space-between;
 
 /* ─ PAGES ─ */
 .page{display:none;}.page.active{display:block;}
+#overlay-vqram{display:none!important;}
 
 /* ─ CARDS ─ */
 .card{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:16px;}
@@ -582,7 +583,6 @@ select:focus{border-color:var(--cyan);}
   <button class="dock-btn" id="dock-noise" onclick="togglePanel('panel-noise')" data-tip="Noise Channels">≋</button>
   <div class="dock-sep"></div>
   <button class="dock-btn" id="dock-demos" onclick="toggleOverlay('overlay-demos')" data-tip="Demos">▷</button>
-  <button class="dock-btn" id="dock-vqram" onclick="toggleOverlay('overlay-vqram')" data-tip="vQRAM / Chunks" style="display:none;">⬡</button>
 </div>
 
 <!-- ══ FLOATING PANELS ══ -->
@@ -794,7 +794,7 @@ select:focus{border-color:var(--cyan);}
 <header>
   <div class="logo">
     <div class="logo-orb"></div>
-    <div class="logo-text">HDQS <em>QUANTUM</em> VISUALISER <em style="font-size:10px;opacity:.6"></em></div>
+    <div class="logo-text">HDQS <em>QUANTUM</em> VISUALISER</div>
   </div>
   <div class="nav-tabs">
     <button class="nav-tab active" onclick="showPage('fundamentals',this)">Fundamentals</button>
@@ -2304,14 +2304,13 @@ function togglePanel(id){
 
 // ══ OVERLAY ══
 function toggleOverlay(id){
+  if(id==='overlay-vqram')return;
   const ov=document.getElementById(id);const vis=!ov.classList.contains('visible');
   document.querySelectorAll('.overlay').forEach(o=>o.classList.remove('visible'));
   document.getElementById('dock-demos').classList.remove('active');
-  document.getElementById('dock-vqram').classList.remove('active');
   if(vis){
     ov.classList.add('visible');
     if(id==='overlay-demos')document.getElementById('dock-demos').classList.add('active');
-    if(id==='overlay-vqram'){document.getElementById('dock-vqram').classList.add('active');if(!waveAnimId)animateWave();}
   } else {if(waveAnimId){cancelAnimationFrame(waveAnimId);waveAnimId=null;}}}
 
 // ══ PDF EXPORT ══
@@ -2363,7 +2362,7 @@ function exportPDF(){
   @media print{body{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
 </style></head><body>
 <div class="page">
-<h1>Quantum Circuit Report — HDQS Visualiser v5.0</h1>
+<h1>Quantum Circuit Report — HDQS Visualiser</h1>
 <div class="meta">Generated: ${ts} &nbsp;|&nbsp; Qubits: ${n} &nbsp;|&nbsp; Gates: ${cOps.length} &nbsp;|&nbsp; Hilbert dim: ${d}</div>
 <h2>1. Circuit Description</h2>
 <div class="summary-box">
@@ -2395,7 +2394,7 @@ function exportPDF(){
   <thead><tr><th>Basis State</th><th>Probability</th></tr></thead>
   <tbody>${allProbRows}</tbody>
 </table>
-<div class="footer">HDQS Quantum Visualiser v5.0 &nbsp;|&nbsp; SIA Software Innovations Private Limited &nbsp;|&nbsp; edu.siasoftwareinnovations.com</div>
+<div class="footer">HDQS Quantum Visualiser &nbsp;|&nbsp; SIA Software Innovations Private Limited &nbsp;|&nbsp; edu.siasoftwareinnovations.com</div>
 </div></body></html>`;
   const w=window.open('','_blank','width=800,height=900');
   w.document.write(html);w.document.close();w.focus();setTimeout(()=>w.print(),600);}
@@ -2466,7 +2465,6 @@ window.addEventListener('load',()=>{
   updQ1();
   initCirc();renderWires();runCirc(false);
   initDragDrop();
-  initVQ();
   buildDemoSelector();
   updateNoiseTargetSelect();
 });
