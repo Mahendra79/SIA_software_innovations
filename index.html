@@ -1,193 +1,141 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
-    <link rel="apple-touch-icon" sizes="192x192" href="/favicon-192.png" />
-    <title>SIA Software Innovations</title>
-    <link rel="stylesheet" href="css/index.css" />
-    <link rel="stylesheet" href="css/App.css" />
-    <link rel="stylesheet" href="css/Navbar.css" />
-    <link rel="stylesheet" href="css/Footer.css" />
-    <link rel="stylesheet" href="css/HomePage.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" referrerpolicy="no-referrer" />
-  </head>
-  <body>
-    <header class="navbar">
-      <div class="navbar-left">
-        <a href="./index.html" class="brand">
-          <img src="assets/logo.png" alt="SIA Logo" class="brand-logo" />
-          <div class="brand-name">
-            <span class="brand-title">SIA</span>
-            <span class="brand-sub">Software Innovations</span>
-          </div>
-        </a>
-      </div>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Sia Software Innovations is a software-focused technology company engaged in the design and development of structured, scalable software systems.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="favicon-192.png">
+<title>Sia Software Innovations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=14">
+</head>
+<body>
 
-      <nav class="navbar-center">
-        <a href="./index.html">Home</a>
-        <a href="./about.html">About</a>
-        <a href="./products.html">Products</a>
-        <a href="./courses.html">Courses</a>
-        <a href="./contact.html">Contact</a>
-        <a href="./quantum_visualizer.html" target="_blank" rel="noopener noreferrer" title="Opens in new tab">HDQS Quantum Visualizer <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-      </nav>
 
-      <div class="navbar-right"></div>
+<header id="hdr">
+ <div class="bar">
+  <a href="index.html" class="logo logo-full"><img src="assets/sia-logo-full-sm.png" alt="SIA Software Innovations Private Limited" width="144" height="64"></a>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav">Menu</button>
+  <nav id="siteNav">
+   <a href="index.html" class="active">Home</a>
+   <a href="about.html">About</a>
+   <a href="products.html">Products</a>
+   <a href="gallery.html">Gallery</a>
+   <a href="contact.html">Contact</a>
+  </nav>
+  <div class="hdr-icons">
+   <a class="hicon hicon-edu" href="https://edu.siasoftwareinnovations.com/" target="_blank" rel="noopener noreferrer" aria-label="Sia Education Platform (opens in new tab)" data-tip="Education Platform">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3zm-6.82 9.72L5 16.5C5 18.43 8.13 20 12 20s7-1.57 7-3.5l-.18-3.78L12 16.5l-6.82-3.78z"/></svg>
+   </a>
+   <a class="hicon" href="quantum_visualizer.html" target="_blank" rel="noopener noreferrer" aria-label="HDQS Quantum Visualizer (opens in new tab)" data-tip="HDQS Visualizer">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg>
+   </a>
+  </div>
+ </div>
+</header>
 
-      <button class="hamburger" aria-label="Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </header>
+<main id="top">
 
-    <main>
-      <div class="home-wrapper">
-        <section class="home-hero">
-          <div class="hero-grid">
-            <div class="hero-content">
-              <h1>SIA Software Innovations Pvt.Ltd</h1>
-              <h2>ACCESS BEYOND LIMITS</h2>
-              <p>
-                SIA Software Innovations is a software-focused technology company
-                engaged in the design and development of structured, scalable
-                software systems.
-              </p>
-              <p>
-                We build software platforms and solutions that support learning,
-                research, and applied problem-solving by translating complex ideas
-                into reliable, usable systems.
-              </p>
-              <div class="hero-actions">
-                <a href="./contact.html" class="btn-primary">Collaborate With Us</a>
-                <a href="./products.html" class="btn-secondary">View Products</a>
-              </div>
-            </div>
+<section class="hero">
+ <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/video/hero-quantum-3-poster.jpg" aria-hidden="true">
+  <source src="assets/video/hero-quantum-3.mp4" type="video/mp4">
+ </video>
+ <div class="wrap">
+  <div class="txt">
+   <p class="eyebrow keep">Sia Software Innovations Pvt.Ltd</p>
+   <h1>ACCESS BEYOND LIMITS</h1>
+   <p class="sub">Sia Software Innovations is a software-focused technology company engaged in the design and development of structured, scalable software systems.</p>
+   <a class="btn" href="contact.html">Collaborate With Us →</a>
+   <a class="btn" href="products.html">View Products →</a>
+  </div>
+ </div>
+</section>
 
-            <div class="hero-visual-space"></div>
-          </div>
-        </section>
+<section id="products">
+ <div class="wrap">
+  <p class="eyebrow">What We Do</p>
+  <h2>Our work emphasizes correctness, structure, scalability, and long-term usability.</h2>
+  <div class="cards">
+   <div class="card"><div class="ph"><img src="assets/Home_page/software-platforms.webp" alt="Software platforms and system-level solutions" loading="lazy" decoding="async"></div><h3>Software platforms and system-level solutions</h3></div>
+   <div class="card"><div class="ph"><img src="assets/Home_page/computational-data.webp" alt="Computational and data-oriented applications" loading="lazy" decoding="async"></div><h3>Computational and data-oriented applications</h3></div>
+   <div class="card"><div class="ph"><img src="assets/Home_page/research-tools.webp" alt="Research-supporting tools and environments" loading="lazy" decoding="async"></div><h3>Research-supporting tools and environments</h3></div>
+   <div class="card"><div class="ph"><img src="assets/Home_page/programmatic-frameworks.webp" alt="Programmatic frameworks and application software" loading="lazy" decoding="async"></div><h3>Programmatic frameworks and application software</h3></div>
+  </div>
+ </div>
+</section>
 
-        <section class="home-content">
-          <div class="content-block">
-            <h2>What We Do</h2>
-            <ul>
-              <li>Software platforms and system-level solutions</li>
-              <li>Computational and data-oriented applications</li>
-              <li>Research-supporting tools and environments</li>
-              <li>Programmatic frameworks and application software</li>
-            </ul>
-            <p class="muted">
-              Our work emphasizes correctness, structure, scalability, and
-              long-term usability.
-            </p>
-          </div>
+<section class="enterprise">
+ <div class="wrap">
+  <div class="box">
+   <p class="eyebrow">Orientation</p>
+   <h2>We focus on building software systems that enable meaningful work in academic, research, and applied contexts.</h2>
+   <p>Our approach is grounded in disciplined engineering and clarity of purpose, with an emphasis on systems that remain stable, understandable, and extensible over time.</p>
+   <p>Sia Software Innovations engages with individuals and organizations seeking dependable software systems built with a long-term perspective.</p>
+  </div>
+ </div>
+</section>
 
-          <div class="content-block">
-            <h2>Orientation</h2>
-            <p>
-              We focus on building software systems that enable meaningful work in
-              academic, research, and applied contexts.
-            </p>
-            <p>
-              Our approach is grounded in disciplined engineering and clarity of
-              purpose, with an emphasis on systems that remain stable,
-              understandable, and extensible over time.
-            </p>
-          </div>
+<section class="partners" aria-labelledby="partnersTitle">
+ <div class="wrap">
+  <p class="eyebrow">Partners</p>
+  <h2 id="partnersTitle">Our Partners</h2>
+ </div>
+ <div class="pstrip">
+  <ul class="ptrack" aria-label="Partner logos">
+   <li class="plogo"><img src="assets/partners/wisvara.webp" alt="Wisvara" loading="lazy" decoding="async"></li>
+   <li class="plogo"><img src="assets/partners/sri-rishi-vidya.webp" alt="Sri Rishi Vidya Samsthalu" loading="lazy" decoding="async"></li>
+   <li class="plogo"><img src="assets/partners/sri-vensy.webp" alt="Sri Vensy Technologies Private Limited" loading="lazy" decoding="async"></li>
+   <li class="plogo"><img src="assets/partners/kadi-sarva-vishwavidyalaya.webp" alt="Kadi Sarva Vishwavidyalaya" loading="lazy" decoding="async"></li>
+   <li class="plogo"><img src="assets/partners/rvr-university.webp" alt="Dr. RVR Institute of Technology (Deemed to be University)" loading="lazy" decoding="async"></li>
+   <li class="plogo"><img src="assets/partners/silico-feller.webp" alt="Silico Feller" loading="lazy" decoding="async"></li>
+   <li class="plogo" aria-hidden="true"><img src="assets/partners/wisvara.webp" alt="" loading="lazy" decoding="async"></li>
+   <li class="plogo" aria-hidden="true"><img src="assets/partners/sri-rishi-vidya.webp" alt="" loading="lazy" decoding="async"></li>
+   <li class="plogo" aria-hidden="true"><img src="assets/partners/sri-vensy.webp" alt="" loading="lazy" decoding="async"></li>
+   <li class="plogo" aria-hidden="true"><img src="assets/partners/kadi-sarva-vishwavidyalaya.webp" alt="" loading="lazy" decoding="async"></li>
+   <li class="plogo" aria-hidden="true"><img src="assets/partners/rvr-university.webp" alt="" loading="lazy" decoding="async"></li>
+   <li class="plogo" aria-hidden="true"><img src="assets/partners/silico-feller.webp" alt="" loading="lazy" decoding="async"></li>
+  </ul>
+ </div>
+</section>
 
-          <div class="content-block highlight">
-            <p>
-              SIA Software Innovations engages with individuals and organizations
-              seeking dependable software systems built with a long-term
-              perspective.
-            </p>
-            <div class="closing-cta">
-              <a href="./contact.html" class="btn-primary hero-cta-primary">
-                Collaborate With Us
-              </a>
-              <p class="contact">
-                For general information and introductions:
-                <br />
-                <strong>info@siasoftwareinnovations.com</strong>
-              </p>
-            </div>
-          </div>
-        </section>
+<section class="chat" id="contact">
+ <div class="wrap" style="position:relative">
+  <h2>Collaborate With Us</h2>
+  <p>For general information and introductions:<br><a href="mailto:info@siasoftwareinnovations.com" style="color:var(--accent)">info@siasoftwareinnovations.com</a></p>
+  <a class="btn" href="mailto:info@siasoftwareinnovations.com">Collaborate With Us →</a>
+ </div>
+</section>
 
-        <section class="leadership-section">
-          <h2 class="leadership-title">Leadership</h2>
-          <div class="leadership-grid">
-            <div class="leader-card">
-              <div class="leader-image">
-                <img src="assets/Nagesh.jpeg" alt="Director - Nagesh" />
-              </div>
-              <h3>S B V N S D NAGESH</h3>
-              <p class="role">Chairman & Managing Director</p>
-              <p class="desc">
-                Oversees strategic direction and long-term vision, ensuring
-                technical integrity and sustainable growth of SIA’s platforms.
-              </p>
-            </div>
+</main>
 
-            <div class="leader-card">
-              <div class="leader-image">
-                <img src="assets/chandu.png" alt="CEO - Uday" />
-              </div>
-              <h3>M UDAY CHANDAR</h3>
-              <p class="role">Executive Director & Chief Executive Officer</p>
-              <p class="desc">
-                Leads execution and organizational strategy, driving innovation,
-                collaboration, and operational excellence.
-              </p>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
+<footer>
+ <div class="wrap">
+  <div class="fgrid">
+   <div>
+    <a href="index.html" class="logo logo-full"><img src="assets/sia-logo-full-sm.png" alt="SIA Software Innovations Private Limited" width="144" height="64" loading="lazy"></a>
+    <p class="reg">Sia Software Innovations Private Limited<br>ACCESS BEYOND LIMITS<br>CIN: U62013AP2025PTC122642<br>Startup Recognition (DPIIT): DIPP235818<br>Registered in India</p>
+   </div>
+   <div><h4>Menu</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="products.html">Products</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="https://edu.siasoftwareinnovations.com/" target="_blank" rel="noopener noreferrer">Education</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+   <div><h4>HDQS</h4><ul><li><a href="quantum_visualizer.html" target="_blank" rel="noopener noreferrer">HDQS Quantum Visualizer</a></li></ul></div>
+   <div><h4>Follow</h4>
+    <div class="social">
+     <a href="https://www.linkedin.com/company/sia-software-innovations-private-limited/" target="_blank" rel="noopener noreferrer" aria-label="Sia Software Innovations on LinkedIn" class="s-li"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg></a>
+     <a href="https://www.instagram.com/siasoftwareinnovations?igsh=enZrY2JkZDZ3Y2F0" target="_blank" rel="noopener noreferrer" aria-label="Sia Software Innovations on Instagram" class="s-ig"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.58 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.58 2.2 15.2 2.2 12s0-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.2 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.5 0-4.74.07-.98.04-1.5.2-1.86.34-.47.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.35-.3.88-.34 1.86C3.1 8.5 3.1 8.85 3.1 12s0 3.5.07 4.74c.04.98.2 1.5.34 1.86.18.47.4.8.75 1.15.35.35.68.57 1.15.75.35.14.88.3 1.86.34 1.24.06 1.59.07 4.74.07s3.5 0 4.74-.07c.98-.04 1.5-.2 1.86-.34.47-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.35.3-.88.34-1.86.06-1.24.07-1.59.07-4.74s0-3.5-.07-4.74c-.04-.98-.2-1.5-.34-1.86a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.35-.14-.88-.3-1.86-.34C15.5 4 15.15 4 12 4zm0 3.05a4.95 4.95 0 1 1 0 9.9 4.95 4.95 0 0 1 0-9.9zm0 8.1a3.15 3.15 0 1 0 0-6.3 3.15 3.15 0 0 0 0 6.3zm6.3-8.3a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0z"/></svg></a>
+     <a href="https://www.youtube.com/channel/UCljQ1Lrvl_1wO-gcQ0EGuYw" target="_blank" rel="noopener noreferrer" aria-label="Sia Software Innovations on YouTube" class="s-yt"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
+    </div>
+   </div>
+  </div>
+  <div class="legal">
+   <span>&copy; 2026 Sia Software Innovations Private Limited. All rights reserved.</span>
+   <span><a href="privacy-policy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></span>
+  </div>
+ </div>
+</footer>
 
-    <footer class="footer">
-      <div class="footer-container">
-        <div class="footer-left">
-          <img src="assets/logo.png" alt="SIA Logo" class="footer-logo" />
-          <div class="brand-text">
-            <span class="company">SIA Software Innovations Private Limited</span>
-            <span class="tagline">ACCESS BEYOND LIMITS</span>
-          </div>
-        </div>
-        <div class="footer-center">
-          <span>CIN: U62013AP2025PTC122642</span>
-          <span>Startup Recognition (DPIIT): DIPP235818</span>
-          <span class="registered">Registered in India</span>
-        </div>
-        <div class="footer-right">
-          <div class="legal-links">
-            <a href="./privacy-policy.html">Privacy</a>
-            <span>·</span>
-            <a href="./terms.html">Terms</a>
-          </div>
-          <div class="social-links">
-            <a href="https://www.linkedin.com/company/sia-software-innovations-private-limited/" aria-label="LinkedIn">
-              <i class="fa-brands fa-linkedin-in"></i>
-            </a>
-            <a href="https://www.instagram.com/siasoftwareinnovations?igsh=enZrY2JkZDZ3Y2F0" aria-label="Instagram">
-              <i class="fa-brands fa-instagram"></i>
-            </a>
-            <a href="https://www.youtube.com/channel/UCljQ1Lrvl_1wO-gcQ0EGuYw" aria-label="YouTube">
-              <i class="fa-brands fa-youtube"></i>
-            </a>
-</div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        © 2026 SIA Software Innovations Private Limited. All rights reserved.
-      </div>
-    </footer>
-
-    <script src="js/site.js"></script>
-  </body>
+<script src="script.js?v=2"></script>
+</body>
 </html>

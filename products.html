@@ -1,251 +1,205 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
-    <link rel="icon" type="image/png" sizes="512x512" href="/favicon-512.png" />
-    <link rel="apple-touch-icon" sizes="192x192" href="/favicon-192.png" />
-    <title>Products | SIA Software Innovations</title>
-    <link rel="stylesheet" href="css/index.css" />
-    <link rel="stylesheet" href="css/App.css" />
-    <link rel="stylesheet" href="css/Navbar.css" />
-    <link rel="stylesheet" href="css/Footer.css" />
-    <link rel="stylesheet" href="css/ProductsPage.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" referrerpolicy="no-referrer" />
-  </head>
-  <body>
-    <header class="navbar">
-      <div class="navbar-left">
-        <a href="./index.html" class="brand">
-          <img src="assets/logo.png" alt="SIA Logo" class="brand-logo" />
-          <div class="brand-name">
-            <span class="brand-title">SIA</span>
-            <span class="brand-sub">Software Innovations</span>
-          </div>
-        </a>
-      </div>
-      <nav class="navbar-center">
-        <a href="./index.html">Home</a>
-        <a href="./about.html">About</a>
-        <a href="./products.html">Products</a>
-        <a href="./courses.html">Courses</a>
-        <a href="./contact.html">Contact</a>
-        <a href="./quantum_visualizer.html" target="_blank" rel="noopener noreferrer" title="Opens in new tab">HDQS Quantum Visualizer <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
-      </nav>
-      <div class="navbar-right"></div>
-      <button class="hamburger" aria-label="Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </header>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Sia Software Innovations develops software platforms, computational systems, and supporting assets for research and applied analysis, including HDQS, a quantum-inspired computational platform, and QS-AMP, a Quantum-Safe Assessment &amp; Migration Platform for post-quantum cryptography.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+<link rel="apple-touch-icon" href="favicon-192.png">
+<title>Products | Sia Software Innovations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=14">
+<link rel="stylesheet" href="pages.css?v=12">
+</head>
+<body>
+<header id="hdr">
+ <div class="bar">
+  <a href="index.html" class="logo logo-full"><img src="assets/sia-logo-full-sm.png" alt="SIA Software Innovations Private Limited" width="144" height="64"></a>
+  <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="siteNav">Menu</button>
+  <nav id="siteNav">
+   <a href="index.html">Home</a>
+   <a href="about.html">About</a>
+   <a href="products.html" class="active">Products</a>
+   <a href="gallery.html">Gallery</a>
+   <a href="contact.html">Contact</a>
+  </nav>
+  <div class="hdr-icons">
+   <a class="hicon hicon-edu" href="https://edu.siasoftwareinnovations.com/" target="_blank" rel="noopener noreferrer" aria-label="Sia Education Platform (opens in new tab)" data-tip="Education Platform">
+    <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3zm-6.82 9.72L5 16.5C5 18.43 8.13 20 12 20s7-1.57 7-3.5l-.18-3.78L12 16.5l-6.82-3.78z"/></svg>
+   </a>
+   <a class="hicon" href="quantum_visualizer.html" target="_blank" rel="noopener noreferrer" aria-label="HDQS Quantum Visualizer (opens in new tab)" data-tip="HDQS Visualizer">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="1.8" fill="currentColor" stroke="none"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/></svg>
+   </a>
+  </div>
+ </div>
+</header>
+<main id="top" class="inner">
+<section class="phero">
+ <div class="wrap">
+  <p class="eyebrow">Products</p>
+  <h1>Overview</h1>
+  <p class="lead">Sia Software Innovations develops software platforms, computational systems, and supporting assets for structured experimentation, research, applied analysis, and quantum-safe security. Our products include <strong>HDQS</strong>, a quantum-inspired computational platform, and <strong>QS-AMP</strong>, a platform for post-quantum cryptography assessment and migration.</p>
+ </div>
+</section>
 
-    <main>
-      <section class="overviewSection" id="overview">
-        <div class="overviewContainer">
-          <div class="overviewHeader">
-            <h2>Overview</h2>
-            <p>
-              SIA Software Innovations develops software platforms, computational
-              systems, and supporting assets intended for structured
-              experimentation, research, and applied analysis.
-            </p>
-          </div>
+<section class="sec" id="hdqs">
+ <div class="wrap">
+  <div>
+   <p class="eyebrow">HDQS</p>
+   <h2>HDQS — Hyper-Dimensional Quantum System</h2>
+   <p class="body"><strong>HDQS</strong> is a quantum-inspired computational platform implemented entirely in software.</p>
+   <p class="body">It supports advanced computational exploration and research workflows on classical infrastructure, without dependence on physical quantum hardware.</p>
+   <p class="note">Rather than simulating hardware behavior, HDQS reconstructs useful computational properties through structured, software-defined methods.</p>
+  </div>
+ </div>
+</section>
 
-          <div class="overviewCard">
-            <h3>HDQS — Hyper-Dimensional Quantum System</h3>
-            <p>
-              <strong>HDQS</strong> is a quantum-inspired computational platform
-              implemented entirely in software.
-            </p>
-            <p>
-              It supports advanced computational exploration and research
-              workflows on classical infrastructure, without dependence on
-              physical quantum hardware.
-            </p>
-            <p class="muted">
-              Rather than simulating hardware behavior, HDQS reconstructs useful
-              computational properties through structured, software-defined
-              methods.
-            </p>
-          </div>
+<section class="sec">
+ <div class="wrap">
+  <p class="eyebrow">HDQS Capabilities</p>
+  <div class="feats">
+   <div class="feat"><i>01</i><h3>Advanced computational experimentation</h3></div>
+   <div class="feat"><i>02</i><h3>Algorithmic and model-level exploration</h3></div>
+   <div class="feat"><i>03</i><h3>Long-range interaction and correlation studies</h3></div>
+   <div class="feat"><i>04</i><h3>Stable and reproducible computational workflows</h3></div>
+  </div>
+  <p class="note">The platform is designed with controlled scaling and predictable system behavior in mind.</p>
+ </div>
+</section>
 
-          <div class="overviewCard">
-            <h3>HDQS Capabilities</h3>
-            <ul>
-              <li>Advanced computational experimentation</li>
-              <li>Algorithmic and model-level exploration</li>
-              <li>Long-range interaction and correlation studies</li>
-              <li>Stable and reproducible computational workflows</li>
-            </ul>
-            <p class="muted">
-              The platform is designed with controlled scaling and predictable
-              system behavior in mind.
-            </p>
-          </div>
+<section class="sec">
+ <div class="wrap cols2">
+  <div class="block">
+   <p class="eyebrow">Research Datasets</p>
+   <p class="body">Alongside HDQS, Sia develops and maintains research-oriented datasets designed for:</p>
+   <ul class="dash">
+    <li>Academic research</li>
+    <li>Quantum-inspired machine learning (QML)</li>
+    <li>Experimental algorithm development and evaluation</li>
+   </ul>
+   <p class="note">These datasets support reproducible experimentation and align with industry quantum workflows.</p>
+  </div>
+  <div class="block">
+   <p class="eyebrow">Platform Characteristics</p>
+   <ul class="dash">
+    <li>Software-based access</li>
+    <li>Programmatic interaction via scripts and APIs</li>
+    <li>Scalability on conventional computing systems</li>
+    <li>Stability across extended computational runs</li>
+    <li>Integration into R&amp;D workflows</li>
+   </ul>
+   <p class="note">Internal architecture, dataset construction methods, and implementation details remain proprietary.</p>
+  </div>
+ </div>
+</section>
 
-          <div class="overviewCard">
-            <h3>Research Datasets</h3>
-            <p>
-              Alongside HDQS, SIA develops and maintains research-oriented datasets
-              designed for:
-            </p>
-            <ul>
-              <li>Academic research</li>
-              <li>Quantum-inspired machine learning (QML)</li>
-              <li>Experimental algorithm development and evaluation</li>
-            </ul>
-            <p class="muted">
-              These datasets support reproducible experimentation and align with
-              industry quantum workflows.
-            </p>
-          </div>
+<section class="sec">
+ <div class="wrap">
+  <p class="eyebrow">Datasets</p>
+  <h2>Dataset Resources</h2>
+  <p class="body">To request our datasets, mail us at <a style="color:var(--accent)" href="mailto:contact@siasoftwareinnovations.com?subject=Dataset%20Request">contact@siasoftwareinnovations.com</a>.</p>
+  <a class="btn solid" href="mailto:contact@siasoftwareinnovations.com?subject=Dataset%20Request">Request Datasets →</a>
+ </div>
+</section>
 
-          <div class="overviewCard">
-            <h3>Platform Characteristics</h3>
-            <ul>
-              <li>Software-based access</li>
-              <li>Programmatic interaction via scripts and APIs</li>
-              <li>Scalability on conventional computing systems</li>
-              <li>Stability across extended computational runs</li>
-              <li>Integration into R&amp;D workflows</li>
-            </ul>
-            <p class="muted">
-              Internal architecture, dataset construction methods, and
-              implementation details remain proprietary.
-            </p>
-          </div>
+<section class="sec" id="qs-amp">
+ <div class="wrap">
+  <div>
+   <p class="eyebrow">QS-AMP · Post-Quantum Cryptography</p>
+   <h2>QS-AMP — Quantum-Safe Assessment &amp; Migration Platform</h2>
+   <p class="tagline">Discover. Assess. Benchmark. Migrate. Monitor.</p>
+   <p class="body"><strong>QS-AMP</strong> helps organizations prepare for the post-quantum era. It discovers cryptographic assets, identifies quantum-vulnerable algorithms, generates Cryptographic Bills of Materials (CBOMs), assesses risk, benchmarks Post-Quantum Cryptography (PQC) algorithms, and builds a clear migration path to quantum-safe cryptography.</p>
+   <p class="body">Widely used public-key algorithms such as RSA, ECC, and Diffie-Hellman are expected to be breakable by sufficiently capable quantum computers. Data encrypted today can be captured now and decrypted later, which makes early preparation a present-day security priority, not a future one.</p>
+   <p class="note">QS-AMP turns post-quantum readiness from an open-ended research problem into a structured, measurable programme of work.</p>
+  </div>
+ </div>
+</section>
 
-          <div class="overviewCard datasetShowcase">
-            <div class="datasetShowcaseHeader">
-              <h3>Dataset Resources</h3>
-              <p>
-                Explore curated datasets with clear metadata, usage context, and
-                direct download links.
-              </p>
-            </div>
+<section class="sec">
+ <div class="wrap">
+  <p class="eyebrow">How QS-AMP Works</p>
+  <div class="feats five">
+   <div class="feat"><i>01 · Discover</i><h3>Cryptographic asset discovery</h3><p>Locate keys, certificates, protocols, libraries, and algorithms in use across applications and infrastructure.</p></div>
+   <div class="feat"><i>02 · Assess</i><h3>Quantum risk assessment</h3><p>Flag quantum-vulnerable algorithms, generate CBOMs, and prioritise risk by data sensitivity and exposure.</p></div>
+   <div class="feat"><i>03 · Benchmark</i><h3>PQC algorithm benchmarking</h3><p>Measure performance, key and signature sizes, and compatibility of PQC algorithms in your own environment.</p></div>
+   <div class="feat"><i>04 · Migrate</i><h3>Guided migration path</h3><p>Plan phased, hybrid, and crypto-agile transitions to quantum-safe cryptography with minimal disruption.</p></div>
+   <div class="feat"><i>05 · Monitor</i><h3>Continuous monitoring</h3><p>Track migration progress, detect new cryptographic usage, and keep the inventory current over time.</p></div>
+  </div>
+ </div>
+</section>
 
-            <div class="datasetGrid">
-              <div class="datasetCardLite">
-                <div class="datasetTitleRow">
-                  <img src="assets/logo.png" alt="SIA Logo" />
-                  <div>
-                    <h4>Images as Quantum States</h4>
-                    <span class="datasetSize">Size 2.6 MB</span>
-                  </div>
-                </div>
-                <div class="datasetLinkActions">
-                  <a class="btn-primary" href="assets/IMAGE%20-1_20260202_2028.zip" download>Download</a>
-                </div>
-              </div>
+<section class="sec">
+ <div class="wrap cols2">
+  <div class="block">
+   <p class="eyebrow">Key Capabilities</p>
+   <ul class="dash">
+    <li>Automated cryptographic inventory and discovery</li>
+    <li>CBOM (Cryptographic Bill of Materials) generation</li>
+    <li>Identification of quantum-vulnerable algorithms and weak configurations</li>
+    <li>Risk scoring and migration prioritisation</li>
+    <li>Benchmarking of NIST-standardised PQC algorithms, including ML-KEM, ML-DSA, and SLH-DSA</li>
+    <li>Migration roadmaps with progress reporting</li>
+   </ul>
+  </div>
+  <div class="block">
+   <p class="eyebrow">Who It Is For</p>
+   <ul class="dash">
+    <li>Banking, financial services, and insurance</li>
+    <li>Government and public-sector bodies</li>
+    <li>Telecom, healthcare, and critical infrastructure</li>
+    <li>Enterprises handling long-lived sensitive data</li>
+    <li>Security, compliance, and risk teams</li>
+   </ul>
+   <p class="note">Designed to support crypto-agility, so organisations can adapt as standards and threats continue to evolve.</p>
+  </div>
+ </div>
+</section>
 
-              <div class="datasetCardLite">
-                <div class="datasetTitleRow">
-                  <img src="assets/logo.png" alt="SIA Logo" />
-                  <div>
-                    <h4>Notes as Quantum States</h4>
-                    <span class="datasetSize">Size 135 KB</span>
-                  </div>
-                </div>
-                <div class="datasetLinkActions">
-                  <a class="btn-primary" href="assets/Quantum_Computing_Beginner_Notes_20260129_1510.zip" download>Download</a>
-                </div>
-              </div>
+<section class="sec">
+ <div class="wrap">
+  <p class="eyebrow">Get Started</p>
+  <h2>Assess Your Quantum Readiness</h2>
+  <p class="body">To request a QS-AMP demo or a post-quantum readiness assessment, mail us at <a style="color:var(--accent)" href="mailto:contact@siasoftwareinnovations.com?subject=QS-AMP%20Demo%20Request">contact@siasoftwareinnovations.com</a>.</p>
+  <a class="btn solid" href="mailto:contact@siasoftwareinnovations.com?subject=QS-AMP%20Demo%20Request">Request a QS-AMP Demo →</a>
+ </div>
+</section>
 
-              <div class="datasetCardLite">
-                <div class="datasetTitleRow">
-                  <img src="assets/logo.png" alt="SIA Logo" />
-                  <div>
-                    <h4>PDF as Quantum States</h4>
-                    <span class="datasetSize">Size 35 MB</span>
-                  </div>
-                </div>
-                <div class="datasetLinkActions">
-                  <a class="btn-primary" href="assets/orangic%20chemistry_20260204_2125.zip" download>Download</a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="overviewCard brochureCard">
-            <h3>Company Brochure</h3>
-            <p>
-              Download a concise overview of our capabilities, engagement model,
-              and technology focus.
-            </p>
-            <div class="brochureActions">
-              <a class="btn-secondary" href="./sia-software-innovations.pdf" target="_blank" rel="noreferrer">
-                View Brochure
-              </a>
-              <a class="btn-primary" href="./sia-software-innovations.pdf" download>
-                Download
-              </a>
-            </div>
-          </div>
-
-          <div class="overviewCTA">
-            <h3>Engagement</h3>
-            <p>
-              Access to HDQS and associated datasets is provided through
-              professional and collaborative engagements.
-            </p>
-            <button class="collabBtn" onclick="window.location.href='contact.html'">
-              Collaborate With Us
-            </button>
-            <p class="contactHint">
-              For product-related discussions and access requests:
-              <br />
-              <a href="mailto:contact@siasoftwareinnovations.com">
-                contact@siasoftwareinnovations.com
-              </a>
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-container">
-        <div class="footer-left">
-          <img src="assets/logo.png" alt="SIA Logo" class="footer-logo" />
-          <div class="brand-text">
-            <span class="company">SIA Software Innovations Private Limited</span>
-            <span class="tagline">ACCESS BEYOND LIMITS</span>
-          </div>
-        </div>
-        <div class="footer-center">
-          <span>CIN: U62013AP2025PTC122642</span>
-          <span>Startup Recognition (DPIIT): DIPP235818</span>
-          <span class="registered">Registered in India</span>
-        </div>
-        <div class="footer-right">
-          <div class="legal-links">
-            <a href="./privacy-policy.html">Privacy</a>
-            <span>·</span>
-            <a href="./terms.html">Terms</a>
-          </div>
-          <div class="social-links">
-            <a href="https://www.linkedin.com/company/sia-software-innovations-private-limited/" aria-label="LinkedIn">
-              <i class="fa-brands fa-linkedin-in"></i>
-            </a>
-            <a href="https://www.instagram.com/siasoftwareinnovations?igsh=enZrY2JkZDZ3Y2F0" aria-label="Instagram">
-              <i class="fa-brands fa-instagram"></i>
-            </a>
-            <a href="https://www.youtube.com/channel/UCljQ1Lrvl_1wO-gcQ0EGuYw" aria-label="YouTube">
-              <i class="fa-brands fa-youtube"></i>
-            </a>
-</div>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        © 2026 SIA Software Innovations Private Limited. All rights reserved.
-      </div>
-    </footer>
-
-    <script src="js/site.js"></script>
-  </body>
+<section class="cta2">
+ <div class="wrap">
+  <p class="eyebrow">Engagement</p>
+  <h2>Collaborate With Us</h2>
+  <p>Access to HDQS, QS-AMP, and associated datasets is provided through professional and collaborative engagements.</p>
+  <a class="btn solid" href="contact.html">Collaborate With Us →</a>
+  <p class="small">For product-related discussions and access requests:<br><a href="mailto:contact@siasoftwareinnovations.com">contact@siasoftwareinnovations.com</a></p>
+ </div>
+</section>
+</main>
+<footer>
+ <div class="wrap">
+  <div class="fgrid">
+   <div>
+    <a href="index.html" class="logo logo-full"><img src="assets/sia-logo-full-sm.png" alt="SIA Software Innovations Private Limited" width="144" height="64" loading="lazy"></a>
+    <p class="reg">Sia Software Innovations Private Limited<br>ACCESS BEYOND LIMITS<br>CIN: U62013AP2025PTC122642<br>Startup Recognition (DPIIT): DIPP235818<br>Registered in India</p>
+   </div>
+   <div><h4>Menu</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="products.html">Products</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="https://edu.siasoftwareinnovations.com/" target="_blank" rel="noopener noreferrer">Education</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+   <div><h4>HDQS</h4><ul><li><a href="quantum_visualizer.html" target="_blank" rel="noopener noreferrer">HDQS Quantum Visualizer</a></li></ul></div>
+   <div><h4>Follow</h4>
+    <div class="social">
+     <a href="https://www.linkedin.com/company/sia-software-innovations-private-limited/" target="_blank" rel="noopener noreferrer" aria-label="Sia Software Innovations on LinkedIn" class="s-li"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.5h4V21H3zM9.5 9.5h3.8v1.6h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.1c0-1.22-.02-2.78-1.7-2.78-1.7 0-1.96 1.33-1.96 2.7V21h-4z"/></svg></a>
+     <a href="https://www.instagram.com/siasoftwareinnovations?igsh=enZrY2JkZDZ3Y2F0" target="_blank" rel="noopener noreferrer" aria-label="Sia Software Innovations on Instagram" class="s-ig"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.58 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.2 15.58 2.2 15.2 2.2 12s0-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.2 8.8 2.2 12 2.2zm0 1.8c-3.15 0-3.5 0-4.74.07-.98.04-1.5.2-1.86.34-.47.18-.8.4-1.15.75-.35.35-.57.68-.75 1.15-.14.35-.3.88-.34 1.86C3.1 8.5 3.1 8.85 3.1 12s0 3.5.07 4.74c.04.98.2 1.5.34 1.86.18.47.4.8.75 1.15.35.35.68.57 1.15.75.35.14.88.3 1.86.34 1.24.06 1.59.07 4.74.07s3.5 0 4.74-.07c.98-.04 1.5-.2 1.86-.34.47-.18.8-.4 1.15-.75.35-.35.57-.68.75-1.15.14-.35.3-.88.34-1.86.06-1.24.07-1.59.07-4.74s0-3.5-.07-4.74c-.04-.98-.2-1.5-.34-1.86a3.1 3.1 0 0 0-.75-1.15 3.1 3.1 0 0 0-1.15-.75c-.35-.14-.88-.3-1.86-.34C15.5 4 15.15 4 12 4zm0 3.05a4.95 4.95 0 1 1 0 9.9 4.95 4.95 0 0 1 0-9.9zm0 8.1a3.15 3.15 0 1 0 0-6.3 3.15 3.15 0 0 0 0 6.3zm6.3-8.3a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0z"/></svg></a>
+     <a href="https://www.youtube.com/channel/UCljQ1Lrvl_1wO-gcQ0EGuYw" target="_blank" rel="noopener noreferrer" aria-label="Sia Software Innovations on YouTube" class="s-yt"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.4 31.4 0 0 0 0 12a31.4 31.4 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.4 31.4 0 0 0 24 12a31.4 31.4 0 0 0-.5-5.8zM9.6 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></a>
+    </div>
+   </div>
+  </div>
+  <div class="legal">
+   <span>&copy; 2026 Sia Software Innovations Private Limited. All rights reserved.</span>
+   <span><a href="privacy-policy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></span>
+  </div>
+ </div>
+</footer>
+<script src="script.js?v=2"></script>
+</body>
 </html>
-
-
