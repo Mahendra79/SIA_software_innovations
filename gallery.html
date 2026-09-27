@@ -62,9 +62,10 @@
 (function(){
  var W="Aditya_Workshop_web/";
  var groups=[
+  ["Sia Team",["team_1.jpg","team_2.jpg","qunatum2.jpeg","qunatum4.jpeg","qunatum5.jpeg","quantum12.jpeg"]],
   ["Company",["company.jpeg","company2.jpeg","company3.jpeg","company4.jpeg","company5.jpeg","company6.jpeg","company-1.jpeg","company-2.jpeg","company-3.jpeg","company-4.jpeg"]],
   ["Google Cloud AI Hub",["google1.jpeg","google2.jpeg","google3.jpeg","google4.jpeg","google5.jpeg"]],
-  ["Quantum",["qunatum2.jpeg","qunatum3.jpeg","qunatum4.jpeg","qunatum5.jpeg","qunatum6.jpeg","qunatum7.jpeg","qunatum8.jpeg","qunatum9.jpeg","qunatum10.jpeg","qunatum11.jpeg","quantum12.jpeg"]],
+  ["Quantum",["qunatum3.jpeg","qunatum6.jpeg","qunatum7.jpeg","qunatum8.jpeg","qunatum9.jpeg","qunatum10.jpeg","qunatum11.jpeg"]],
   ["MOU",["gandhinagar_university_01.jpeg","gandhinagar_university_02.jpeg","MOU_7.jpeg","MOU_8.jpeg","MOU_9.jpeg","MOU_20.jpeg"]],
   ["University Visits",[1,2,3,4,5,6,10,11,12,13,14,15,16,17,18,19,21].map(function(n){return "MOU_"+n+".jpeg"}).concat(["university_image_1.jpg","university_image_2.jpg","university_image_3.jpg","university_image_4.jpg"])],
   ["Workshop",["DSC_6197.jpeg","DSC_6198.JPG","DSC_6215.JPG","DSC_6216.jpg","DSC_6218.jpeg","DSC_6219.jpeg","DSC_6225.JPG","DSC_6227.JPG","DSC_6228.jpeg","DSC_6229.jpeg","DSC_6230.jpeg","DSC_6275.jpg","DSC_6280.jpg","DSC09205.JPG","DSC09227.JPG","DSC09228.JPG","DSC09275.JPG","IMG_6533.jpg","IMG_6538.jpg","IMG_6559.jpg","WhatsApp Image 2026-03-27 at 5.42.39 PM.jpeg","WhatsApp Image 2026-03-27 at 5.44.14 PM.jpeg","WhatsApp Image 2026-03-27 at 5.51.07 PM.jpeg","WhatsApp Image 2026-03-27 at 6.13.21 PM.jpeg","WhatsApp Image 2026-03-27 at 6.24.11 PM.jpeg"].map(function(n){return W+n})]
@@ -79,7 +80,8 @@
  var rowDefs=[
   {title:"Industry & Innovation",cats:["Company","Google Cloud AI Hub","Quantum"],dir:"left",pace:4},
   {title:"Academic Partnerships",cats:["MOU","University Visits"],dir:"right",pace:5},
-  {title:"Workshops & Training",cats:["Workshop"],dir:"left",pace:4}
+  {title:"Workshops & Training",cats:["Workshop"],dir:"left",pace:4},
+  {title:"Sia Team",cats:["Sia Team"],dir:"right",pace:6}
  ];
  function rowTile(i,dup){
   var it=items[i];
@@ -91,7 +93,7 @@
   r.list=[];items.forEach(function(it,i){if(r.cats.indexOf(it.cat)>-1)r.list.push(i)});
   var set=r.list.map(function(i){return rowTile(i,false)}).join(""),dup=r.list.map(function(i){return rowTile(i,true)}).join("");
   return '<div class="grow" data-row="'+k+'">'+
-   '<div class="wrap grow-head"><p class="eyebrow">'+r.title+'</p><span>'+r.list.length+' images</span></div>'+
+   '<div class="wrap grow-head"><p class="eyebrow">'+r.title+'</p></div>'+
    '<div class="grow-strip"><div class="grow-track '+r.dir+'" style="--dur:'+(r.list.length*r.pace)+'s">'+set+dup+'</div></div></div>';
  }).join("");
 
