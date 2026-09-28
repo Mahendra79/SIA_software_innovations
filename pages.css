@@ -45,7 +45,7 @@ ul.dash li::before{content:"";position:absolute;left:0;top:1.35em;width:12px;hei
 .lead-head h2{margin-bottom:14px}
 .people{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:10px;align-items:stretch}
 .pcard .pbio{color:#c3c6cf;font-size:.98rem;line-height:1.65;margin:4px 0 22px}
-.pcard .pfoot{margin-top:auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px 14px;padding-top:18px;border-top:1px solid #1b1e27}
+.pcard .pfoot{margin-top:auto;display:flex;flex-wrap:nowrap;align-items:center;justify-content:space-between;gap:12px 14px;padding-top:18px;border-top:1px solid #1b1e27}
 .pcard{display:grid;grid-template-columns:170px 1fr;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#07090f;transition:border-color .25s,transform .25s}
 .pcard:hover{border-color:#1ea7ff66;transform:translateY(-3px)}
 .pcard img{width:100%;height:100%;min-height:220px;object-fit:cover;object-position:top;filter:grayscale(.15)}
@@ -54,7 +54,8 @@ ul.dash li::before{content:"";position:absolute;left:0;top:1.35em;width:12px;hei
 .pcard .prole{color:var(--accent);font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px}
 .pcard span{color:var(--mute);font-size:.9rem;margin-bottom:18px}
 .pcard a{color:var(--accent);font-size:.92rem;overflow-wrap:anywhere}
-.pcard .pfoot a:not(.li){white-space:nowrap;overflow-wrap:normal;font-size:.86rem;min-width:0}
+.pcard>div{container-type:inline-size}
+.pcard .pfoot a:not(.li){white-space:nowrap;overflow-wrap:normal;min-width:0;font-size:clamp(.7rem,calc((100cqi - 60px)/19),.9rem)}
 .pcard a.li{display:inline-flex;flex:0 0 auto;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;border:1px solid #333;color:#fff;transition:.2s}
 .pcard a.li:hover{background:#0a66c2;border-color:#0a66c2}
 
@@ -182,7 +183,8 @@ main.inner .policyContainer{width:min(860px,100% - 32px);margin-inline:auto}
 .grow-strip{overflow:hidden;-webkit-mask:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
 .grow-track{display:flex;gap:16px;width:max-content;padding:6px 0;animation:growScroll var(--dur,100s) linear infinite}
 .grow-track.right{animation-direction:reverse}
-.grow-strip:hover .grow-track,.grow-track:focus-within{animation-play-state:paused}
+/* pause on mouse hover, or while a tile has keyboard focus (not after a mouse click) */
+.grow-strip:hover .grow-track,.grow-track:has(.rtile:focus-visible){animation-play-state:paused}
 .grow-track .rtile{flex:0 0 auto;width:340px}
 @keyframes growScroll{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 8px))}}
 

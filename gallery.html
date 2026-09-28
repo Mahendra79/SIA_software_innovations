@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css?v=14">
-<link rel="stylesheet" href="pages.css?v=15">
+<link rel="stylesheet" href="pages.css?v=16">
 </head>
 <body>
 <header id="hdr">
@@ -87,7 +87,7 @@
   var it=items[i];
   return '<button class="tile rtile" data-i="'+i+'"'+(dup?' aria-hidden="true" tabindex="-1"':' aria-label="Open '+it.cat+' image"')+'>'+
    '<img src="'+it.th+'" alt="'+(dup?'':'Sia Software Innovations — '+it.cat)+'" loading="lazy" decoding="async">'+
-   '<span class="tcap"><b>'+it.cat+'</b><i>View</i></span></button>';
+   '<span class="tcap"><b>'+it.cat+'</b></span></button>';
  }
  rowsEl.innerHTML=rowDefs.map(function(r,k){
   r.list=[];items.forEach(function(it,i){if(r.cats.indexOf(it.cat)>-1)r.list.push(i)});
@@ -128,8 +128,12 @@
  function close(){
   lb.classList.remove("open");document.body.style.overflow="";
   setTimeout(function(){lb.hidden=true},reduce?0:300);
-  if(lastFocus)lastFocus.focus();
+  // keyboard users get focus back on the tile; mouse users do not (a focused tile would keep its row paused)
+  if(lastFocus){if(openedByMouse)lastFocus.blur();else lastFocus.focus({preventScroll:true});}
  }
+ var openedByMouse=false;
+ rowsEl.addEventListener("pointerdown",function(){openedByMouse=true});
+ rowsEl.addEventListener("keydown",function(){openedByMouse=false});
  rowsEl.addEventListener("click",function(e){var t=e.target.closest(".tile");if(t)open(+t.dataset.i,rowDefs[+t.closest(".grow").dataset.row].list)});
  document.getElementById("lbClose").onclick=close;
  document.getElementById("lbPrev").onclick=function(){show(pos-1,-1)};
